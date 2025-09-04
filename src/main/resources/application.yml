@@ -1,21 +1,38 @@
-# AWS S3
 cloud:
   aws:
+    region: ap-northeast-2     # ← 코드에서 ${cloud.aws.region} 으로 읽음
+    s3:
+      bucket: tea-project-0
     credentials:
       access-key: ${ACCESS_KEY}
       secret-key: ${SECRET_KEY}
-    region:
-      static: ap-northeast-2  # 버킷의 리전
-    s3:
-      bucket: tea-project-0   # 버킷 이름
     stack:
       auto: false
 
+
+# 웹서버
+server:
+  address: 0.0.0.0
+  port: 8081
+
+# 업로드 한도
 spring:
   servlet:
     multipart:
-      max-file-size: 10MB // 업로드할 수 있는 개별 파일의 최대 크기. 기본 1MB
-      max-request-size: 10MB //multipart/form-data 요청의 최대 허용 크기. 기본 10MB
-server:
-  address: 0.0.0.0   # 모든 IP 바인딩
-  port: 8080
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+  # ✅ 여기부터 DB 설정
+  datasource:
+    url: jdbc:mysql://192.168.0.24:3306/tea_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=utf8
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    # driver-class-name은 보통 생략 가능 (자동 인식)
+    # driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none      # ✅ 테이블 이미 있으므로 스키마 변경 안 함 (검증만 원하면 validate)
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
