@@ -8,9 +8,15 @@ import java.util.Optional;
 
 /**
  * UserRepository
- * - 회원 정보를 조회
+ * - UserEntity 관련 DB 접근 담당
  */
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    Optional<UserEntity> findByUsername(String username); // 로그인 시 유저 조회용
+
+    /**
+     * 이메일로 유저 조회
+     * @param email 로그인한 유저 이메일
+     * @return Optional<UserEntity>
+     */
+    Optional<UserEntity> findByEmail(String email);
 }
