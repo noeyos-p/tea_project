@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>추천 결과</title>
+</head>
+<body>
+<h1>추천 결과</h1>
+
+<div th:if="${result}">
+    <p><strong>결과 메시지:</strong> <span th:text="${result.message}"></span></p>
+
+    <p><strong>추천 차 목록:</strong></p>
+    <ul>
+        <li th:each="tea : ${result.teas}" th:text="${tea.name}"></li>
+    </ul>
+</div>
+
+<a th:href="@{/mood/checklist}">무드 체크리스트로 돌아가기</a> |
+<a th:href="@{/state/checklist}">상태 체크리스트로 돌아가기</a>
+</body>
+</html>

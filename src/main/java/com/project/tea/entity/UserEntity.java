@@ -3,6 +3,7 @@ package com.project.tea.entity;
 import jakarta.persistence.*;
 
 @Entity
+
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
