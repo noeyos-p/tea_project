@@ -11,7 +11,6 @@ public class UserDataDto {
     private Long id;
 
     private Long userId;
-    private String userNickName; // 닉네임 추가
     private Long teaId;
     private Long moodId;
     private Long stateId;
@@ -32,7 +31,6 @@ public class UserDataDto {
 
         if (e.getUser() != null) {
             dto.setUserId(e.getUser().getId());
-            dto.setUserNickName(e.getUser().getNickname()); // 닉네임 세팅
         }
 
         if (e.getTea() != null) dto.setTeaId(e.getTea().getId());
