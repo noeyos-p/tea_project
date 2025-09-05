@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="main-photo">
+    <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
+    <div class="photo-opacity">
+        <div class="main-title">
+            <h1>오늘은 어떤 하루인가요?<br>기분이나 상태 중 하나를 선택해주세요</h1>
+        </div>
+        <div>
+            <button class="mood-btn">기분</button>
+            <button class="state-btn">상태</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
