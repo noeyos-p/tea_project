@@ -7,11 +7,18 @@ import lombok.Data;
 @Data
 @Table(name = "result")
 public class ResultEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String result;
-    private Long m_id;
-    private Long s_id;
-}
 
+    private String result;
+
+    @ManyToOne
+    @JoinColumn(name = "m_id")
+    private MoodEntity mood;
+
+    @ManyToOne
+    @JoinColumn(name = "s_id")
+    private StateEntity state;
+}

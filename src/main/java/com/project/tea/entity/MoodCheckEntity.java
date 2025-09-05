@@ -10,6 +10,12 @@ public class MoodCheckEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String list;
-    private Long m_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "m_id", referencedColumnName = "id")
+    private MoodEntity mood;
+
+
 }
