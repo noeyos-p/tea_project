@@ -1,10 +1,10 @@
-package com.project.tea.cafeApi.controller;
+package com.project.cafeApi.controller;
 
 
-import com.project.tea.cafeApi.dto.DocumentDto;
-import com.project.tea.cafeApi.dto.OutputDto;
-import com.project.tea.cafeApi.service.KakaoAddressSearchService;
-import com.project.tea.cafeApi.service.KakaoCategorySearchService;
+import com.project.cafeApi.dto.DocumentDto;
+import com.project.cafeApi.dto.OutputDto;
+import com.project.cafeApi.service.KakaoAddressSearchService;
+import com.project.cafeApi.service.KakaoCategorySearchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

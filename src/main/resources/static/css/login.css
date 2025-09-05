@@ -176,3 +176,14 @@ body {
     outline: none !important;
     box-shadow: none !important;
 }
+
+.field-msg {
+  min-height: 1.1em;
+  margin-top: 6px;
+  font-size: 0.875rem;
+  color: #d32f2f;
+  visibility: hidden;
+}
+
+.field-msg.show { visibility: visible; }
+input.error-input { border-color: #d32f2f; outline: none; }

@@ -2,9 +2,12 @@ package com.project.tea.dto;
 
 import com.project.tea.entity.QnaEntity;
 import com.project.tea.entity.UserEntity;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class QnaDto {
     private Long id;
     private String title;

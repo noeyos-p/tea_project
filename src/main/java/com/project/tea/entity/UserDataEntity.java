@@ -31,4 +31,7 @@ public class UserDataEntity {
 
     @Column(name = "update_date")
     private LocalDateTime updateDate;
+
+    private Long m_id;
+    private Long s_id;
 }
