@@ -7,36 +7,54 @@
 <body>
 <h1>추천 결과</h1>
 
-<!-- 결과가 있을 때만 표시 -->
+<!-- 추천 메시지 -->
 <div th:if="${result}">
     <p><strong>결과 메시지:</strong> <span th:text="${result.message}"></span></p>
 
     <p><strong>추천 차 목록:</strong></p>
     <ul>
-        <li th:each="tea : ${result.teas}" th:text="${tea.name}"></li>
+        <li th:each="tea : ${result.teas}">
+            <!-- 차 이름 클릭 → 상세보기 -->
+            <a href="#" th:text="${tea.name}" th:onclick="'toggleDetail(' + ${tea.id} + '); return false;'"></a>
+            <div th:id="'detail_' + ${tea.id}" style="display:none; margin-left:20px;">
+                <p><strong>효능:</strong> <span th:text="${tea.content}"></span></p>
+                <p><strong>섭취법:</strong> <span th:text="${tea.eat}"></span></p>
+                <p><strong>주의사항:</strong> <span th:text="${tea.caution}"></span></p>
+            </div>
+        </li>
     </ul>
 </div>
 
-<!-- Mood 체크리스트로 돌아가기 -->
-<a th:href="@{/mood/checklist}">무드 체크리스트로 돌아가기</a>
-<!-- State 체크리스트로 돌아가기 -->
+<!-- 체크리스트 돌아가기 -->
+<a th:href="@{/mood/checklist}">무드 체크리스트로 돌아가기</a> |
 <a th:href="@{/state/checklist}">상태 체크리스트로 돌아가기</a>
 
-<!-- 추천 차 선택 폼 -->
+<!-- 추천 차 선택 후 마이페이지 저장 -->
 <div th:if="${result.teas}">
     <h2>마음에 드는 차를 하나 선택하세요:</h2>
-    <form th:action="@{/tea/select}" method="post">
+    <form th:action="@{/userdata/save}" method="post">
         <div th:each="tea : ${result.teas}">
-            <input type="radio" name="selectedTeaId" th:value="${tea.id}" th:id="${'tea_' + tea.id}">
+            <input type="radio" name="teaId" th:value="${tea.id}" th:id="${'tea_' + tea.id}">
             <label th:for="${'tea_' + tea.id}" th:text="${tea.name}"></label><br>
         </div>
 
-        <!-- CSRF 토큰 필요 시 -->
+        <!-- Mood/State ID 숨김 -->
+        <input type="hidden" name="moodId" th:value="${result.resultId}" th:if="${result.resultId != null}"/>
+        <input type="hidden" name="stateId" th:value="${result.resultId}" th:if="${result.resultId != null}"/>
+
+        <!-- CSRF 토큰 -->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
         <button type="submit">마이페이지에 저장하기</button>
     </form>
 </div>
+
+<script>
+    function toggleDetail(id) {
+        const div = document.getElementById('detail_' + id);
+        div.style.display = div.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
 
 </body>
 </html>
