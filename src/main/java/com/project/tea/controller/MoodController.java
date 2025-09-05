@@ -31,7 +31,7 @@ public class MoodController {
     // 체크리스트 제출 처리
     @PostMapping("/submit")
     public String submitMoodChecklist(
-            @RequestParam(name = "checkedIds", required = false) List<Long> checkedIds,
+            @RequestParam(name = "moodId", required = false) List<Long> checkedIds,
             RedirectAttributes redirectAttributes) {
 
         try {

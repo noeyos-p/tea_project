@@ -31,4 +31,12 @@ public class UserDataEntity {
 
     @Column(name = "update_date")
     private LocalDateTime updateDate;
+
+    @ManyToOne
+    @JoinColumn(name = "m_id")
+    private MoodEntity mood;
+
+    @ManyToOne
+    @JoinColumn(name = "s_id")
+    private StateEntity state;
 }
