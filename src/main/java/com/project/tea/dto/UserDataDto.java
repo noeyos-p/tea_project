@@ -11,6 +11,7 @@ public class UserDataDto {
     private Long id;
 
     private Long userId;
+    private String userNickName; // 닉네임 추가
     private Long teaId;
     private Long moodId;
     private Long stateId;
@@ -19,18 +20,29 @@ public class UserDataDto {
     private String memo;
     private LocalDateTime updateDate;
 
+    // Entity → DTO 변환
     public static UserDataDto fromEntity(UserDataEntity e) {
         if (e == null) return null;
+
         UserDataDto dto = new UserDataDto();
         dto.setId(e.getId());
         dto.setDate(e.getDate());
         dto.setMemo(e.getMemo());
         dto.setUpdateDate(e.getUpdateDate());
-        if (e.getUser() != null) dto.setUserId(e.getUser().getId());
-        if (e.getTea()  != null) dto.setTeaId(e.getTea().getId());
+
+        if (e.getUser() != null) {
+            dto.setUserId(e.getUser().getId());
+            dto.setUserNickName(e.getUser().getNickname()); // 닉네임 세팅
+        }
+
+        if (e.getTea() != null) dto.setTeaId(e.getTea().getId());
+        if (e.getMood() != null) dto.setMoodId(e.getMood().getId());
+        if (e.getState() != null) dto.setStateId(e.getState().getId());
+
         return dto;
     }
 
+    // DTO → Entity 변환
     public UserDataEntity toEntity() {
         UserDataEntity e = new UserDataEntity();
         e.setDate(this.date);
@@ -38,14 +50,29 @@ public class UserDataDto {
         e.setUpdateDate(this.updateDate);
 
         if (this.userId != null) {
+            UserEntity user = new UserEntity();
+            user.setId(this.userId);
+            e.setUser(user);
+        }
 
-            e.setUser(UserEntity.builder().id(this.userId).build());
-        }
         if (this.teaId != null) {
-            TeaEntity t = new TeaEntity();
-            t.setId(this.teaId);
-            e.setTea(t);
+            TeaEntity tea = new TeaEntity();
+            tea.setId(this.teaId);
+            e.setTea(tea);
         }
+
+        if (this.moodId != null) {
+            MoodEntity mood = new MoodEntity();
+            mood.setId(this.moodId);
+            e.setMood(mood);
+        }
+
+        if (this.stateId != null) {
+            StateEntity state = new StateEntity();
+            state.setId(this.stateId);
+            e.setState(state);
+        }
+
         return e;
     }
 }
