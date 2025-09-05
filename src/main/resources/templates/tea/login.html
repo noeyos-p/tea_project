@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div class="main-photo">
+    <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
+
+    <div class="photo-opacity">
+        <section class="login-card" aria-labelledby="loginTitle">
+            <h2 id="loginTitle" class="card-title">로그인</h2>
+
+            <form th:action="@{/login}" method="post" autocomplete="on">
+                <div class="field">
+                    <label for="email" class="label">이메일</label>
+                    <input type="email" id="email" name="email" placeholder="이메일" required class="input" />
+                </div>
+
+                <div class="field">
+                    <label for="password" class="label">비밀번호</label>
+                    <input type="password" id="password" name="password" placeholder="비밀번호" required class="input" />
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="cta-btn">로그인</button>
+                </div>
+
+                <p class="helper">
+                    아직 회원이 아니신가요? <a th:href="@{/signup}">회원가입</a>
+                </p>
+            </form>
+        </section>
+    </div>
+</div>
+</body>
+</html>
