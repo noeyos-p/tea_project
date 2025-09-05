@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+</head>
+<body>
+<h1>환영합니다!</h1>
+
+<p>체크리스트를 선택하세요:</p>
+
+<!-- Mood 체크 버튼 -->
+<form th:action="@{/moodCheck}" method="get" style="display:inline;">
+    <button type="submit">Mood 체크</button>
+</form>
+
+<!-- State 체크 버튼 -->
+<form th:action="@{/stateCheck}" method="get" style="display:inline;">
+    <button type="submit">State 체크</button>
+</form>
+
+</body>
+</html>
