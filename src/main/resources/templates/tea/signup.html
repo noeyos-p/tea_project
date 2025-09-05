@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+</head>
+<body>
+<div class="main-photo">
+  <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
+
+  <div class="photo-opacity">
+    <section class="signup-card" aria-labelledby="SignUpTitle">
+      <h2 id="SignUpTitle" class="card-title">회원가입</h2>
+
+      <form th:action="@{/signup}" method="post" autocomplete="on">
+        <p class="helper">회원정보를 입력하세요</p>
+
+        <div class="field">
+          <label for="email" class="label">이메일</label>
+          <input type="email" id="email" name="email" placeholder="이메일" required class="input" />
+        </div>
+
+        <div class="field">
+          <label for="password" class="label">비밀번호</label>
+          <input type="password" id="password" name="password" placeholder="비밀번호" required class="input" />
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword" class="label">비밀번호 확인</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인" required class="input" />
+        </div>
+
+        <div class="field">
+          <label for="nickname" class="label">닉네임</label>
+          <input type="text" id="nickname" name="nickname" placeholder="닉네임" required class="input" />
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="cta-btn">가입하기</button>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>
+</body>
+</html>
