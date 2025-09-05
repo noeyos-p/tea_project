@@ -14,7 +14,6 @@ public class UserDataEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "u_id", nullable = false)
     private UserEntity user;
