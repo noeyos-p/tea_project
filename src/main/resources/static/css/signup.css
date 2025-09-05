@@ -1,0 +1,160 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+        Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+        'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.main-photo {
+    position: relative;
+    overflow: hidden;
+}
+
+.main-photo .bg {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.photo-opacity {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 300px;
+}
+
+.signup-card {
+    display: inline-flex;
+    padding: 60px;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 16px;
+    background: rgba(241, 243, 245, 0.90);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.20);
+}
+
+.card-title {
+    color: #333;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 44px;
+}
+
+/* 입력 필드 */
+.field {
+    color: #333;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.label {
+    display: none;
+}
+
+.input {
+    width: 310px;
+    flex-shrink: 0;
+    color: #555;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 18px 20px;
+    border-radius: 8px;
+    margin: 0px;
+    border: 1px solid #333;
+    background: rgba(255, 255, 255, 0);
+    outline: none;
+}
+
+.input::placeholder {
+    color: #333;
+}
+
+.actions {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.cta-btn {
+    border: none;
+    width: 352px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: #BFAE9F;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: .02em;
+    cursor: pointer;
+    transition: background-color .35s ease, transform .15s ease;
+}
+
+.cta-btn:hover {
+    background: #9A8D82;
+    transition: background-color 0.4s ease,
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+.helper {
+    color: #555;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.signup-card input[type="email"],
+.signup-card input[type="password"],
+.signup-card input[type="text"] {
+    background-color: var(--card-bg) !important;
+    border: 1.5px solid #333 !important;
+    color: #333;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.signup-card input:-webkit-autofill,
+.signup-card input:-webkit-autofill:hover,
+.signup-card input:-webkit-autofill:focus,
+.signup-card input:-webkit-autofill:active {
+    -webkit-text-fill-color: #333 !important;
+    caret-color: #333;
+    -webkit-box-shadow: 0 0 0 1000px var(--card-bg) inset !important;
+    box-shadow: 0 0 0 1000px var(--card-bg) inset !important;
+    transition: background-color 99999s ease 0s !important;
+}
+
+.signup-card input[type="email"]:focus,
+.signup-card input[type="password"]:focus,
+.signup-card input[type="text"]:focus {
+    background-color: var(--card-bg) !important;
+    border-color: #333 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+</style>
