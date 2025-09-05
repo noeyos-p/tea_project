@@ -1,19 +1,33 @@
 package com.project.tea.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
+import javax.swing.undo.StateEdit;
 
 @Entity
-@Data
 @Table(name = "tea")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TeaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    private Integer id;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Column(columnDefinition = "TEXT")
     private String eat;
+
+    @Column(columnDefinition = "TEXT")
     private String caution;
-    private Long m_id;
-    private Long s_id;
+
+    //FK: state(id)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "s_id")
+    private StateEntity entity;
 }
