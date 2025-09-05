@@ -1,4 +1,4 @@
-package com.project.tea.AwsS3.service;
+package com.project.aws.AwsS3.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;

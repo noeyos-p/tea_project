@@ -1,6 +1,6 @@
-package com.project.tea.AwsS3.controller;
+package com.project.aws.AwsS3.controller;
 
-import com.project.tea.AwsS3.service.AwsS3Service;
+import com.project.aws.AwsS3.service.AwsS3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
