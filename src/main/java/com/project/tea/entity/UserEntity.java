@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor // 전체 필드 생성자 추가 (선택 사항)
 @Entity
 @Builder
+@Table(name = "user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
