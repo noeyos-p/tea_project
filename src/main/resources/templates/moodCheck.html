@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mood 체크리스트</title>
+</head>
+<body>
+<h1>무드 체크리스트</h1>
+
+<!-- 에러 메시지 -->
+<div th:if="${error}" style="color:red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/mood/submit}" method="post">
+    <p>체크리스트를 5개 선택하세요:</p>
+
+    <div>
+        <input type="checkbox" name="checkedIds" value="1"> 체크 1<br>
+        <input type="checkbox" name="checkedIds" value="2"> 체크 2<br>
+        <input type="checkbox" name="checkedIds" value="3"> 체크 3<br>
+        <input type="checkbox" name="checkedIds" value="4"> 체크 4<br>
+        <input type="checkbox" name="checkedIds" value="5"> 체크 5<br>
+        <input type="checkbox" name="checkedIds" value="6"> 체크 6<br>
+    </div>
+
+    <button type="submit">제출</button>
+</form>
+</body>
+</html>

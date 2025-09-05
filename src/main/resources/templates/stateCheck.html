@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>State 체크리스트</title>
+</head>
+<body>
+<h1>상태(State) 체크리스트</h1>
+
+<!-- 에러 메시지 -->
+<div th:if="${error}" style="color:red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/state/submit}" method="post">
+    <p>상태를 선택하세요:</p>
+
+    <select name="stateId">
+        <option value="1">행복</option>
+        <option value="2">우울</option>
+        <option value="3">긴장</option>
+        <option value="4">편안</option>
+    </select>
+
+    <button type="submit">제출</button>
+</form>
+</body>
+</html>
