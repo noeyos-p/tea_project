@@ -25,7 +25,7 @@
     <tbody>
     <!-- 유저 데이터 반복 -->
     <tr th:each="data : ${userDataList}">
-        <td th:text="${data.user.nickName}"></td>
+        <td th:text="${data.user.nickname}"></td>
         <td th:text="${data.date}"></td>
         <td th:text="${data.tea.name}"></td>
         <td>
@@ -44,5 +44,6 @@
 
 <a th:href="@{/mood/checklist}">무드 체크리스트로 돌아가기</a> |
 <a th:href="@{/state/checklist}">상태 체크리스트로 돌아가기</a>
+
 </body>
 </html>
