@@ -1,15 +1,18 @@
 package com.project.tea.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Entity
-@Data
-@Table(name = "mood")
 public class MoodEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @Column(length = 50, nullable = false)
     private String mood;
-    private Long t_id;
+
+    //FK: tea(id)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "t_id")
+    private TeaEntity tea;
 }
