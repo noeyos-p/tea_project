@@ -22,20 +22,21 @@ public class UserService {
      * @return 로그인한 유저 ID
      */
     public Long getCurrentUserId() {
-        // 예시: SecurityContext에서 로그인한 유저명 조회
-        String username = getCurrentUsername();
+        // 예시: SecurityContext에서 로그인한 유저 이메일 조회
+        String email = getCurrentUserEmail();
 
-        UserEntity user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("로그인한 유저를 찾을 수 없습니다."));
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("로그인한 유저를 찾을 수 없습니다: " + email));
+
         return user.getId();
     }
 
     /**
-     * 현재 로그인한 유저명 조회
+     * 현재 로그인한 유저 이메일 조회
      * 실제 구현 시 SecurityContext 사용
      */
-    private String getCurrentUsername() {
-        // TODO: 실제 SecurityContext 사용
-        return "exampleUser";
+    private String getCurrentUserEmail() {
+        // TODO: 실제 SecurityContext에서 이메일 가져오기
+        return "example@example.com";
     }
 }
