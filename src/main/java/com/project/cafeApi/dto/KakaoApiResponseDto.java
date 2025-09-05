@@ -1,4 +1,4 @@
-package com.project.tea.cafeApi.dto;
+package com.project.cafeApi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

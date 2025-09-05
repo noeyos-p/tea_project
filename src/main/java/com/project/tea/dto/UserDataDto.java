@@ -12,6 +12,8 @@ public class UserDataDto {
 
     private Long userId;
     private Long teaId;
+    private Long moodId;
+    private Long stateId;
 
     private LocalDate date;
     private String memo;

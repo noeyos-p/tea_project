@@ -1,8 +1,8 @@
-package com.project.tea.cafeApi.service;
+package com.project.cafeApi.service;
 
 
-import com.project.tea.cafeApi.dto.DocumentDto;
-import com.project.tea.cafeApi.dto.KakaoApiResponseDto;
+import com.project.cafeApi.dto.DocumentDto;
+import com.project.cafeApi.dto.KakaoApiResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
