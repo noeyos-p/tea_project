@@ -1,18 +1,19 @@
 package com.project.tea.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
+@NoArgsConstructor  // 기본 생성자 추가
+@AllArgsConstructor // 전체 필드 생성자 추가 (선택 사항)
+@Entity
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // email이 null 이면 안되고, 중복없이 처리하기 위해 사용합니다.
     @Column(length = 255, nullable = false, unique = true)
     private String email;
 
@@ -21,7 +22,4 @@ public class UserEntity {
 
     @Column(length = 50, nullable = false)
     private String nickname;
-
 }
-
-
