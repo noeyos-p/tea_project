@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Table(name = "user")
 @NoArgsConstructor  // 기본 생성자 추가
 @AllArgsConstructor // 전체 필드 생성자 추가 (선택 사항)
 @Entity
