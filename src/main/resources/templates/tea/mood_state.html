@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/mood_state.css}">
 </head>
 <body>
 <div class="main-photo">
@@ -12,8 +13,8 @@
             <h1>오늘은 어떤 하루인가요?<br>기분이나 상태 중 하나를 선택해주세요</h1>
         </div>
         <div>
-            <button class="mood-btn">기분</button>
-            <button class="state-btn">상태</button>
+            <a class="mood-btn" th:href="@{/moodCheck}">기분</a>
+            <a class="state-btn" th:href="@{/stateCheck}">상태</a>
         </div>
     </div>
 </div>

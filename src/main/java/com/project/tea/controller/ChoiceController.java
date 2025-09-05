@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 
-public class MainController {
+public class ChoiceController {
 
-    @GetMapping({"/", " main"})
-    public String mainPage(){
-        return "main";
+    @GetMapping("/choice")
+    public String  choice(){
+        return "/tea/mood_state";
     }
+
 
     // Mood 체크 화면
     @GetMapping("/moodCheck")
