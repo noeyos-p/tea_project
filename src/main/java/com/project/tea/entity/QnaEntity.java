@@ -7,18 +7,22 @@ import lombok.*;
 @Table(name = "qna")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class QnaEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
+
+    // 긴 텍스트: MySQL TEXT 고정
     @Column(columnDefinition = "TEXT")
     private String post;
+
     @Column(columnDefinition = "TEXT")
     private String answer;
 
-    // 여러 개의 엔티티가 하나의 엔티티에 연결될 때 사용합니다.
-    @ManyToOne
-    // 명시적으로 FK 컬럼명을 맞추기 위해서 사용합니다.
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "u_id")
     private UserEntity user;
 }
