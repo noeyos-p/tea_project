@@ -25,7 +25,7 @@ public class StateController {
     // State 선택 폼 페이지
     @GetMapping("/checklist")
     public String showStateChecklist() {
-        return "stateCheckList"; // stateCheckList.html
+        return "stateCheck"; // stateCheckList.html
     }
 
     // State 선택 제출 처리
