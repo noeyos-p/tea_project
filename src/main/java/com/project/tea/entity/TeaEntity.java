@@ -14,6 +14,12 @@ public class TeaEntity {
     private String content;
     private String eat;
     private String caution;
-    private Long m_id;
-    private Long s_id;
+    @ManyToOne
+    @JoinColumn(name = "m_id", referencedColumnName = "id")
+    private MoodEntity mood;
+
+    @ManyToOne
+    @JoinColumn(name = "s_id", referencedColumnName = "id")
+    private StateEntity state;
+
 }

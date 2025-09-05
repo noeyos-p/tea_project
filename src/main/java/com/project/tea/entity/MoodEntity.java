@@ -2,6 +2,8 @@ package com.project.tea.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -10,6 +12,9 @@ public class MoodEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String mood;
-    private Long t_id;
+
+    @OneToMany(mappedBy = "mood", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TeaEntity> teas = new ArrayList<>();
 }

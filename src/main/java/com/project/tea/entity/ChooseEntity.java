@@ -7,9 +7,14 @@ import lombok.Data;
 @Data
 @Table(name = "choose")
 public class ChooseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long t_id;
-    private Long count;
+
+    @ManyToOne
+    @JoinColumn(name = "t_id", referencedColumnName = "id")
+    private TeaEntity tea;
+
+    private Long count = 0L; // 선택 횟수, 기본값 0
 }
