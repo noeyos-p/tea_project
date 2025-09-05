@@ -24,3 +24,20 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+#cloud:
+#  aws:
+#    region: ap-northeast-2     # ← 코드에서 ${cloud.aws.region} 으로 읽음
+#    s3:
+#      bucket: tea-project-0
+#    credentials:
+#      access-key: ${ACCESS_KEY}
+#      secret-key: ${SECRET_KEY}
+#    stack:
+#      auto: false
+# Aws S3용
+
+#kakao:
+#  rest:
+#    api:
+#      key: ${KAKAO_REST_API_KEY}
+# kakao API
