@@ -1,4 +1,4 @@
-package com.project.tea.AwsS3.config;
+package com.project.aws.AwsS3.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
