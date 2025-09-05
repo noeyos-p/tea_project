@@ -2,6 +2,7 @@ package com.project.tea.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor  // 기본 생성자 추가
 @AllArgsConstructor // 전체 필드 생성자 추가 (선택 사항)
 @Entity
+@Builder
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
