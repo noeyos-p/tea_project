@@ -1,4 +1,4 @@
-package com.project.tea.cafeApi.config;
+package com.project.cafeApi.config;
 
 
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.project.tea.cafeApi.dto;
+package com.project.cafeApi.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
