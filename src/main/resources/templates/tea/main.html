@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="main-photo">
+    <img th:src="/img/background.jpg" alt="배경사진" class="bg">
+    <div class="photo-opacity">
+        <div class="main-title">
+            <h1>몸과 마음에 필요한 차,<br>로그인 하고 추천받으세요</h1>
+        </div>
+        <form th:action="@{/login}" method="get">
+        <button class="cta-btn">지금 로그인하기</button>
+        </form>
+    </div>
+</div>
+<section id="popular-teas" class="popular-teas">
+    <div class="pt-container">
+        <h2 class="pt-title">지금 사람들이 많이 찾는 차</h2>
+
+        <div class="pt-navwrap">
+            <button class="pt-nav pt-prev hidden" id="ptPrev" aria-label="이전 보기">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                </svg>
+            </button>
+
+            <div class="pt-scroll" id="ptScroll" aria-live="polite"></div>
+
+            <button class="pt-nav pt-next" id="ptNext" aria-label="다음 보기">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+
+        <p class="pt-footer">
+            어떤 차가 좋을지 잘 모르겠다면
+            <a th:href="@{/login}" class="pt-login-link" id="ptLoginLink">로그인하고 차 추천받기</a>
+        </p>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,265 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.main-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.main-photo .bg {
+  width: 100%;
+  height: auto;
+  /* 세로는 자동 → 비율 유지 */
+  object-fit: contain;
+  /* contain으로 비율 맞춰서 전체 표시 */
+  display: block;
+}
+
+.photo-opacity {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 300px;
+}
+
+
+.main-title h1 {
+  /* 중복/충돌 제거: 한 번만 명확히 지정 */
+  display: block;
+  /* flex 금지 → line-height 정상 동작 */
+  margin: 0 0 1rem;
+  /* 상단 흰띠 방지(=margin-top 0) */
+  font-size: 52px;
+  /* 또는 font-size: 3.25rem; */
+  line-height: 1.6;
+  /* 1.3~1.5 사이에서 조절 */
+  font-weight: 600;
+  color: #fff;
+
+  /* 살짝 위로 */
+  transform: translateY(-20px);
+}
+
+.photo-opacity .cta-btn {
+  margin-top: 80px;
+}
+
+.cta-btn {
+  appearance: none;
+  /* 기본 스타일 제거 */
+  background: #BFAE9F;
+  color: #fff;
+  /* 글자색 */
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 34px;
+  /* 필요 시 16~20px로 조정 */
+  line-height: 1;
+  /* 세로 정렬 안정화 */
+  padding: 16px 60px;
+  /* 버튼 크기 */
+  border-radius: 20px;
+  /* 알약 모양 */
+  border: none;
+  outline: none;
+  letter-spacing: .02em;
+  transition: background-color 0.4s ease,
+    /* 0.6초 동안 색상 변화 */
+    transform .15s ease,
+    box-shadow .2s ease;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background: #9A8D82;
+}
+
+.tea-top h2 {
+  align-self: stretch;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: 80px;
+}
+
+.tea-card__media img {
+  display: flex;
+  height: 280px;
+  align-self: stretch;
+  border-radius: 8px;
+  gap: 24px;
+  margin-left: 40px;
+}
+
+:root {
+  --pt-bg: #ffffff;
+  --pt-title: #0f1115;
+  --pt-muted: #9ca3af;
+  --pt-card: #ffffff;
+  --pt-border: #e5e7eb;
+  --pt-shadow: 0 6px 14px rgba(0, 0, 0, .06);
+  --pt-radius: 18px;
+  --pt-gap: 20px;
+  --pt-max: 1440px;
+  --pt-nav-size: 42px;
+  --pt-nav-offset: -24px;
+  --pt-nav-hover: #BFAE9F;
+}
+
+.popular-teas {
+  background: var(--pt-bg);
+}
+
+.pt-container {
+  max-width: var(--pt-max);
+  margin: 0 auto;
+  padding: 40px 20px 48px;
+}
+
+.pt-title {
+  color: #000;
+  font-family: Pretendard;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--pt-title);
+  margin: 24px 0 32px;
+}
+
+.pt-navwrap {
+  position: relative;
+}
+
+.pt-scroll {
+  display: flex;
+  gap: var(--pt-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pt-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.pt-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid var(--pt-border);
+  background: #fff;
+  border-radius: 999px;
+  width: var(--pt-nav-size);
+  height: var(--pt-nav-size);
+  display: grid;
+  place-items: center;
+  color: #111;
+  box-shadow: var(--pt-shadow);
+  cursor: pointer;
+  z-index: 5;
+  transition: all .25s;
+}
+
+.pt-nav:hover {
+  background: var(--pt-nav-hover);
+  color: #fff;
+  border: none;
+}
+
+.pt-prev {
+  left: var(--pt-nav-offset);
+}
+
+.pt-next {
+  right: var(--pt-nav-offset);
+}
+
+.pt-nav.hidden {
+  display: none;
+}
+
+.pt-card {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+  background: var(--pt-card);
+  border-radius: 8px;
+}
+
+.pt-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  /* 이미지도 같이 둥글게 */
+}
+
+.pt-media {
+  aspect-ratio: 4/3;
+  width: 100%;
+  object-fit: cover;
+}
+
+.pt-body {
+  padding: 8px 10px;
+  display: flex;
+}
+
+.pt-rank {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, .92);
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.pt-name {
+  font-weight: 550;
+  color: var(--pt-title);
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.pt-footer {
+  text-align: center;
+  margin: 0 4px 0;
+  margin-top: 154px;
+  font-size: 24px;
+  color: var(--pt-muted);
+}
+
+.pt-login-link {
+  color: #BFAE9F;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  text-decoration: none;
+  /* 36px */
+}
