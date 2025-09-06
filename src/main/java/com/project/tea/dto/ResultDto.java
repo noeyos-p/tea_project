@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// ResultDto.java
+
 @Data
 @AllArgsConstructor
 public class ResultDto {

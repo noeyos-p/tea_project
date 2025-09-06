@@ -2,71 +2,56 @@ package com.project.tea.service;
 
 import com.project.tea.dto.ResultDto;
 import com.project.tea.dto.TeaDto;
-import com.project.tea.entity.MoodEntity;
 import com.project.tea.entity.ResultEntity;
-import com.project.tea.entity.StateEntity;
-import com.project.tea.repository.MoodRepository;
 import com.project.tea.repository.ResultRepository;
-import com.project.tea.repository.StateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
- * 추천 결과(ResultEntity) 저장 서비스
- * Mood와 State 결과 모두 저장 가능
+ * ResultService
+ * - Mood 또는 State에 맞는 랜덤 메시지 조회
+ * - 저장 기능은 UserDataService에서 처리
  */
 @Service
 @RequiredArgsConstructor
 public class ResultService {
 
     private final ResultRepository resultRepository;
-    private final MoodRepository moodRepository;
-    private final StateRepository stateRepository;
 
     /**
-     * Mood 결과 저장
-     *
-     * @param moodId 선택된 Mood ID
-     * @param teas 추천 티 리스트
-     * @param message 결과 메시지
-     * @return 저장된 결과를 담은 ResultDto
+     * Mood ID에 맞는 랜덤 메시지 조회
      */
-    @Transactional
-    public ResultDto saveMoodResult(Long moodId, List<TeaDto> teas, String message) {
-        MoodEntity mood = moodRepository.findById(moodId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 Mood ID: " + moodId));
-
-        ResultEntity result = new ResultEntity();
-        result.setMood(mood);
-        result.setResult(message);
-
-        resultRepository.save(result);
-
-        return ResultDto.fromDto(message, teas, result.getId());
+    public String getRandomMoodMessage(Long moodId) {
+        ResultEntity randomMessage = resultRepository.findRandomByMood(moodId);
+        if (randomMessage == null) {
+            throw new IllegalArgumentException("해당 Mood의 메시지가 존재하지 않습니다: " + moodId);
+        }
+        return randomMessage.getResult();
     }
 
     /**
-     * State 결과 저장
+     * State ID에 맞는 랜덤 메시지 조회
      *
-     * @param stateId 선택된 State ID
-     * @param teas 추천 티 리스트
-     * @param message 결과 메시지
-     * @return 저장된 결과를 담은 ResultDto
+     * @param stateId State ID
+     * @return 메시지 문자열
      */
-    @Transactional
-    public ResultDto saveStateResult(Long stateId, List<TeaDto> teas, String message) {
-        StateEntity state = stateRepository.findById(stateId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 State ID: " + stateId));
+    public String getRandomStateMessage(Long stateId) {
+        ResultEntity randomMessage = resultRepository.findRandomByState(stateId);
+        if (randomMessage == null) {
+            throw new IllegalArgumentException("해당 State의 메시지가 존재하지 않습니다: " + stateId);
+        }
+        return randomMessage.getResult();
+    }
 
-        ResultEntity result = new ResultEntity();
-        result.setState(state);
-        result.setResult(message);
-
-        resultRepository.save(result);
-
-        return ResultDto.fromDto(message, teas, result.getId());
+    /**
+     * ResultDto 생성 (Teas + 랜덤 메시지)
+     *
+     * @param message 랜덤 메시지
+     * @param teas 추천 티 리스트
+     * @param resultId Mood/State ID
+     * @return ResultDto
+     */
+    public ResultDto toResultDto(String message, java.util.List<TeaDto> teas, Long resultId) {
+        return ResultDto.fromDto(message, teas, resultId);
     }
 }

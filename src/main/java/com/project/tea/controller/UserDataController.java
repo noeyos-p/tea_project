@@ -24,16 +24,7 @@ public class UserDataController {
     private final UserDataService userDataService;
     private final UserService userService; // 현재 로그인한 유저 정보 가져오기
 
-    /**
-     * UserData 저장
-     *
-     * @param teaId 선택한 티 ID
-     * @param moodId Mood 결과 ID (Mood 체크리스트에서 온 경우)
-     * @param stateId State 결과 ID (State 체크리스트에서 온 경우)
-     * @param memo 사용자 메모 (선택 사항)
-     * @param redirectAttributes 플래시 메시지 전달용
-     * @return 마이페이지 리다이렉트
-     */
+
     @PostMapping("/save")
     public String saveUserData(
             @RequestParam Long teaId,
@@ -48,13 +39,7 @@ public class UserDataController {
         return "redirect:/userdata/mypage";
     }
 
-    /**
-     * 마이페이지
-     * - 로그인한 유저의 UserData 목록을 보여줌
-     *
-     * @param model Model 객체
-     * @return mypage.html
-     */
+
     @GetMapping("/mypage")
     public String showUserData(Model model) {
         Long userId = userService.getCurrentUserId(); // 로그인한 유저 ID
