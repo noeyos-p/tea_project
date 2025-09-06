@@ -29,18 +29,13 @@ public class ResultService {
         return randomMessage.getResult();
     }
 
-    /**
-     * State ID에 맞는 랜덤 메시지 조회
-     *
-     * @param stateId State ID
-     * @return 메시지 문자열
-     */
-    public String getRandomStateMessage(Long stateId) {
-        ResultEntity randomMessage = resultRepository.findRandomByState(stateId);
-        if (randomMessage == null) {
+
+    public String getStateMessage(Long stateId) {
+        ResultEntity message = resultRepository.findByState(stateId);
+        if (message == null) {
             throw new IllegalArgumentException("해당 State의 메시지가 존재하지 않습니다: " + stateId);
         }
-        return randomMessage.getResult();
+        return message.getResult();
     }
 
     /**
