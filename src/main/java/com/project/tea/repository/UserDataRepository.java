@@ -4,11 +4,10 @@ import com.project.tea.entity.UserDataEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-/**
- * UserDataRepository
- * - 유저가 저장한 티/체크리스트 기록 관리
- */
+import java.util.List;
+
 @Repository
 public interface UserDataRepository extends JpaRepository<UserDataEntity, Long> {
-    // 필요 시 사용자별 기록 조회 메서드 추가 가능
+    // UserEntity의 id 기준으로 UserDataEntity 조회
+    List<UserDataEntity> findByUser_Id(Long userId);
 }

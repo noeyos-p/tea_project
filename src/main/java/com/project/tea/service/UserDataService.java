@@ -65,16 +65,8 @@ public class UserDataService {
         userDataRepository.save(userData);
     }
 
-    /**
-     * 유저별 UserData 조회
-     *
-     * @param userId 조회할 유저 ID
-     * @return UserDataEntity 리스트
-     */
     public List<UserDataEntity> getUserDataByUserId(Long userId) {
-        return userDataRepository.findAll()
-                .stream()
-                .filter(data -> data.getUser().getId().equals(userId))
-                .toList(); // List<UserDataEntity> 반환
+        return userDataRepository.findByUser_Id(userId);
     }
+
 }
