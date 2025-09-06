@@ -13,7 +13,7 @@ public interface ResultRepository extends JpaRepository<ResultEntity, Long> {
     @Query(value = "SELECT * FROM result WHERE m_id = :moodId ORDER BY RAND() LIMIT 1", nativeQuery = true)
     ResultEntity findRandomByMood(@Param("moodId") Long moodId);
 
-    // State별 랜덤 1개 메시지
-    @Query(value = "SELECT * FROM result WHERE s_id = :stateId ORDER BY RAND() LIMIT 1", nativeQuery = true)
-    ResultEntity findRandomByState(@Param("stateId") Long stateId);
+    // State별 1개 메시지
+    @Query(value = "SELECT * FROM result WHERE s_id = :stateId", nativeQuery = true)
+    ResultEntity findByState(@Param("stateId") Long stateId);
 }

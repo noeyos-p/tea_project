@@ -30,16 +30,20 @@ public class StateController {
             RedirectAttributes redirectAttributes) {
 
         try {
-            // 추천 티 조회 + 랜덤 메시지
+            // 1. State ID 기반 추천 메시지 + 추천 티 리스트 조회
             ResultDto resultDto = stateService.recommendByState(stateId);
 
-            // UserData에 저장
-            userDataService.saveUserData(userId,
+            // 2. UserData에 저장
+            //    Mood는 없으므로 null, State는 resultDto.getResultId() 사용
+            userDataService.saveUserData(
+                    userId,
                     resultDto.getTeas().get(0).getId(), // 선택 티(임시 첫 번째)
-                    null,
-                    resultDto.getResultId(),
-                    null);
+                    null,                               // Mood 없음
+                    resultDto.getResultId(),            // State ID
+                    null                                // 메모 없음
+            );
 
+            // 3. 결과 전달
             redirectAttributes.addFlashAttribute("result", resultDto);
             return "redirect:/state/result";
 
@@ -48,6 +52,7 @@ public class StateController {
             return "redirect:/state/checklist";
         }
     }
+
 
     // 결과 페이지
     @GetMapping("/result")

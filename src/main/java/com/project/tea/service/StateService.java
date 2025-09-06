@@ -31,8 +31,8 @@ public class StateService {
                 .map(TeaDto::fromEntity)
                 .collect(Collectors.toList());
 
-        // 랜덤 메시지 가져오기
-        String message = resultService.getRandomStateMessage(stateId);
+        // 해당 메시지 가져오기
+        String message = resultService.getStateMessage(stateId);
 
         return resultService.toResultDto(message, teas, stateId);
     }
