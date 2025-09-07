@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Record Or Recommend?</title>
+    <link rel="stylesheet" th:href="@{/css/record-recommend.css}">
+</head>
+<body>
+<div class="main-photo">
+    <img th:src="/img/background" alt="배경사진" class="bg">
+    <div class="photo-opacity">
+        <section class="hero">
+            <div class="container">
+                <!-- Left -->
+                <div class="left">
+                    <h2 class="title">내 마음이 머문 기록들</h2>
+                    <button class="save-btn">기록 보관함</button>
+                </div>
+                <!-- Right -->
+                <div class="right">
+                    <h2 class="title">당신에게 필요한 차를 찾고있다면</h2>
+                    <button class="suggest-btn">차 추천받기</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>
