@@ -3,37 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <script src="/js/login.js" defer></script>
 </head>
 <body>
 <div class="main-photo">
+    <!-- 배경 이미지 (Thymeleaf를 이용해 정적 리소스 경로 지정) -->
     <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
 
+    <!-- 반투명 오버레이 레이어 -->
     <div class="photo-opacity">
-        <section class="login-card" aria-labelledby="loginTitle">
+
+        <!-- 로그인 카드 -->
+        <section class="login-card">
             <h2 id="loginTitle" class="card-title">로그인</h2>
 
-            <form th:action="@{/login}" method="post" autocomplete="on">
+            <!-- 로그인 폼 -->
+            <!-- POST 방식으로 /login 엔드포인트 전송 -->
+            <form th:action="@{/login}" method="post">
+
+                <!-- 이메일 입력 필드 -->
                 <div class="field">
                     <label for="email" class="label">이메일</label>
-                    <input type="email" id="email" name="email" placeholder="이메일" required class="input" />
-                    <p id="emailHelp" class="field-msg" role="alert" aria-live="polite"></p>
+                    <!-- HTML5 input type=email → 브라우저에서 기본 이메일 형식 검사 -->
+                    <input type="email" id="email" name="email" class="input" />
+
+                    <!-- 이메일 유효성 검사 에러 메시지 표시 영역 -->
+                    <!-- role="alert", aria-live="polite" → 접근성 보조기술(스크린리더)에서 메시지 자동 읽음 -->
+                    <p id="emailHelp" class="field-msg"></p>
                 </div>
 
+                <!-- 비밀번호 입력 필드 -->
                 <div class="field">
                     <label for="password" class="label">비밀번호</label>
-                    <input type="password" id="password" name="password" placeholder="비밀번호" required class="input" />
+                    <input type="password" id="password" name="password"/>
                 </div>
 
-                <div class="actions">
+                <!-- 로그인 버튼 -->
+                <div class="login-btn">
                     <button type="submit" class="cta-btn">로그인</button>
                 </div>
 
+                <!-- 회원가입 유도 문구 -->
                 <p class="helper">
-                    아직 회원이 아니신가요? <a th:href="@{/signup}">회원가입</a>
+                    아직 회원이 아니신가요?
+                    <!-- 회원가입 페이지 링크 -->
+                    <a th:href="@{/signup}">회원가입</a>
                 </p>
             </form>
         </section>
     </div>
 </div>
+
 </body>
 </html>

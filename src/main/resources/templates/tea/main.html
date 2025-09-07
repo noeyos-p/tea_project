@@ -2,47 +2,73 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main</title>
+    <script src="/js/main.js" defer></script>
 </head>
 <body>
+
+<!-- 메인 비주얼 영역 -->
 <div class="main-photo">
+    <!-- 배경 이미지 (Thymeleaf 속성 th:src 로 서버 경로 지정 가능) -->
     <img th:src="/img/background.jpg" alt="배경사진" class="bg">
+
+    <!-- 배경 위에 반투명 오버레이 효과를 주는 레이어 -->
     <div class="photo-opacity">
+
+        <!-- 메인 타이틀 텍스트 -->
         <div class="main-title">
             <h1>몸과 마음에 필요한 차,<br>로그인 하고 추천받으세요</h1>
+            <!-- <br> 태그를 사용해 줄바꿈 -->
         </div>
+
+        <!-- 로그인 버튼 (GET 방식으로 /login 페이지 이동) -->
         <form th:action="@{/login}" method="get">
-        <button class="cta-btn">지금 로그인하기</button>
+            <button class="cta-btn">지금 로그인하기</button>
         </form>
     </div>
 </div>
+
+<!-- "인기 있는 차" 섹션 -->
 <section id="popular-teas" class="popular-teas">
     <div class="pt-container">
+        <!-- 섹션 제목 -->
         <h2 class="pt-title">지금 사람들이 많이 찾는 차</h2>
 
+        <!-- 좌우 스크롤 네비게이션 영역 -->
         <div class="pt-navwrap">
+
+            <!-- 이전(왼쪽) 버튼 - 처음엔 hidden 클래스 적용 -->
             <button class="pt-nav pt-prev hidden" id="ptPrev" aria-label="이전 보기">
+                <!-- 왼쪽 화살표 아이콘 (SVG) -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round" />
+                    <path d="M15 18l-6-6 6-6"
+                          stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
 
+            <!-- 카드 리스트가 들어가는 스크롤 박스 -->
             <div class="pt-scroll" id="ptScroll" aria-live="polite"></div>
 
+            <!-- 다음(오른쪽) 버튼 -->
             <button class="pt-nav pt-next" id="ptNext" aria-label="다음 보기">
+                <!-- 오른쪽 화살표 아이콘 (SVG) -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round" />
+                    <path d="M9 6l6 6-6 6"
+                          stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
 
+        <!-- 섹션 하단 안내 문구 -->
         <p class="pt-footer">
             어떤 차가 좋을지 잘 모르겠다면
+            <!-- 로그인 유도 링크 (Thymeleaf로 /login 연결) -->
             <a th:href="@{/login}" class="pt-login-link" id="ptLoginLink">로그인하고 차 추천받기</a>
         </p>
     </div>
 </section>
+
 </body>
 </html>
