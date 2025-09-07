@@ -1,14 +1,17 @@
 package com.project.tea.controller;
 
 import com.project.tea.dto.ResultDto;
+import com.project.tea.entity.MoodCheckEntity;
 import com.project.tea.service.MoodService;
-import com.project.tea.service.UserDataService;
+import com.project.tea.repository.MoodCheckRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,52 +19,42 @@ import java.util.Map;
 public class MoodController {
 
     private final MoodService moodService;
-    private final UserDataService userDataService;
+    private final MoodCheckRepository moodCheckRepository;
 
-    // 체크리스트 폼 페이지
-    @GetMapping("/checklist")
-    public String showMoodChecklist() {
-        return "moodCheck"; // moodCheck.html
+    // 체크리스트 페이지
+    @GetMapping("/checkList")
+    public String showMoodChecklist(Model model) {
+        List<MoodCheckEntity> checkItems = moodCheckRepository.findAll();
+        model.addAttribute("checkItems", checkItems); // HTML에서 th:each="c : ${checkItems}" 사용
+        return "moodCheck";
     }
 
-    // 체크리스트 제출 처리
+    // 체크리스트 제출 처리 → 결과 페이지로 포워드
     @PostMapping("/submit")
     public String submitMoodChecklist(
-            @RequestParam Map<Long, Integer> checkedIds, // 체크된 Mood 점수 맵
-            @RequestParam Long userId,                   // 로그인 유저 ID
-            RedirectAttributes redirectAttributes) {
+            @RequestParam(required = false) List<Long> moodId,
+            Model model) {
 
-        try {
-            // 체크 개수 검증 (5개 선택 필수)
-            if (checkedIds == null || checkedIds.size() != 5) {
-                throw new IllegalArgumentException("체크리스트는 반드시 5개 선택해야 합니다.");
-            }
-
-            // Mood 분석 → 추천 티 + 메시지
-            ResultDto resultDto = moodService.analyzeMood(checkedIds);
-
-            // UserData에 저장 (마이페이지용)
-            userDataService.saveUserData(
-                    userId,
-                    resultDto.getTeas().get(0).getId(), // 선택 티 (임시 첫 번째)
-                    resultDto.getResultId(),
-                    null,
-                    null
-            );
-
-            // Flash Attribute로 결과 전달
-            redirectAttributes.addFlashAttribute("result", resultDto);
-            return "redirect:/mood/result";
-
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/mood/checklist";
+        if (moodId == null || moodId.size() != 5) {
+            model.addAttribute("error", "체크리스트는 반드시 5개 선택해야 합니다.");
+            List<MoodCheckEntity> checkItems = moodCheckRepository.findAll();
+            model.addAttribute("checkItems", checkItems);
+            return "moodCheck";
         }
+
+        // 점수는 기본 1점으로 맵 생성
+        Map<Long, Integer> scores = moodId.stream()
+                .collect(Collectors.toMap(id -> id, id -> 1));
+
+        ResultDto resultDto = moodService.analyzeMood(scores);
+        model.addAttribute("result", resultDto);
+
+        return "result";
     }
 
     // 결과 페이지
     @GetMapping("/result")
     public String showMoodResult() {
-        return "result"; // result.html
+        return "result";
     }
 }

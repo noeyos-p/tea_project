@@ -13,15 +13,15 @@ public class ChoiceController {
     }
 
 
-    // Mood 체크 화면
-    @GetMapping("/moodCheck")
-    public String moodCheck() {
-        return "moodCheck";
-    }
-
-    // State 체크 화면
-    @GetMapping("/stateCheck")
-    public String stateCheck() {
-        return "stateCheck";
-    }
+//    // Mood 체크 화면
+//    @GetMapping("/moodCheck")
+//    public String moodCheck() {
+//        return "moodCheck";
+//    }
+//
+//    // State 체크 화면
+//    @GetMapping("/stateCheck")
+//    public String stateCheck() {
+//        return "stateCheck";
+//    }
 }

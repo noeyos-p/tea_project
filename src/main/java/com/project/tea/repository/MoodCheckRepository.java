@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MoodCheckRepository extends JpaRepository<MoodCheckEntity, Long> {
-    // 특정 Mood에 연결된 체크리스트 조회
-    List<MoodCheckEntity> findByMood(MoodEntity mood);
+
+    List<MoodCheckEntity> findAll();
 }
