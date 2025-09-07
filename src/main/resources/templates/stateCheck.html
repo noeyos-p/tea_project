@@ -13,23 +13,15 @@
 </div>
 
 <form th:action="@{/state/submit}" method="post">
-    <div th:if="${error}" style="color:red;">
-        <p th:text="${error}"></p>
-    </div>
-
     <p>상태를 선택하세요:</p>
-    <div>
-        <input type="radio" name="stateId" value="1"> 상태 1<br>
-        <input type="radio" name="stateId" value="2"> 상태 2<br>
-        <input type="radio" name="stateId" value="3"> 상태 3<br>
-        <input type="radio" name="stateId" value="4"> 상태 4<br>
-        <input type="radio" name="stateId" value="5"> 상태 5<br>
-        <input type="radio" name="stateId" value="6"> 상태 6<br>
-        <input type="radio" name="stateId" value="7"> 상태 7<br>
-        <input type="radio" name="stateId" value="8"> 상태 8<br>
+    <div th:each="s : ${states}">
+        <input type="radio" name="stateId" th:value="${s.id}" th:id="${'state_' + s.id}">
+        <label th:for="${'state_' + s.id}" th:text="${s.state}"></label>
+        <br>
     </div>
 
     <button type="submit">제출</button>
 </form>
+
 </body>
 </html>
