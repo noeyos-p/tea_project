@@ -20,7 +20,7 @@ public class StateController {
     private final StateRepository stateRepository;
 
     // 상태 체크리스트 페이지
-    @GetMapping("/checkList")
+    @GetMapping("/checklist")
     public String showStateChecklist(Model model) {
         // DB에서 상태 목록 가져오기 (예: 두통, 복통 등)
         List<StateEntity> states = stateRepository.findAll();

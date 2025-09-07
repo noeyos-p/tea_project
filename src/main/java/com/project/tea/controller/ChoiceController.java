@@ -9,7 +9,7 @@ public class ChoiceController {
 
     @GetMapping("/choice")
     public String  choice(){
-        return "/tea/mood_state";
+        return "/tea/mood-state";
     }
 
 
