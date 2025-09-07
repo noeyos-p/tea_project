@@ -46,7 +46,7 @@ public class ResultService {
      * @param resultId Mood/State ID
      * @return ResultDto
      */
-    public ResultDto toResultDto(String message, java.util.List<TeaDto> teas, Long resultId) {
-        return ResultDto.fromDto(message, teas, resultId);
+    public ResultDto toResultDto(String message, java.util.List<TeaDto> teas, Long resultId, String type) {
+        return ResultDto.fromDto(message, teas, resultId, type);
     }
 }

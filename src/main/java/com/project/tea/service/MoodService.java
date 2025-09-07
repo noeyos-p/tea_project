@@ -60,7 +60,7 @@ public class MoodService {
         String message = resultService.getRandomMoodMessage(primaryMood.getId());
 
         // ResultDto 생성
-        return resultService.toResultDto(message, teas, primaryMood.getId());
+        return resultService.toResultDto(message, teas, primaryMood.getId(),"mood");
     }
 
     private Long getMoodIdByName(String name) {
