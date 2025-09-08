@@ -1,0 +1,184 @@
+:root {
+    --bg: #F1F1F1;
+    --panel: #ffffff;
+    --ink: #3b342e;
+    --muted: #8a7f76;
+    --line: #d1c9bf;
+    --primary: #BFAE9F;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    line-height: 1.5;
+}
+
+.page {
+    max-width: 980px;
+    margin: 56px auto;
+    padding: 0 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+h1 {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.logout {
+    color: #D93D04;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.section {
+    margin: 26px 0 34px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.section-title h2 {
+    color: #333;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.add-btn {
+    color: #777;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    border: none;
+    cursor: pointer;
+}
+
+.add-btn::before {
+    content: "＋";
+    margin-right: 4px;
+}
+
+table {
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    display: inline-table;
+    min-width: auto;
+    max-width: 100%;
+}
+
+th,
+td {
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    /* 높이를 줄임 */
+    text-align: left;
+    font-size: 16px;
+    /* 폰트 크기 키움 */
+    white-space: nowrap;
+}
+
+th {
+    background: #f4f0ea;
+    font-weight: 600;
+}
+
+td.actions {
+    white-space: nowrap;
+}
+
+.btn {
+    font-size: 15px;
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    background: #f9f8f5;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.btn:hover {
+    background: #f1eee9;
+}
+
+/* 이미지 카드 */
+.image-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.card {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--panel);
+    padding: 6px;
+    max-width: 220px;
+}
+
+.card figure {
+    margin: 0;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+.card .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+.card .actions {
+    display: flex;
+    gap: 6px;
+}
+
+.linkish {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.linkish:hover {
+    color: var(--ink);
+}
