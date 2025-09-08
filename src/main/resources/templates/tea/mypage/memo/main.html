@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Memo main</title>
+    <link rel="stylesheet" th:href="@{/css/memo-main.css}">
+    <script src="/js/memo-main.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar">
+        <a class="back" href="#" aria-label="뒤로 가기">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path
+                        d="M36 19.125H4.39453L18.2285 32.959L16.6465 34.541L0.105469 18L16.6465 1.45898L18.2285 3.04102L4.39453 16.875H36V19.125Z"
+                        fill="black" />
+            </svg>
+        </a>
+    </div>
+    <div class="tabs">
+        <a class="tab" href="#">내 정보</a>
+        <a class="tab-here" href="#">기록보관함</a>
+        <a class="tab" href="#">Q&amp;A</a>
+    </div>
+    <div class="actions">
+        <a href="#">차 추천받기</a>
+        <a class="logout" href="#">로그아웃</a>
+    </div>
+</div>
+<div class="container">
+    <!-- ----------------------------------------------------------------------- 달력 -->
+    <div class="calendar" id="calendar">
+        <div class="cal-header">
+            <div class="cal-title" id="calTitle">2025년 9월</div>
+            <div class="nav">
+                <button id="prevBtn" aria-label="이전 달"><</button>
+                <button id="nextBtn" aria-label="다음 달">></button>
+            </div>
+        </div>
+
+        <!-- 요일 헤더 -->
+        <div class="cal-grid" id="dowRow"></div>
+
+        <!-- 날짜 그리드 (6주) -->
+        <div class="cal-grid" id="daysGrid"></div>
+    </div>
+    <!-- ------------------------------------------------------------------------- 달력 -->
+    <div class="record">
+        <div class="diary">
+            <p class="date">25년 12월 31일의 기록</p>
+            <span class="divider" aria-hidden="true"></span>
+            <p class="tea">잉글리시 브렉퍼스트</p>
+        </div>
+        <div class="memo">
+            <textarea placeholder="오늘의 기분이나 상태를 적어보세요 :)"></textarea>
+        </div>
+        <div class="btn">
+            <button class="update-btn">수정</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+:root {
+    --bg: #F1F1F1;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+}
+
+.wrap {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    padding: 80px 100px 0;
+}
+
+.topbar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.tab {
+    color: #888;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.tab-here {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.tab:hover {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.actions {
+    margin-left: auto;
+    /* 오른쪽 끝으로 밀기 */
+    display: flex;
+    gap: 60px;
+    font-size: 18px;
+}
+
+.actions a {
+    color: #333;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.actions a.logout {
+    color: #D93D04;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.card {
+    display: grid;
+    place-items: center;
+    width: 584px;
+    height: 546px;
+    flex-shrink: 0;
+    margin: 122px auto 0;
+    background: #BFAE9F1A;
+    border-radius: 16px;
+    padding: 40px 64px;
+    text-align: center
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 180px;
+    height: 180px;
+    padding: 34px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+    border-radius: 150px;
+    background: #EAE5DF;
+}
+
+.info {
+    display: grid;
+    gap: 12px;
+    text-align: left;
+    margin-top: 10px
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    /* Grid에서 열(column) 크기를 정의하는 속성
+- 첫 번째 열: 고정 90px (예: 프로필 사진 자리)
+- 두 번째 열: 남은 공간을 전부 차지 (1fr = 남은 공간의 1 비율 몫)*/
+    gap: 30px;
+    align-items: center
+}
+
+.label {
+    color: #555;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.value {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 55px
+}
+
+.btn {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.btn.primary {
+    color: #555;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: transparent;
+}
+
+.btn.ghost {
+    color: #D93D04;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: transparent;
+}

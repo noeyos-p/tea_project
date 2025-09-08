@@ -1,0 +1,240 @@
+:root {
+    --bg: #F1F1F1;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    height: 1024px;
+}
+
+.wrap {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    padding: 80px 100px 0;
+}
+
+.topbar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.tab {
+    color: #888;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.tab-here {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.tab:hover {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.actions {
+    margin-left: auto;
+    /* 오른쪽 끝으로 밀기 */
+    display: flex;
+    gap: 60px;
+    font-size: 18px;
+}
+
+.actions a {
+    color: #333;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.actions a.logout {
+    color: #D93D04;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.card {
+    display: grid;
+    place-items: center;
+    width: 584px;
+    height: 712px;
+    flex-shrink: 0;
+    margin: 122px auto 0;
+    background: #BFAE9F1A;
+    border-radius: 16px;
+    padding: 40px 84px;
+    text-align: center;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 180px;
+    height: 180px;
+    padding: 34px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+    border-radius: 150px;
+    background: #EAE5DF;
+    margin-bottom: 50px;
+}
+
+.info {
+    display: grid;
+    gap: 12px;
+    text-align: left;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    /* Grid에서 열(column) 크기를 정의하는 속성
+- 첫 번째 열: 고정 90px (예: 프로필 사진 자리)
+- 두 번째 열: 남은 공간을 전부 차지 (1fr = 남은 공간의 1 비율 몫)*/
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 32px;
+    margin-left: 0px;
+}
+
+.label {
+    width: 131px;
+    color: #555;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 36px */
+    margin-right: 30px;
+}
+
+.value {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 36px */
+}
+
+.pw-input {
+    background: transparent;
+    height: 30px;
+    border: none;
+}
+
+.pw-input:focus {
+    outline: none;
+    border: 1px solid #BFAE9F;
+    border-radius: 4px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.btn {
+    appearance: none;
+    border: 0;
+    cursor: pointer;transition: background-color 0.4s ease,
+/* 0.6초 동안 색상 변화 */
+transform .15s ease,
+box-shadow .2s ease;
+}
+
+.btn.primary {
+    display: flex;
+    width: 201px;
+    height: 70px;
+    padding: 16px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: #BFAE9F;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 45px */
+}
+
+.btn.ghost {
+    display: flex;
+    width: 201px;
+    height: 70px;
+    padding: 16px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: #D8D8D8;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+    color: #A0A0A0;
+    font-family: Pretendard;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 45px */
+}
+.btn.primary:hover {
+    background: #9A8D82;
+
+}
+.btn.btn.ghost:hover {
+    background: #cecece;
+}

@@ -1,0 +1,220 @@
+:root {
+    --bg: #F1F1F1;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    height: 1024px;
+    margin: 0;
+    background: var(--bg);
+}
+
+.wrap {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    padding: 80px 100px 0;
+}
+
+.topbar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.tab {
+    color: #888;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.tab-here {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.tab:hover {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.actions {
+    margin-left: auto;
+    /* 오른쪽 끝으로 밀기 */
+    display: flex;
+    gap: 60px;
+    font-size: 18px;
+}
+
+.actions a {
+    color: #333;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.actions a.logout {
+    color: #D93D04;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+hr {
+    display: flex;
+    width: 980px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+.qna-list {
+    display: flex;
+    align-items: center;
+    /* 세로 가운데 정렬 */
+    justify-content: center;
+    /* 가로 가운데 정렬 (원하시면) */
+}
+
+.date {
+    color: #555;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-right: 20px;
+}
+
+.title {
+    width: 684px;
+    max-width: 684px;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.answer-c {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    background: #BFAE9F;
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.answer-w {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    background: #999;
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.new-qna p {
+    color: #999;
+    font-family: Pretendard;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.new-qna-btn {
+    margin-top: 50px;
+display: flex;
+align-items: center;
+justify-content: flex-end;
+gap: 10px;
+
+max-width: 950px;  /* Q&A 목록 hr과 같은 폭 */
+margin-left: auto;
+margin-right: auto; /* 가운데 정렬된 컨테이너 안에서만 오른쪽으로 */
+}
+
+.new-qna-btn a {
+    text-decoration: none;
+    color: #999;
+    font-family: Pretendard;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    /* 세로 가운데 정렬 */
+    justify-content: center;
+    /* 가로 가운데 정렬 (원하시면) */
+    margin-top: 25px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #999;
+    font-family: Pretendard;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0 8px;
+}
+
+.pagination a.active {
+    /* 글자 굵게 */
+    color: #BFAE9F;
+    /* 원하는 색상 코드 */
+    pointer-events: none;
+    /* 클릭 안 되게 (선택된 페이지니까) */
+}
