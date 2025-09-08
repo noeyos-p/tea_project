@@ -22,7 +22,7 @@ public class MoodController {
     // 체크리스트 페이지
     @GetMapping("/checklist")
     public String showMoodChecklist(Model model) {
-        List<MoodCheckEntity> checkItems = moodCheckRepository.findAll();
+        List<MoodCheckEntity> checkItems = moodCheckRepository.findAllRandomOrder();
         model.addAttribute("checkItems", checkItems); // HTML에서 th:each="c : ${checkItems}" 사용
         return "moodCheck";
     }
