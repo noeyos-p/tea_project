@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommend Tea</title> <!-- 브라우저 탭에 표시될 제목 -->
+    <link rel="stylesheet" th:href="@{/css/recommend-tea.css}">
+    <script src="/js/recommend-tea.js" defer></script>
+</head>
+<body>
+<div class="page"> <!-- 전체 페이지 컨테이너 -->
+
+    <!-- 상단바 (뒤로가기 버튼 포함) -->
+    <div class="topbar">
+        <a class="back" th:href="#" aria-label="뒤로 가기"> <!-- 뒤로가기 버튼 (링크) -->
+            <!-- SVG 아이콘: ← 화살표 모양 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path
+                        d="M36 19.125H4.39453L18.2285 32.959L16.6465 34.541L0.105469 18L16.6465 1.45898L18.2285 3.04102L4.39453 16.875H36V19.125Z"
+                        fill="black" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- 본문 컨테이너 -->
+    <div class="container">
+
+        <!-- 제목 영역 -->
+        <div class="title-div">
+            <h1 class="title">스트레스 받을 땐, 이런 차 어떠세요?</h1>
+        </div>
+
+        <!-- 차 이름 버튼 + 좌우 네비게이션 화살표 -->
+        <div class="tea-menu-wrapper">
+
+            <!-- 왼쪽 화살표 (처음에는 hidden 상태) -->
+            <button class="pt-nav pt-prev hidden" id="ptPrev" aria-label="이전 보기">
+                <!-- SVG 아이콘: ← -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+
+            <!-- 가로 스크롤 가능한 영역 -->
+            <div class="tea-viewport" id="teaViewport">
+                <div class="tea-menu" id="teaMenu"> <!-- 실제 버튼 리스트 -->
+
+                    <!-- 차 종류 버튼들 -->
+                    <button class="tea-btn">라벤더</button>
+                    <button class="tea-btn">페퍼민트</button>
+                    <button class="tea-btn">레몬밤</button>
+                    <button class="tea-btn">루이보스</button>
+                    <button class="tea-btn">패션플라워</button>
+                    <button class="tea-btn">라벤더</button>
+                    <button class="tea-btn">페퍼민트</button>
+                    <button class="tea-btn">레몬밤</button>
+                    <button class="tea-btn">루이보스</button>
+                    <button class="tea-btn">패션플라워</button>
+                    <button class="tea-btn">라벤더</button>
+                    <button class="tea-btn">페퍼민트</button>
+                    <button class="tea-btn">레몬밤</button>
+                    <button class="tea-btn">루이보스</button>
+                    <button class="tea-btn">패션플라워</button>
+                    <!-- 버튼이 더 많아져도 자동으로 가로 스크롤됨 -->
+                </div>
+            </div>
+
+            <!-- 오른쪽 화살표 -->
+            <button class="pt-nav pt-next" id="ptNext">
+                <!-- SVG 아이콘: → -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- 차 사진 -->
+        <div class="photo">
+            <img src="/TeaProject/photo/뒷배경.jpg" alt="배경사진" class="bg">
+        </div>
+
+        <!-- 본문 섹션 (차 설명) -->
+        <div class="section">
+            <!-- 차 이름/영문 이름 -->
+            <div class="tea-name">페퍼민트</div>
+            <div class="tea-sub">mint</div>
+
+            <!-- 차 설명 텍스트 -->
+            <div class="tea-text-parent">
+                <div class="tea-text">
+                    <p>
+                        페퍼민트 차는 한 모금만 마셔도 시원하고 청량한 향이 퍼져서 마음을 맑게 해줘요. 특유의 멘톨 향은 답답했던 가슴을
+                        시원하게 열어주고, 하루 종일 쌓였던 긴장과 피로를 조금씩 풀어내는 힘이 있답니다.<br><br>
+                        스트레스로 머리가 무겁게 짓눌릴 때, 페퍼민트 차는 은은하게 두통을 덜어주고 뭉친 근육을 이완시켜줘요. 또 소화가<br>
+                        더디고 속이 불편할 때도 편안하게 다독여주듯 몸을 가볍게 만들어줘요.<br><br>
+                        카페인이 없어 늦은 밤에도 부담 없이 마실 수 있다는 점도 큰 장점이에요. 오히려 향긋한 향과 따뜻한 온기가 마음을<br>
+                        차분하게 만들어, 편안한 잠자리로 이끌어주기도 해요.<br><br>
+                        페퍼민트는 여러분에게 지친 하루 끝에서 마음을 가볍게 해주고 몸을 편안히 감싸주며 휴식을 선사해줄 거에요.
+                    </p>
+                </div>
+            </div>
+
+            <hr> <!-- 구분선 -->
+
+            <!-- 섹션: 추천 방법 -->
+            <div class="section">
+                <div class="title-2">이렇게 먹는 걸 추천드려요</div>
+                <ul class="text-2">
+                    <p>잎 고르기</p>
+                    <li>말린 페퍼민트 잎이나 티백을 사용해요.</li>
+                    <li>신선한 생잎을 바로 따서 우려도 좋지만, 보관은 말린 잎이 훨씬 편해요.</li>
+                    <br>
+                    <p>우려내기</p>
+                    <li>뜨거운 물(약 90~95℃)을 컵에 붓고 페퍼민트 잎 한 스푼(또는 티백 1개)을 넣어요.</li>
+                    <li>5분 정도 우려내면 멘톨 향이 진하게 퍼져요. 더 진한 맛을 원하면 7~10분까지 두셔도 좋아요.</li>
+                    <br>
+                    <p>맛있게 즐기기</p>
+                    <li>그대로 마셔도 충분히 상쾌하지만, 꿀을 한 작은 숟가락 넣으면 부드럽고 달콤한 맛이 더해져요.</li>
+                    <li>레몬 한 조각을 곁들이면 상큼함이 살아나서 더 산뜻해져요.</li>
+                    <li>여름에는 우려낸 차를 식혀서 얼음을 넣으면 아이스 페퍼민트 티로도 즐길 수 있어요.</li>
+                </ul>
+            </div>
+
+            <hr> <!-- 구분선 -->
+
+            <!-- 섹션: 주의사항 -->
+            <div class="section">
+                <div class="title-2">이런 점은 조심해주세요</div>
+                <ul class="text-2">
+                    <li>약 복용 중일 때 : 소화제, 위산 억제제 등과 상호작용할 수 있으니 의사와 상담 후 마시는 게 안전해요.</li>
+                    <li>과다 섭취 : 하루 2~3잔 정도가 적당하며, 과음 시 속쓰림이나 위 불편을 유발할 수 있어요.</li>
+                </ul>
+            </div>
+
+            <!-- 선택 버튼 -->
+            <div class="choose-btn-parent">
+                <button class="choose-btn">이 차 선택하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
