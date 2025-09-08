@@ -1,0 +1,379 @@
+:root {
+  width: 1440px;
+  height: 3184px;
+  background: #F1F1F1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.topbar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+  margin-top: 80px;
+  margin-left: 100px;
+}
+
+.container {
+  max-width: 1400px;
+  /* 원하는 폭 */
+  width: min(90vw, 1150px);
+  margin: 0 auto;
+  /* 가로 가운데 */
+  padding: 24px;
+  position: relative;
+  left: 245px;
+}
+
+/* 제목/탭은 가운데 정렬 */
+h1 {
+  text-align: center;
+}
+
+.title-div {
+  display: flex;
+  justify-content: center;
+  /* 가로 중앙 */
+  align-items: center;
+  /* 세로 중앙 */
+}
+
+.title {
+  width: 1082px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0 0 40px;
+  word-break: keep-all;
+  /* 한글 단어 중간 줄바꿈 방지 */
+  white-space: nowrap;
+  /* 아예 줄바꿈 금지 */
+  text-overflow: ellipsis;
+}
+
+.tea-menu {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+}
+
+.tea-btn {
+  color: #999;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  appearance: none;
+  display: flex;
+  padding: 16px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid #999;
+  transition: background-color 0.4s ease,
+    /* 0.6초 동안 색상 변화 */
+    transform .15s ease,
+    box-shadow .2s ease;
+  cursor: pointer;
+  margin-bottom: 100px;
+  margin-top: 10px;
+  white-space: nowrap;
+  /* 줄바꿈 방지 */
+  writing-mode: horizontal-tb;
+  /* 가로쓰기 강제 */
+}
+
+.tea-btn:hover {
+  background: #9A8D82;
+  color: #fff;
+  border: none;
+}
+
+img {
+  flex-shrink: 0;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+  /* 좌우 여백 자동 → 가운데 정렬 */
+  max-width: 100%;
+  /* 화면보다 커지지 않도록 */
+  height: auto;
+}
+
+.tea-name {
+  text-align: center;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  /* 56px */
+  margin-top: 80px;
+}
+
+.tea-sub {
+  text-align: center;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  /* 33.6px */
+  margin-bottom: 56px;
+}
+
+.tea-text-parent {
+  display: flex;
+  justify-content: center;
+}
+
+.tea-text {
+  /* 최대 1082px까지만 확장 */
+  width: 100%;
+  max-width: 1200px;
+}
+
+.tea-text p {
+  width: auto;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 140%;
+  text-align: left;
+}
+
+hr {
+  width: 1150px;
+  height: 1px;
+  flex-shrink: 0;
+  color: #F1F1F1;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+/* 섹션 래퍼가 있다면(권장) */
+.section-center {
+  display: block;
+  width: 100%;
+}
+
+.title-2,
+.text-2 {
+  /* 고정폭 대신 최대폭 + 가운데 정렬 */
+  max-width: 1082px;
+  width: 100%;
+  margin: 0 auto;
+  /* ← 가운데 정렬 */
+  padding: 0 20px;
+  /* 좌우 여백(반응형) 필요 없으면 제거 */
+}
+
+/* 기존 타이포그래피는 유지 */
+.title-2 {
+  color: #000;
+  font-family: Pretendard;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 140%;
+  margin-bottom: 24px;
+  text-align: left;
+  margin-left: -21px;
+  /* 제목은 좌측 정렬 */
+}
+
+.text-2 {
+  color: #000;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 140%;
+  text-align: left;
+}
+
+/* 리스트가 있다면 들여쓰기/간격 정리 */
+.text-2 ul {
+  list-style: disc;
+  padding-left: 1.2em;
+  /* 점과 본문 간격 */
+  margin: 0 0 20px;
+}
+
+.text-2 li {
+  margin: 6px 0;
+}
+
+.text-2 p {
+  margin-bottom: 8px;
+  margin-left: -25px;
+}
+
+.choose-btn-parent {
+  display: flex;
+  justify-content: center;
+}
+
+.choose-btn {
+  display: flex;
+  /* inline-flex 대신 block으로 */
+  margin: 160px auto 0;
+  /* 상단여백 유지, 좌우 auto → 가운데 정렬 */
+  text-align: center;
+  color: #FFF;
+  font-family: Pretendard;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  /* 54px */
+  appearance: none;
+  padding: 16px 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 20px;
+  background: linear-gradient(0deg, #BFAE9F 0%, #BFAE9F 100%), #FFF;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+  border: none;
+  outline: none;
+  transition: background-color 0.4s ease,
+    /* 0.6초 동안 색상 변화 */
+    transform .15s ease,
+    box-shadow .2s ease;
+  cursor: pointer;
+}
+
+.choose-btn:hover {
+  background: #9A8D82;
+}
+
+/* 네비게이션 토큰값 정의 */
+:root {
+  --pt-border: #DDD;
+  --pt-nav-size: 44px;
+  --pt-nav-offset: -16px;
+  /* 컨텐츠 바깥으로 살짝 */
+  --pt-nav-hover: #9A8D82;
+  --pt-shadow: 0 4px 20px rgba(0, 0, 0, .08);
+}
+
+/* 네비는 래퍼 기준 배치 */
+.tea-menu-wrapper {
+  position: relative;
+  /* 기준점 */
+  display: block;
+  /* flex 정렬 영향 없애도 됨 */
+  width: min(90vw, 800px);
+  margin: 0 auto;
+}
+
+/* 가로 스크롤 뷰포트 */
+.tea-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0;
+  /* ← 화살표 너비 + 여유 */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+   padding-right: 3px;  /* ✅ 오른쪽에 딱 1px만 띄우기 */
+padding-left: 3px;   /* (원하시면 왼쪽도 동일하게) */
+}
+
+/* 가로 항목 트랙: 줄바꿈 금지 + 내용폭만큼 */
+.tea-menu {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  /* 내용만큼만 */
+  /* max-width: 300px;  ← 이 줄은 삭제하세요 */
+  margin: 0 auto;
+  /* 중앙에 보이기 */
+}
+
+/* 화살표 버튼 */
+.pt-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-152%);
+  border: 1px solid var(--pt-border);
+  background: #fff;
+  border-radius: 999px;
+  width: var(--pt-nav-size);
+  height: var(--pt-nav-size);
+  display: grid;
+  place-items: center;
+  color: #111;
+  box-shadow: var(--pt-shadow);
+  cursor: pointer;
+  z-index: 5;
+  transition: all .25s;
+  opacity: 0;
+pointer-events: none;   /* 안 보일 때 클릭도 안 되게 */
+transition: opacity 0.3s ease;
+
+}
+.tea-menu-wrapper:hover .pt-nav {
+opacity: 1;
+pointer-events: auto;
+}
+
+.pt-prev {
+  left: var(--pt-nav-offset);
+}
+
+.pt-next {
+  right: var(--pt-nav-offset);
+}
+
+.pt-nav:hover {
+  background: var(--pt-nav-hover);
+  color: #fff;
+  border: none;
+}
+
+.pt-nav.hidden {
+  display: none;
+}
+
+/* 버튼 글자 가로 고정 */
+.tea-btn {
+  white-space: nowrap;
+  writing-mode: horizontal-tb;
+}
+
+.tea-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+
+
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.tea-viewport::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari */
+}

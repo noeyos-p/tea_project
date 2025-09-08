@@ -1,0 +1,45 @@
+server:
+  address: 0.0.0.0
+  port: 8088
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+  datasource:
+    url: jdbc:mysql://192.168.0.24:3306/tea_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=utf8
+    # 192.168.219.104
+    username: teauser
+    password: a123456789!
+
+  sql:
+    init:
+      mode: NEVER
+  jpa:
+    defer-datasource-initialization: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+#cloud:
+#  aws:
+#    region: ap-northeast-2     # ← 코드에서 ${cloud.aws.region} 으로 읽음
+#    s3:
+#      bucket: tea-project-0
+#    credentials:
+#      access-key: ${ACCESS_KEY}
+#      secret-key: ${SECRET_KEY}
+#    stack:
+#      auto: false
+# Aws S3용
+
+#kakao:
+#  rest:
+#    api:
+#      key: ${KAKAO_REST_API_KEY}
+# kakao API

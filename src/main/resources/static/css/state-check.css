@@ -1,0 +1,117 @@
+html,
+body {
+margin: 0;
+padding: 0;
+height: 100%;
+font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.main-photo {
+min-height: 100vh;
+position: relative;
+overflow: hidden;
+}
+
+.main-photo .bg {
+width: 100%;
+height: auto;
+object-fit: cover;
+display: block;
+}
+
+.photo-opacity {
+position: absolute;
+inset: 0;
+background: rgba(0, 0, 0, 0.25);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding-bottom: 300px;
+}
+
+.title {
+color: #FFF;
+text-align: center;
+font-family: Pretendard;
+font-size: 52px;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+margin-bottom: 60px;
+}
+
+.grid {
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+gap: 27px;
+max-width: 961px;
+margin: 0 auto;
+}
+
+.pill {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 24px 48px;
+border-radius: 24px;
+border: 3px solid #D5D5D5;
+color: #D5D5D5;
+background-color: transparent;
+font-family: Pretendard;
+font-size: 40px;
+font-weight: 600;
+cursor: pointer;
+transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+}
+
+.pill.selected,
+.pill.selected:hover {
+color: #BFAE9F;
+font-family: Pretendard;
+font-size: 40px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+display: flex;
+padding: 24px 48px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 24px;
+border: 3px solid #BFAE9F;
+background: rgba(0, 0, 0, 0.50);
+}
+
+.cta {
+border: none;
+color: #FFF;
+font-family: Pretendard;
+font-size: 44px;
+font-style: normal;
+font-weight: 600;
+line-height: 150%;
+/* 66px */
+display: inline-flex;
+padding: 16px 60px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 20px;
+background-color: #BFAE9F;
+box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+margin-top: 116px;
+transition: background-color 0.4s ease,
+    /* 0.6초 동안 색상 변화 */
+    transform .15s ease,
+    box-shadow .2s ease;
+cursor: pointer;
+
+}
+.cta:hover {
+background: #9A8D82;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>State 체크리스트</title>
+</head>
+<body>
+<h1>상태(State) 체크리스트</h1>
+
+<!-- 에러 메시지 -->
+<div th:if="${error}" style="color:red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/state/submit}" method="post">
+    <p>상태를 선택하세요:</p>
+    <div th:each="s : ${states}">
+        <input type="radio" name="stateId" th:value="${s.id}" th:id="${'state_' + s.id}">
+        <label th:for="${'state_' + s.id}" th:text="${s.state}"></label>
+        <br>
+    </div>
+
+    <button type="submit">제출</button>
+</form>
+
+</body>
+</html>

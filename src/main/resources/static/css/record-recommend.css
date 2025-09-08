@@ -1,0 +1,132 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+        Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+        'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.main-photo {
+    position: relative;
+    overflow: hidden;
+}
+
+.main-photo .bg {
+    width: 100%;
+    height: auto;
+    /* 세로는 자동 → 비율 유지 */
+    object-fit: contain;
+    /* contain으로 비율 맞춰서 전체 표시 */
+    display: block;
+}
+
+.photo-opacity {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    /* 절반 영역 */
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* 오른쪽 화이트 오버레이 */
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    /* 좌우 배치 */
+    align-items: center;
+    /* 세로 가운데 정렬 */
+    height: 100vh;
+    /* 화면 전체 높이 기준 정렬 */
+    padding: 0 100px;
+    /* 좌우 여백 (원하는 크기로 조정) */
+}
+.left {
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    /* 각 영역 안에서는 가운데 정렬 */
+    margin-right: 0px;
+    position: relative;
+    right: 135px;
+}
+
+.right {
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    /* 각 영역 안에서는 가운데 정렬 */
+    position: relative;
+    left: 247px;
+    z-index: 2;
+    /* overlay 위로 올라오게 */
+    text-align: center;
+    color: white;
+
+}
+
+.save-btn,
+.suggest-btn {
+    color: #333;
+    font-family: Pretendard;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: inline-flex;
+    padding: 16px 60px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    gap: 10px;
+    border-radius: 24px;
+    background: rgba(241, 243, 245, 0.8);
+    transition: background-color 0.4s ease,
+        /* 0.6초 동안 색상 변화 */
+        transform .15s ease,
+        box-shadow .2s ease;
+    cursor: pointer;
+    margin-top: 85px;
+}
+
+.save-btn:hover,
+.suggest-btn:hover {
+    background: #9A8D82;
+    color: #fff;
+
+}
