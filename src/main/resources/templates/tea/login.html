@@ -1,59 +1,237 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <script src="/js/login.js" defer></script>
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="/js/login.js" defer></script>
+  <style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+            Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+            'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    }
+
+    .main-photo {
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .main-photo .bg {
+        width: 100%;
+        height: auto;
+        /* 세로는 자동 → 비율 유지 */
+        object-fit: cover;
+        /* contain으로 비율 맞춰서 전체 표시 */
+        display: block;
+    }
+
+    .photo-opacity {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-bottom: 300px;
+    }
+
+
+    .login-card {
+        display: inline-flex;
+        padding: 60px;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 16px;
+        background: rgba(241, 243, 245, 0.90);
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.20);
+    }
+
+    .card-title {
+        color: #333;
+        font-family: Pretendard;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        text-align: left;
+        margin-top: 0px;
+        margin-bottom: 44px;
+    }
+
+    /* 입력 필드 */
+    .field {
+        color: #333;
+        margin-bottom: 12px;
+        text-align: center;
+
+    }
+
+    .label {
+        display: none;
+        /* 시각적으로 숨김 (접근성 유지 원하면 sr-only로 대체) */
+    }
+
+    .input {
+        width: 310px;
+        flex-shrink: 0;
+        color: #555;
+        font-family: Pretendard;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        padding: 18px 20px;
+        border-radius: 8px;
+        margin: 0px;
+        border: 1px solid #333;
+        background: rgba(255, 255, 255, 0);
+        outline: none;
+    }
+
+
+    .input::placeholder {
+        color: #333;
+    }
+
+    /* 버튼 */
+    .actions {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cta-btn {
+        border: none;
+        width: 352px;
+        height: 56px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background: #BFAE9F;
+        /* 기본 버튼 색 */
+        color: #fff;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: .02em;
+        cursor: pointer;
+        transition: background-color .35s ease, transform .15s ease;
+    }
+
+    .cta-btn:hover {
+        background: #9A8D82;
+        transition: background-color 0.4s ease,
+            /* 0.6초 동안 색상 변화 */
+            transform .15s ease,
+            box-shadow .2s ease;
+        /* 호버 색 */
+    }
+
+    /* 하단 안내 */
+    .helper {
+        text-align: center;
+        color: #333;
+        text-align: center;
+        font-family: Pretendard;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        margin-bottom: 0px;
+    }
+
+    .helper a {
+        color: #000;
+        text-align: center;
+        font-family: Pretendard;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-decoration-line: underline;
+        text-decoration-style: solid;
+        text-decoration-skip-ink: auto;
+        text-decoration-thickness: auto;
+        text-underline-offset: auto;
+        text-underline-position: from-font;
+    }
+
+    /* 기본/포커스 모두 같은 색으로 고정 */
+    .login-card input[type="email"],
+    .login-card input[type="password"] {
+        background-color: var(--card-bg) !important;
+        border: 1.5px solid #333 !important;
+        color: #333;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 크롬 자동완성/하이라이트 완전 제거 */
+    .login-card input:-webkit-autofill,
+    .login-card input:-webkit-autofill:hover,
+    .login-card input:-webkit-autofill:focus,
+    .login-card input:-webkit-autofill:active {
+        -webkit-text-fill-color: #333 !important;
+        caret-color: #333;
+        /* 하이라이트를 덮어쓰기: 내부 박스섀도우로 배경을 칠함 */
+        -webkit-box-shadow: 0 0 0 1000px var(--card-bg) inset !important;
+        box-shadow: 0 0 0 1000px var(--card-bg) inset !important;
+        /* 크롬이 배경색을 다시 칠하지 못하게 하는 트릭 */
+        transition: background-color 99999s ease 0s !important;
+    }
+
+    /* 포커스도 동일하게 유지 */
+    .login-card input[type="email"]:focus,
+    .login-card input[type="password"]:focus {
+        background-color: var(--card-bg) !important;
+        border-color: #333 !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+  </style>
 </head>
+
 <body>
 <div class="main-photo">
-    <!-- 배경 이미지 (Thymeleaf를 이용해 정적 리소스 경로 지정) -->
-    <img src="@{staic/img/background.jpg}" alt="배경사진" class="bg">
+  <img th:src="/img/background.jpg" alt="배경사진" class="bg">
 
-    <!-- 반투명 오버레이 레이어 -->
-    <div class="photo-opacity">
+  <div class="photo-opacity">
+    <section class="login-card" aria-labelledby="loginTitle">
+      <h2 id="loginTitle" class="card-title">로그인</h2>
+      <form th:action="@{/login}" method="post" autocomplete="on">
+        <div class="field">
+          <label for="email" class="label">이메일</label>
+          <input type="email" id="email" name="email" placeholder="이메일" required class="input" />
+        </div>
 
-        <!-- 로그인 카드 -->
-        <section class="login-card">
-            <h2 id="loginTitle" class="card-title">로그인</h2>
+        <div class="field">
+          <label for="password" class="label">비밀번호</label>
+          <input type="password" id="password" name="password" placeholder="비밀번호" required
+                 class="input" />
+<!--   지피티추천       <p id="passwordHelp" class="field-msg"></p>-->
+        </div>
 
-            <!-- 로그인 폼 -->
-            <!-- POST 방식으로 /login 엔드포인트 전송 -->
-            <form th:action="@{/login}" method="post">
-
-                <!-- 이메일 입력 필드 -->
-                <div class="field">
-                    <label for="email" class="label">이메일</label>
-                    <!-- HTML5 input type=email → 브라우저에서 기본 이메일 형식 검사 -->
-                    <input type="email" id="email" name="email" class="input" />
-
-                    <!-- 이메일 유효성 검사 에러 메시지 표시 영역 -->
-                    <!-- role="alert", aria-live="polite" → 접근성 보조기술(스크린리더)에서 메시지 자동 읽음 -->
-                    <p id="emailHelp" class="field-msg"></p>
-                </div>
-
-                <!-- 비밀번호 입력 필드 -->
-                <div class="field">
-                    <label for="password" class="label">비밀번호</label>
-                    <input type="password" id="password" name="password"/>
-                </div>
-
-                <!-- 로그인 버튼 -->
-                <div class="login-btn">
-                    <button type="submit" class="cta-btn">로그인</button>
-                </div>
-
-                <!-- 회원가입 유도 문구 -->
-                <p class="helper">
-                    아직 회원이 아니신가요?
-                    <!-- 회원가입 페이지 링크 -->
-                    <a th:href="@{/signup}">회원가입</a>
-                </p>
-            </form>
-        </section>
-    </div>
+        <div class="actions">
+<!--클래스명 login-btn-->
+          <button type="submit" class="cta-btn">로그인</button>
+        </div>
+        <p class="helper">
+          아직 회원이 아니신가요?
+          <a th:href="@{/signup}">회원가입</a>
+        </p>
+      </form>
+    </section>
+  </div>
 </div>
-
 </body>
+
+
 </html>
