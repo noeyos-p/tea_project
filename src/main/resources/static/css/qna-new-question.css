@@ -1,0 +1,214 @@
+:root {
+    --bg: #F1F1F1;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+}
+
+.wrap {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    padding: 80px 100px 0;
+}
+
+.topbar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.tab {
+    color: #888;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.tab-here {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.tab:hover {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.actions {
+    margin-left: auto;
+    /* 오른쪽 끝으로 밀기 */
+    display: flex;
+    gap: 60px;
+    font-size: 18px;
+}
+
+.actions a {
+    color: #333;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.actions a.logout {
+    color: #D93D04;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    margin: 94px auto;
+    /* 화면 중앙 배치 */
+    max-width: 1100px;
+    position: relative;
+    right: 40px;
+}
+
+.q-label {
+    color: #BFAE9F;
+    font-family: Pretendard;
+    font-size: 90px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.question-form {
+    width: 969px;
+    height: 475px;
+    flex-shrink: 0;
+    border-radius: 24px;
+    border: 1px solid #999;
+}
+
+.title-input {
+    background: transparent;
+    width: 100%;
+    /* 가로 전체 차지 */
+    max-width: 802px;
+    /* 최대 너비 제한 */
+    height: 50px;
+    /* 높이 키우기 */
+    font-size: 36px;
+    /* 글자 크기 */
+    padding: 10px 14px;
+    /* 안쪽 여백 */
+    border: none;
+    border-radius: 8px;
+    margin: 40px 40px 32px;
+    font-family: Pretendard;
+
+}
+
+.title-input:focus {
+    outline: none;
+}
+
+.content-input {
+    width: 802px;
+    min-width: 802px;
+    height: 300px;
+    /* 원하는 높이 고정 */
+    min-height: 300px;
+    background: transparent;
+    /* 가로 전체 차지 */
+    max-width: 600px;
+    /* 최대 너비 제한 */
+    height: 50px;
+    /* 높이 키우기 */
+    font-size: 24px;
+    /* 글자 크기 */
+    padding: 10px 14px;
+    /* 안쪽 여백 */
+    border: none;
+    border-radius: 8px;
+    margin-left: 40px;
+    resize: none;
+    /* 크기 조절 못하게 */
+    overflow: hidden;
+    font-family: Pretendard;
+}
+
+.content-input:focus {
+    outline: none;
+}
+
+.q-btn {
+    display: flex;
+    align-items: center;
+    /* 세로 가운데 정렬 */
+    justify-content: center;
+    margin-top: 94px;
+}
+
+.question-btn {
+    white-space: nowrap;
+    appearance: none;
+    display: flex;
+    width: 201px;
+    height: 70px;
+    padding: 16px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: #BFAE9F;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 45px */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.4s ease,
+        /* 0.6초 동안 색상 변화 */
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+.question-btn:hover {
+    background: #9A8D82;
+}

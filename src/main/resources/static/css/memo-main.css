@@ -1,0 +1,330 @@
+:root {
+      --fg: #1f2937;
+      --muted: #9ca3af;
+      --accent: #BFAE9F;
+      --accent-fg: #ffffff;
+      --bg: #ffffff;
+      --outer: #f3f4f6;
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .calendar {
+      width: 580px;
+      height: 580px;
+      background: var(--bg);
+      border-radius: 12px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .08);
+      padding: 16px;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      margin-top: 70px;
+      margin-left: 100px;
+    }
+
+
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+    }
+
+    .cal-title {
+      font-weight: 600;
+      font-size: 22px;
+    }
+
+    .nav {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .nav button {
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      border: none;
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--fg);
+    }
+
+    .nav button:hover {
+      background: #f3f4f6;
+    }
+
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      flex: 1;
+      gap: 4px;
+    }
+
+
+    .dow {
+      text-align: center;
+      font-size: 20px;
+      color: var(--muted);
+      padding: 8px 0;
+    }
+
+
+    .day {
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 22px;
+      border: none;
+      background: transparent;
+    }
+
+    .day:hover {
+      background: #f3f4f6;
+    }
+
+
+    .day.muted {
+      color: var(--muted);
+    }
+
+
+    .day.today {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+      border-radius: 12px;
+    }
+
+
+    .day.selected {
+      background: var(--accent);
+      color: var(--accent-fg);
+      border-radius: 10px;
+    }
+
+    /* ------------------------------------------------------------------ 달력 */
+    :root {
+      --bg: #F1F1F1;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+    }
+
+    .wrap {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+      padding: 80px 100px 0;
+    }
+
+    .topbar {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      aspect-ratio: 1/1;
+
+    }
+
+    .tabs {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .tab {
+      color: #888;
+      font-family: Pretendard;
+      font-size: 40px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .tab-here {
+      color: #BFAE9F;
+      font-family: Pretendard;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      text-decoration: none;
+    }
+
+    .tab:hover {
+      color: #BFAE9F;
+      font-family: Pretendard;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .actions {
+      margin-left: auto;
+      /* 오른쪽 끝으로 밀기 */
+      display: flex;
+      gap: 60px;
+      font-size: 18px;
+    }
+
+    .actions a {
+      color: #333;
+      font-family: Pretendard;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      text-decoration: none;
+    }
+
+    .actions a.logout {
+      color: #D93D04;
+      font-family: Pretendard;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .container {
+      display: flex;
+      align-items: flex-start; /* 두 박스를 위쪽 기준으로 나란히 */
+  gap: 60px;
+  justify-content: center;
+    }
+
+    .record {
+      display: flex;
+      flex-direction: column;
+
+      /* 세로 정렬 */
+    }
+
+    .diary {
+      display: flex;
+    }
+
+    .memo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .date {
+      display: flex;
+      width: 305px;
+      padding: 20px 10px;
+      justify-content: center;
+      gap: 10px;
+      flex-shrink: 0;
+      align-self: stretch;
+      color: #555;
+      font-family: Pretendard;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: -10px;
+    }
+
+    .divider {
+      width: 1px;
+      height: 78px;
+      flex-shrink: 0;
+      background: #D9D9D9;
+      /* 선 색상 */
+      position: relative;
+      top: 25px;
+      left: 10px;
+
+    }
+
+    .tea {
+      display: flex;
+      padding: 20px;
+      justify-content: center;
+      gap: 10px;
+      flex: 1 0 0;
+      align-self: stretch;
+      color: #555;
+      font-family: Pretendard;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    textarea {
+      display: flex;
+      width: 612px;
+      height: 524px;
+      padding: 28px;
+      border: none;
+      color: #999;
+      font-family: Pretendard;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      resize: none;
+    }
+
+    textarea:focus {
+      outline: none;
+    }
+    .btn {
+      margin-top: 40px;
+      margin-left: 204px;
+    }
+    .update-btn {
+            white-space: nowrap;
+            appearance: none;
+            display: flex;
+            width: 201px;
+            height: 70px;
+            padding: 16px 60px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: #BFAE9F;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+            color: #FFF;
+            font-family: Pretendard;
+            font-size: 30px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 150%;
+            /* 45px */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.4s ease,
+                /* 0.6초 동안 색상 변화 */
+                transform .15s ease,
+                box-shadow .2s ease;
+        }
+
+        .update-btn:hover {
+            background: #9A8D82;
+        }
