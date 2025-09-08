@@ -11,38 +11,60 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-/**
- * UserDataController
- * - 사용자가 선택한 티 + Mood 또는 State 결과를 마이페이지에 저장
- * - 마이페이지에서 유저 기록 조회
- */
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/userdata")
 public class UserDataController {
 
     private final UserDataService userDataService;
-    private final UserService userService; // 현재 로그인한 유저 정보 가져오기
+    private final UserService userService;
 
-
+    /**
+     * 결과 페이지에서 차 선택 + 저장
+     * 저장 후 메모 작성 페이지로 이동
+     */
     @PostMapping("/save")
     public String saveUserData(
             @RequestParam Long teaId,
             @RequestParam(required = false) Long moodId,
             @RequestParam(required = false) Long stateId,
-            @RequestParam(required = false) String memo,
             RedirectAttributes redirectAttributes
     ) {
-        Long userId = userService.getCurrentUserId(); // 로그인한 유저 ID
-        userDataService.saveUserData(userId, teaId, moodId, stateId, memo);
-        redirectAttributes.addFlashAttribute("message", "마이페이지에 저장되었습니다.");
+        Long userId = userService.getCurrentUserId();
+        Long userDataId = userDataService.saveUserData(userId, teaId, moodId, stateId);
+        return "redirect:/userdata/memo/" + userDataId;
+    }
+
+    /**
+     * 메모 작성/수정 페이지
+     */
+    @GetMapping("/memo/{id}")
+    public String showMemoForm(@PathVariable("id") Long userDataId, Model model) {
+        UserDataEntity data = userDataService.getUserDataById(userDataId);
+        model.addAttribute("userData", data);
+        return "memo";
+    }
+
+    /**
+     * 메모 저장 (작성/수정)
+     */
+    @PostMapping("/memo/save")
+    public String saveMemo(
+            @RequestParam Long userDataId,
+            @RequestParam String memo,
+            RedirectAttributes redirectAttributes
+    ) {
+        userDataService.saveMemo(userDataId, memo); // 여기서 작성/수정 둘 다 처리
+        redirectAttributes.addFlashAttribute("message", "메모가 저장되었습니다.");
         return "redirect:/userdata/mypage";
     }
 
-
+    /**
+     * 마이페이지 조회
+     */
     @GetMapping("/mypage")
     public String showUserData(Model model) {
-        Long userId = userService.getCurrentUserId(); // 로그인한 유저 ID
+        Long userId = userService.getCurrentUserId();
         List<UserDataEntity> userDataList = userDataService.getUserDataByUserId(userId);
         model.addAttribute("userDataList", userDataList);
         return "mypage";
