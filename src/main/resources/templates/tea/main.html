@@ -48,11 +48,22 @@
                 </svg>
             </button>
 
-            <!-- 카드 리스트가 들어가는 스크롤 박스 -->
-            <div class="pt-scroll" id="ptScroll" aria-live="polite"></div>
+            <!-- 카드 리스트, 여기서 부터 -->
+            <div class="pt-scroll" id="ptScroll" aria-live="polite">
+                <!-- topTeas: ChooseController에서 모델로 전달 (집계순 정렬된 상위 N개) -->
+                <div class="pt-card" th:each="t, iter : ${topTeas}">
+                    <figure class="pt-thumb">
+                        <!-- 모든 순위 카드 이미지는 background.jpg로 고정 -->
+                        <img th:src="@{/img/background.jpg}" th:alt="${t.teaName}" />
+                    </figure>
+                    <figcaption class="pt-meta">
+                        <span class="pt-rank" th:text="${iter.index + 1} + '위'">1위</span>
+                        <span class="pt-name" th:text="${t.teaName}">차 이름</span>
+                    </figcaption>
+                </div>
+            </div>
+                <!-- 여기까지 수정했습니다. -->
 
-            <!-- 다음(오른쪽) 버튼 -->
-            <button class="pt-nav pt-next" id="ptNext" aria-label="다음 보기">
                 <!-- 오른쪽 화살표 아이콘 (SVG) -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M9 6l6 6-6 6"
