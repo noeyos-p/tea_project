@@ -51,7 +51,7 @@ public class StateController {
             // 결과를 Model에 담아 바로 결과 페이지로 전달
             model.addAttribute("result", resultDto);
 
-            return "result";
+            return "tea/recommend-tea";
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
@@ -64,6 +64,6 @@ public class StateController {
     // 결과 페이지 직접 접근 시
     @GetMapping("/result")
     public String showStateResult() {
-        return "result";
+        return "tea/recommend-tea";
     }
 }

@@ -9,7 +9,7 @@
 <body>
 <div class="wrap">
   <div class="topbar">
-    <a class="back" th:href="#">
+    <a class="back" href="#">
       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
         <path
                 d="M36 19.125H4.39453L18.2285 32.959L16.6465 34.541L0.105469 18L16.6465 1.45898L18.2285 3.04102L4.39453 16.875H36V19.125Z"
@@ -18,9 +18,9 @@
     </a>
   </div>
   <div class="tabs">
-    <a class="tab-here" th:href="#">내 정보</a>
-    <a class="tab" th:href="#">기록보관함</a>
-    <a class="tab" th:href="#">Q&amp;A</a>
+    <a class="tab-here" th:href="@{/userdata/mypage}">내 정보</a>
+    <a class="tab" href="#">기록보관함</a>
+    <a class="tab" href="#">Q&amp;A</a>
   </div>
   <div class="actions">
     <a href="#">차 추천받기</a>
@@ -35,14 +35,14 @@
               fill="#BFAE9F" />
     </svg>
   </div>
-  <div class="info">
+  <div class="info" th:each="data : ${userDataList}">
     <div class="row">
       <div class="label">닉네임</div>
-      <div class="value">안녕</div>
+      <div class="value" th:text="${data.user.nickname}">안녕</div>
     </div>
     <div class="row">
       <div class="label">이메일</div>
-      <div class="value">krapnoeyos@gmail.com</div>
+      <div class="value" th:text="${data.user.email}">krapnoeyos@gmail.com</div>
     </div>
     <div class="buttons">
       <button class="btn primary" type="button">수정하기</button>

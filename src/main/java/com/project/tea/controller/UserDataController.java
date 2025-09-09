@@ -67,6 +67,6 @@ public class UserDataController {
         Long userId = userService.getCurrentUserId();
         List<UserDataEntity> userDataList = userDataService.getUserDataByUserId(userId);
         model.addAttribute("userDataList", userDataList);
-        return "mypage";
+        return "tea/mypage/information/main";
     }
 }

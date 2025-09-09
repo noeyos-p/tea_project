@@ -1,40 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>State Check</title>
+    <meta charset="UTF-8" />
+    <title>State 체크리스트</title>
+    <link rel="stylesheet" th:href="@{/css/state-check.css}" />
+    <script src="/js/state-check.js" defer></script>
 </head>
 <body>
-<form th:action="@{/state/checklist}" method="get" autocomplete="on">
 <div class="main-photo">
-    <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
-    <link rel="stylesheet" th:href="@{/css/state-check.css}">
-    <script src="/js/state-check.js" defer></script>
+    <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg" />
 
     <div class="photo-opacity">
         <section class="panel" role="group" aria-labelledby="title">
             <h1 id="title" class="title">오늘 나의 상태를 선택해주세요</h1>
 
-            <div class="grid" id="options">
-                <button type="button" class="pill" role="switch" aria-pressed="false">식욕부진</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">어지러움</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">불면증</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">숙취</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">관절통</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">감기몸살</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">속쓰림</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">두통</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">소화불량</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">피로감</button>
-                <button type="button" class="pill" role="switch" aria-pressed="false">몸살</button>
+            <!-- 에러 메시지 -->
+            <div th:if="${error}" style="color:red;">
+                <p th:text="${error}"></p>
             </div>
 
-            <div class="cta-wrap">
-                <button type="submit" class="cta" id="submit">선택 완료</button>
-            </div>
+            <form th:action="@{/state/submit}" method="post" autocomplete="on">
+                <div class="grid" id="options">
+                    <div th:each="s : ${states}">
+                        <input type="radio" name="stateId" th:id="${'state_' + s.id}" th:value="${s.id}" />
+                        <label th:for="${'state_' + s.id}" class="pill" role="switch" aria-pressed="false" th:text="${s.state}"></label>
+                    </div>
+                </div>
+
+                <div class="cta-wrap">
+                    <button type="submit" class="cta" id="submit">선택 완료</button>
+                </div>
+            </form>
         </section>
     </div>
 </div>
-</form>
 </body>
 </html>
