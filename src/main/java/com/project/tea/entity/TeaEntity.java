@@ -23,7 +23,7 @@ public class TeaEntity {
     private StateEntity state;
 
     //  추가 : 정적 파일명 (예 "green.jpg")
-    @Column(name = "image_path")
-    private String imagePath;
+//    @Column(name = "image_path")
+//    private String imagePath;
 
 }
