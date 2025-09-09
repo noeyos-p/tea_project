@@ -18,3 +18,4 @@ public class ChooseEntity {
 
     private Long count = 0L; // 선택 횟수, 기본값 0
 }
+
