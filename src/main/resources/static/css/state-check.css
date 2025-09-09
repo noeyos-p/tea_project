@@ -115,3 +115,10 @@ cursor: pointer;
 .cta:hover {
 background: #9A8D82;
 }
+
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
