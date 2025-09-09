@@ -1,5 +1,100 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Main</title>-->
+<!--    <link rel="stylesheet" th:href="@{/css/main.css}">-->
+<!--    <script src="/js/main.js" defer></script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash; 메인 비주얼 영역 &ndash;&gt;-->
+<!--<div class="main-photo">-->
+<!--    &lt;!&ndash; 배경 이미지 (Thymeleaf 속성 th:src 로 서버 경로 지정 가능) &ndash;&gt;-->
+<!--    <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">-->
+
+<!--    &lt;!&ndash; 배경 위에 반투명 오버레이 효과를 주는 레이어 &ndash;&gt;-->
+<!--    <div class="photo-opacity">-->
+
+<!--        &lt;!&ndash; 메인 타이틀 텍스트 &ndash;&gt;-->
+<!--        <div class="main-title">-->
+<!--            <h1>몸과 마음에 필요한 차,<br>로그인 하고 추천받으세요</h1>-->
+<!--            &lt;!&ndash; <br> 태그를 사용해 줄바꿈 &ndash;&gt;-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; 로그인 버튼 (GET 방식으로 /login 페이지 이동) &ndash;&gt;-->
+<!--        <form th:action="@{/login}" method="get">-->
+<!--            <button class="cta-btn">지금 로그인하기</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; "인기 있는 차" 섹션 &ndash;&gt;-->
+<!--<section id="popular-teas" class="popular-teas">-->
+<!--    <div class="pt-container">-->
+<!--        &lt;!&ndash; 섹션 제목 &ndash;&gt;-->
+<!--        <h2 class="pt-title">지금 사람들이 많이 찾는 차</h2>-->
+
+<!--        &lt;!&ndash; 좌우 스크롤 네비게이션 영역 &ndash;&gt;-->
+<!--        <div class="pt-navwrap">-->
+
+<!--            &lt;!&ndash; 이전(왼쪽) 버튼 - 처음엔 hidden 클래스 적용 &ndash;&gt;-->
+<!--            <button class="pt-nav pt-prev hidden" id="ptPrev" aria-label="이전 보기">-->
+<!--                &lt;!&ndash; 왼쪽 화살표 아이콘 (SVG) &ndash;&gt;-->
+<!--                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">-->
+<!--                    <path d="M15 18l-6-6 6-6"-->
+<!--                          stroke="currentColor" stroke-width="2"-->
+<!--                          stroke-linecap="round" stroke-linejoin="round" />-->
+<!--                </svg>-->
+<!--            </button>-->
+
+<!--            &lt;!&ndash; 카드 리스트가 들어가는 스크롤 박스 &ndash;&gt;-->
+<!--            &lt;!&ndash;  기존에 있던 선언 주석처리 <div class="pt-scroll" id="ptScroll" aria-live="polite"></div>&ndash;&gt;-->
+<!--            <div class="pt-scroll" id="ptScroll" aria-live="polite">-->
+<!--                <div class="pt-card" th:each="t, iter : ${topTeas}">-->
+<!--                    <figure class="pt-thumb">-->
+<!--                        &lt;!&ndash; imagePath가 있으면 그것, 없으면 background.jpg 로 폴백 &ndash;&gt;-->
+<!--                        <img th:if="${!#strings.isEmpty(t.imagePath)}"-->
+<!--                             th:src="@{/img/{f}(f=${t.imagePath})}"-->
+<!--                             th:alt="${t.teaName}" />-->
+<!--                        <img th:if="${#strings.isEmpty(t.imagePath)}"-->
+<!--                             th:src="@{/img/background.jpg}"-->
+<!--                             th:alt="${t.teaName}" />-->
+<!--                    </figure>-->
+<!--                    <figcaption class="pt-meta">-->
+<!--                        <span class="pt-rank" th:text="${iter.index + 1} + '위'">1위</span>-->
+<!--                        <span class="pt-name" th:text="${t.teaName}">차 이름</span>-->
+<!--                    </figcaption>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;    여기까지 추가     &ndash;&gt;-->
+<!--            &lt;!&ndash; 다음(오른쪽) 버튼 &ndash;&gt;-->
+<!--            <button class="pt-nav pt-next" id="ptNext">-->
+<!--                &lt;!&ndash; 오른쪽 화살표 아이콘 (SVG) &ndash;&gt;-->
+<!--                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">-->
+<!--                    <path d="M9 6l6 6-6 6"-->
+<!--                          stroke="currentColor" stroke-width="2"-->
+<!--                          stroke-linecap="round" stroke-linejoin="round" />-->
+<!--                </svg>-->
+<!--            </button>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; 섹션 하단 안내 문구 &ndash;&gt;-->
+<!--        <p class="pt-footer">-->
+<!--            어떤 차가 좋을지 잘 모르겠다면-->
+<!--            &lt;!&ndash; 로그인 유도 링크 (Thymeleaf로 /login 연결) &ndash;&gt;-->
+<!--            <a th:href="@{/login}" class="pt-login-link" id="ptLoginLink">로그인하고 차 추천받기</a>-->
+<!--        </p>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--</body>-->
+<!--</html>-->
+<!--기존의 main.html 주석처리완료-->
+
+<!--수정한 main.html-->
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
@@ -10,73 +105,56 @@
 
 <!-- 메인 비주얼 영역 -->
 <div class="main-photo">
-    <!-- 배경 이미지 (Thymeleaf 속성 th:src 로 서버 경로 지정 가능) -->
-    <img th:src="/img/background.jpg" alt="배경사진" class="bg">
+    <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
 
-    <!-- 배경 위에 반투명 오버레이 효과를 주는 레이어 -->
     <div class="photo-opacity">
-
-        <!-- 메인 타이틀 텍스트 -->
         <div class="main-title">
             <h1>몸과 마음에 필요한 차,<br>로그인 하고 추천받으세요</h1>
-            <!-- <br> 태그를 사용해 줄바꿈 -->
         </div>
 
-        <!-- 로그인 버튼 (GET 방식으로 /login 페이지 이동) -->
         <form th:action="@{/login}" method="get">
             <button class="cta-btn">지금 로그인하기</button>
         </form>
     </div>
 </div>
 
-<!-- "인기 있는 차" 섹션 -->
+<!-- 지금 사람들이 많이 찾는 차 -->
 <section id="popular-teas" class="popular-teas">
     <div class="pt-container">
-        <!-- 섹션 제목 -->
         <h2 class="pt-title">지금 사람들이 많이 찾는 차</h2>
 
-        <!-- 좌우 스크롤 네비게이션 영역 -->
         <div class="pt-navwrap">
-
-            <!-- 이전(왼쪽) 버튼 - 처음엔 hidden 클래스 적용 -->
+            <!-- 이전 버튼(처음엔 숨김) -->
             <button class="pt-nav pt-prev hidden" id="ptPrev" aria-label="이전 보기">
-                <!-- 왼쪽 화살표 아이콘 (SVG) -->
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M15 18l-6-6 6-6"
-                          stroke="currentColor" stroke-width="2"
-                          stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
 
-            <!-- 카드 리스트, 여기서 부터 -->
+            <!-- 카드 리스트(집계 순서대로) -->
             <div class="pt-scroll" id="ptScroll" aria-live="polite">
-                <!-- topTeas: ChooseController에서 모델로 전달 (집계순 정렬된 상위 N개) -->
                 <div class="pt-card" th:each="t, iter : ${topTeas}">
-                    <figure class="pt-thumb">
-                        <!-- 모든 순위 카드 이미지는 background.jpg로 고정 -->
-                        <img th:src="@{/img/background.jpg}" th:alt="${t.teaName}" />
-                    </figure>
+                    <div class="pt-thumb bg-tea-thumb"></div>
                     <figcaption class="pt-meta">
                         <span class="pt-rank" th:text="${iter.index + 1} + '위'">1위</span>
+                        <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
                         <span class="pt-name" th:text="${t.teaName}">차 이름</span>
                     </figcaption>
                 </div>
             </div>
-                <!-- 여기까지 수정했습니다. -->
 
-                <!-- 오른쪽 화살표 아이콘 (SVG) -->
+            <!-- 다음 버튼 -->
+            <button class="pt-nav pt-next" id="ptNext" aria-label="다음 보기">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M9 6l6 6-6 6"
-                          stroke="currentColor" stroke-width="2"
-                          stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
         </div>
 
-        <!-- 섹션 하단 안내 문구 -->
         <p class="pt-footer">
             어떤 차가 좋을지 잘 모르겠다면
-            <!-- 로그인 유도 링크 (Thymeleaf로 /login 연결) -->
             <a th:href="@{/login}" class="pt-login-link" id="ptLoginLink">로그인하고 차 추천받기</a>
         </p>
     </div>

@@ -20,10 +20,10 @@
         <th>티 이름</th>
         <th>Mood / State</th>
         <th>메모</th>
+        <th>메모 수정</th>
     </tr>
     </thead>
     <tbody>
-    <!-- 유저 데이터 반복 -->
     <tr th:each="data : ${userDataList}">
         <td th:text="${data.user.nickname}"></td>
         <td th:text="${#temporals.format(data.date, 'yyyy.MM.dd')}"></td>
@@ -33,11 +33,14 @@
             <span th:if="${data.state != null}" th:text="${data.state.state}"></span>
         </td>
         <td th:text="${data.memo}"></td>
+        <td>
+            <a th:href="@{'/userdata/memo/' + ${data.id}}">메모 수정</a>
+        </td>
     </tr>
 
     <!-- 데이터 없을 때 -->
     <tr th:if="${#lists.isEmpty(userDataList)}">
-        <td colspan="5">저장된 기록이 없습니다.</td>
+        <td colspan="6">저장된 기록이 없습니다.</td>
     </tr>
     </tbody>
 </table>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메모 작성/수정</title>
+</head>
+<body>
+<h1>메모 작성 / 수정</h1>
+
+<form th:action="@{/userdata/memo/save}" method="post">
+    <!-- 특정 기록 ID 전달 -->
+    <input type="hidden" name="userDataId" th:value="${userData.id}"/>
+
+    <label for="memo">메모:</label>
+    <input type="text" id="memo" name="memo" th:value="${userData.memo}"/>
+
+    <button type="submit">저장</button>
+</form>
+
+<a th:href="@{/userdata/mypage}">마이페이지로 돌아가기</a>
+</body>
+</html>

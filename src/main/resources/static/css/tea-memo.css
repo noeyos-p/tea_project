@@ -1,0 +1,250 @@
+html,
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+      font-family: Pretendard, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .topbar {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      aspect-ratio: 1/1;
+      margin-top: 80px;
+      margin-left: 100px;
+    }
+
+    .container {
+      max-width: 1150px;
+      width: min(90vw, 1150px);
+      margin: 120px auto 0;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mt-1 {
+      color: #000;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      margin-bottom: -12px;
+      margin-top: -80px;
+    }
+
+    .mt-2 {
+      color: #000;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+
+    /* 입력 안내 텍스트 */
+    .sub-label {
+      color: #999;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      margin-top: 80px;
+      margin-bottom: 28px;
+    }
+
+    /* 입력창 */
+    textarea {
+      width: 100%;
+      max-width: 700px;
+      height: 200px;
+      padding: 20px;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      resize: none;
+      outline: none;
+    }
+
+    textarea::placeholder {
+      color: #bbb;
+    }
+
+    /* 버튼 */
+    .save-btn {
+      margin-top: 28px;
+      display: inline-flex;
+      padding: 16px 60px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 20px;
+      background-color: #BFAE9F;
+      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+      color: #FFF;
+      font-family: Pretendard;
+      font-size: 52px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%;
+      /* 78px */
+      border: none;
+    }
+
+    .save-btn:hover {
+      background: #9A8D82;
+    }
+
+    .mypage-go {
+      margin-top: 28px;
+      margin-bottom: 90px;
+    }
+
+    .mypage-link {
+      color: #BFAE9F;
+      font-family: Pretendard;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 150%;
+      /* 48px */
+      text-decoration: none;
+    }
+    textarea {
+      width: 100%;
+  max-width: 850px;
+    }
+
+    hr {
+      width: 100%;
+      height: 1px;
+      flex-shrink: 0;
+      background: #D9D9D9;
+    }
+
+    .recommend {
+      text-align: left;
+      /* 텍스트 왼쪽 정렬 */
+      align-self: flex-start;
+      margin-top: 52px;
+      color: #000;
+      font-family: Pretendard;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%;
+      /* 50.4px */
+
+    }
+
+    .recommend .tea {
+      color: #BFAE9F;
+      font-family: Pretendard;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%;
+      /* 50.4px */
+    }
+
+    .tea-img {
+      margin-top: 48px;
+    }
+
+    .tea-img img {
+      border-radius: 8px;
+    }
+
+    .tea-name p {
+      color: #000;
+      font-family: Pretendard;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%;
+      /* 44.8px */
+    }
+
+    .buy-btn {
+      margin-top: 28px;
+      display: inline-flex;
+      padding: 16px 60px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 20px;
+      background-color: #BFAE9F;
+      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+      color: #FFF;
+      font-family: Pretendard;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%;
+      /* 78px */
+      border: none;
+      margin-bottom: 104px;
+    }
+    .search-box {
+  margin-top: 36px;
+  text-align: left;
+  align-self: flex-start;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 36px ;
+}
+
+.search-box input {
+  width: 184%;              /* 지금 쓰신 큰 사이즈 유지 */
+  height: 96px;
+  padding-right: 80px;      /* 버튼이 겹치지 않도록 오른쪽 여백 확보 */
+  padding-left: 20px;
+  border: 1px solid #BFAE9F;
+  border-radius: 8px;
+  font-size: 36px;
+  box-sizing: border-box;
+}
+
+.search-box button {
+  position: absolute;
+  left: 1020px;              /* input 오른쪽 끝에서 거리 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #BFAE9F;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  width: 60px;
+  height: 60px;
+}
+.search-box input::placeholder {
+  color: #555;
+font-family: Pretendard;
+font-size: 36px;
+font-style: normal;
+font-weight: 500;
+line-height: 100%; /* 50.4px */
+}
+.search-box input:focus::placeholder {
+  color: #BFAE9F;   /* 클릭해도 안 바뀌게 동일 설정 */
+  opacity: 1;       /* 투명도 변하지 않게 */
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Information Update</title>
+    <link rel="stylesheet" th:href="@{/css/information-update.css}">
+    <script src="/js/information-update.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar">
+        <a class="back" th:href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path
+                        d="M36 19.125H4.39453L18.2285 32.959L16.6465 34.541L0.105469 18L16.6465 1.45898L18.2285 3.04102L4.39453 16.875H36V19.125Z"
+                        fill="black" />
+            </svg>
+        </a>
+    </div>
+    <div class="tabs">
+        <a class="tab-here" href="#">내 정보</a>
+        <a class="tab" href="#">기록보관함</a>
+        <a class="tab" href="#">Q&amp;A</a>
+    </div>
+    <div class="actions">
+        <a href="#">차 추천받기</a>
+        <a class="logout" href="#">로그아웃</a>
+    </div>
+</div>
+<section class="card" aria-label="내 정보 카드">
+    <div class="avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112" fill="none">
+            <path
+                    d="M55.9998 55.9998C50.8665 55.9998 46.4721 54.1721 42.8165 50.5165C39.1609 46.8609 37.3332 42.4665 37.3332 37.3332C37.3332 32.1998 39.1609 27.8054 42.8165 24.1498C46.4721 20.4943 50.8665 18.6665 55.9998 18.6665C61.1332 18.6665 65.5276 20.4943 69.1832 24.1498C72.8387 27.8054 74.6665 32.1998 74.6665 37.3332C74.6665 42.4665 72.8387 46.8609 69.1832 50.5165C65.5276 54.1721 61.1332 55.9998 55.9998 55.9998ZM18.6665 83.9998V80.2665C18.6665 77.6221 19.3478 75.1923 20.7105 72.9772C22.0732 70.7621 23.8807 69.0696 26.1332 67.8998C30.9554 65.4887 35.8554 63.6812 40.8332 62.4772C45.8109 61.2732 50.8665 60.6696 55.9998 60.6665C61.1332 60.6634 66.1887 61.2669 71.1665 62.4772C76.1443 63.6874 81.0443 65.4949 85.8665 67.8998C88.1221 69.0665 89.9312 70.7589 91.2938 72.9772C92.6565 75.1954 93.3363 77.6252 93.3332 80.2665V83.9998C93.3332 86.5665 92.4201 88.7645 90.5938 90.5938C88.7676 92.4232 86.5696 93.3363 83.9998 93.3332H27.9998C25.4332 93.3332 23.2367 92.4201 21.4105 90.5938C19.5843 88.7676 18.6696 86.5696 18.6665 83.9998Z"
+                    fill="#BFAE9F" />
+        </svg>
+    </div>
+
+
+    <div class="info">
+        <div class="row">
+            <div class="label">닉네임</div>
+            <div class="value">안녕</div>
+        </div>
+        <div class="row">
+            <div class="label">이메일</div>
+            <div class="value">krapnoeyos@gmail.com</div>
+        </div>
+        <div class="row">
+            <div class="label">비밀번호</div>
+            <input id="pw" type="password" name="password" class="pw-input" />
+        </div>
+        <form id="signupForm">
+            <div class="row">
+                <div class="label">비밀번호 확인</div>
+                <input id="confirm-pw" type="password" name="password" class="pw-input" />
+            </div>
+            <div class="buttons">
+                <button class="btn primary" type="submit">완료</button>
+                <button class="btn ghost" type="button">취소</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

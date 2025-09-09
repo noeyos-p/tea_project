@@ -33,6 +33,7 @@ public class MoodService {
         // 1. MoodCheck → Mood 매핑
         List<MoodCheckEntity> selectedChecks = moodCheckRepository.findAllById(selectedCheckIds);
 
+
         Map<Long, Integer> moodScores = new HashMap<>();
         for (MoodCheckEntity check : selectedChecks) {
             if (check.getMood() != null) {
@@ -66,4 +67,6 @@ public class MoodService {
         // 6. ResultDto 반환
         return ResultDto.fromDto(message, teas, selectedMoodId, "mood");
     }
+
+
 }
