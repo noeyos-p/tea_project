@@ -1,3 +1,68 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>추천 결과</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>추천 결과</h1>-->
+
+<!--&lt;!&ndash; 결과 메시지 &ndash;&gt;-->
+<!--<div th:if="${result != null}">-->
+<!--    <p><strong>결과 메시지:</strong></p>-->
+<!--    <p th:utext="${#strings.replace(result.message != null ? result.message : '', '\n', '<br/>')}"></p>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 추천 차 목록 &ndash;&gt;-->
+<!--<div th:if="${result.teas != null and !#lists.isEmpty(result.teas)}">-->
+<!--    <p><strong>추천 차 목록:</strong></p>-->
+<!--    <ul>-->
+<!--        <li th:each="tea : ${result.teas}">-->
+<!--            &lt;!&ndash; 버튼 클릭 시 상세 토글 &ndash;&gt;-->
+<!--            <button type="button" th:text="${tea.name}"-->
+<!--                    th:onclick="'toggleDetail(' + ${tea.id} + ');'"></button>-->
+<!--            <div th:id="'detail_' + ${tea.id}" style="display:none; margin-left:20px;">-->
+<!--                <p><strong>효능:</strong> <span th:text="${tea.content}"></span></p>-->
+<!--                <p><strong>섭취법:</strong> <span th:text="${tea.eat}"></span></p>-->
+<!--                <p><strong>주의사항:</strong> <span th:text="${tea.caution}"></span></p>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 선택 후 마이페이지 저장 &ndash;&gt;-->
+<!--<form th:action="@{/userdata/save}" method="post" th:if="${result.teas != null and !#lists.isEmpty(result.teas)}">-->
+<!--    <div th:each="tea : ${result.teas}">-->
+<!--        <input type="radio" name="teaId" th:value="${tea.id}" th:id="${'tea_' + tea.id}" required>-->
+<!--        <label th:for="${'tea_' + tea.id}" th:text="${tea.name}"></label><br>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; 체크리스트 유형에 따라 hidden 값 전달 &ndash;&gt;-->
+<!--    <input type="hidden" th:name="${result.type == 'mood' ? 'moodId' : 'stateId'}"-->
+<!--           th:value="${result.resultId != null ? result.resultId : 0}"/>-->
+
+<!--    &lt;!&ndash; CSRF 토큰 &ndash;&gt;-->
+<!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+
+<!--    <button type="submit">마이페이지에 저장하기</button>-->
+<!--</form>-->
+
+<!--&lt;!&ndash; 상세 정보 토글 스크립트 &ndash;&gt;-->
+<!--<script>-->
+<!--    function toggleDetail(id) {-->
+<!--        const div = document.getElementById('detail_' + id);-->
+<!--        if (!div) return;-->
+<!--        div.style.display = div.style.display === 'none' ? 'block' : 'none';-->
+<!--    }-->
+<!--</script>-->
+
+<!--&lt;!&ndash; 체크리스트로 돌아가기 &ndash;&gt;-->
+<!--<a th:href="@{/mood/checklist}">무드 체크리스트로 돌아가기</a> |-->
+<!--<a th:href="@{/state/checklist}">상태 체크리스트로 돌아가기</a>-->
+<!--</body>-->
+<!--</html>-->
+<!--             기존의 result.html 주석처리완료            -->
+<!-- 수정된 result.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -18,10 +83,13 @@
     <p><strong>추천 차 목록:</strong></p>
     <ul>
         <li th:each="tea : ${result.teas}">
-            <!-- 버튼 클릭 시 상세 토글 -->
-            <button type="button" th:text="${tea.name}"
+            <!-- 상세 토글 버튼 -->
+            <button type="button"
+                    th:text="${tea.name}"
                     th:onclick="'toggleDetail(' + ${tea.id} + ');'"></button>
-            <div th:id="'detail_' + ${tea.id}" style="display:none; margin-left:20px;">
+
+            <!-- 상세 정보 -->
+            <div th:id="'detail_' + ${tea.id}" style="display:none; margin-left:20px; margin-top:6px;">
                 <p><strong>효능:</strong> <span th:text="${tea.content}"></span></p>
                 <p><strong>섭취법:</strong> <span th:text="${tea.eat}"></span></p>
                 <p><strong>주의사항:</strong> <span th:text="${tea.caution}"></span></p>
@@ -31,7 +99,12 @@
 </div>
 
 <!-- 선택 후 마이페이지 저장 -->
-<form th:action="@{/userdata/save}" method="post" th:if="${result.teas != null and !#lists.isEmpty(result.teas)}">
+<form id="saveForm"
+      th:action="@{/userdata/save}"
+      method="post"
+      th:if="${result.teas != null and !#lists.isEmpty(result.teas)}"
+      style="margin-top:16px;"
+      th:attr="data-csrf-param=${_csrf.parameterName}, data-csrf-token=${_csrf.token}, data-choose-url=@{/choose}">
     <div th:each="tea : ${result.teas}">
         <input type="radio" name="teaId" th:value="${tea.id}" th:id="${'tea_' + tea.id}" required>
         <label th:for="${'tea_' + tea.id}" th:text="${tea.name}"></label><br>
@@ -41,23 +114,65 @@
     <input type="hidden" th:name="${result.type == 'mood' ? 'moodId' : 'stateId'}"
            th:value="${result.resultId != null ? result.resultId : 0}"/>
 
-    <!-- CSRF 토큰 -->
+    <!-- CSRF 토큰 (원래 저장 폼용) -->
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
     <button type="submit">마이페이지에 저장하기</button>
 </form>
 
-<!-- 상세 정보 토글 스크립트 -->
+<!-- 상세 정보 토글  -->
 <script>
     function toggleDetail(id) {
         const div = document.getElementById('detail_' + id);
         if (!div) return;
-        div.style.display = div.style.display === 'none' ? 'block' : 'none';
+        div.style.display = (div.style.display === 'none' || div.style.display === '') ? 'block' : 'none';
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('saveForm');
+        if (!form) return;
+
+        form.addEventListener('submit', async (e) => {
+            const checked = form.querySelector('input[name="teaId"]:checked');
+            if (!checked) return;
+
+            e.preventDefault();
+
+            const teaId = checked.value;
+            const csrfParam = form.dataset.csrfParam;
+            const csrfToken = form.dataset.csrfToken;
+            const chooseUrl = form.dataset.chooseUrl || '/choose';
+
+            const params = new URLSearchParams();
+            params.append('teaId', teaId);
+            if (csrfParam && csrfToken) params.append(csrfParam, csrfToken);
+
+            try {
+
+                await fetch(chooseUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    credentials: 'same-origin',
+                    body: params.toString()
+                });
+            } catch (err) {
+                // 실패해도 저장은 진행 (원하면 alert 추가 가능)
+                // console.error('choose increment failed', err);
+            }
+
+            form.submit();
+        });
+    });
 </script>
 
-<!-- 체크리스트로 돌아가기 -->
-<a th:href="@{/mood/checklist}">무드 체크리스트로 돌아가기</a> |
-<a th:href="@{/state/checklist}">상태 체크리스트로 돌아가기</a>
+<!-- 체크리스트로 돌아가기: type에 따라 노출 -->
+<div style="margin-top:12px;">
+    <a th:if="${result != null and result.type == 'mood'}" th:href="@{/mood/checklist}">무드 체크리스트로 돌아가기</a>
+    <a th:if="${result != null and result.type == 'state'}" th:href="@{/state/checklist}">상태 체크리스트로 돌아가기</a>
+    <span th:if="${result == null or (result.type != 'mood' and result.type != 'state')}">
+        <a th:href="@{/mood/checklist}">무드 체크리스트</a> |
+        <a th:href="@{/state/checklist}">상태 체크리스트</a>
+    </span>
+</div>
 </body>
 </html>
