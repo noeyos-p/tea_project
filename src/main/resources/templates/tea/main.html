@@ -49,8 +49,25 @@
             </button>
 
             <!-- 카드 리스트가 들어가는 스크롤 박스 -->
-            <div class="pt-scroll" id="ptScroll" aria-live="polite"></div>
-
+<!--  기존에 있던 선언 주석처리 <div class="pt-scroll" id="ptScroll" aria-live="polite"></div>-->
+            <div class="pt-scroll" id="ptScroll" aria-live="polite">
+                <div class="pt-card" th:each="t, iter : ${topTeas}">
+                    <figure class="pt-thumb">
+                        <!-- imagePath가 있으면 그것, 없으면 background.jpg 로 폴백 -->
+                        <img th:if="${!#strings.isEmpty(t.imagePath)}"
+                             th:src="@{/img/{f}(f=${t.imagePath})}"
+                             th:alt="${t.teaName}" />
+                        <img th:if="${#strings.isEmpty(t.imagePath)}"
+                             th:src="@{/img/background.jpg}"
+                             th:alt="${t.teaName}" />
+                    </figure>
+                    <figcaption class="pt-meta">
+                        <span class="pt-rank" th:text="${iter.index + 1} + '위'">1위</span>
+                        <span class="pt-name" th:text="${t.teaName}">차 이름</span>
+                    </figcaption>
+                </div>
+            </div>
+<!--    여기까지 추가     -->
             <!-- 다음(오른쪽) 버튼 -->
             <button class="pt-nav pt-next" id="ptNext">
                 <!-- 오른쪽 화살표 아이콘 (SVG) -->
