@@ -90,7 +90,8 @@ body {
     color: #333;
 }
 
-.login-btn {
+/* 버튼 */
+.actions {
     margin-top: 40px;
     margin-bottom: 40px;
     display: flex;

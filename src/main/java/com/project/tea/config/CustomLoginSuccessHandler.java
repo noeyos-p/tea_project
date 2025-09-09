@@ -22,7 +22,8 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         if ("admin@admin.com".equalsIgnoreCase(userEmail)) {
             response.sendRedirect("/admin");
         } else {
-            response.sendRedirect("/main");
+            response.sendRedirect("/choice");
         }
     }
 }
+
