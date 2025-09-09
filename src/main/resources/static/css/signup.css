@@ -1,12 +1,19 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
-        Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
-        'Noto Sans KR', 'Malgun Gothic', sans-serif;
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
+body {
+  color: #111;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  background-image: url("/img/background.jpg"); /* 외부 CSS는 절대경로 권장 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 
 .main-photo {
     position: relative;
@@ -156,5 +163,3 @@ body {
     outline: none !important;
     box-shadow: none !important;
 }
-
-</style>
