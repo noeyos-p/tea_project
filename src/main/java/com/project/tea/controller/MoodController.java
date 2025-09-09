@@ -24,7 +24,7 @@ public class MoodController {
     public String showMoodChecklist(Model model) {
         List<MoodCheckEntity> checkItems = moodCheckRepository.findAllRandomOrder();
         model.addAttribute("checkItems", checkItems); // HTML에서 th:each="c : ${checkItems}" 사용
-        return "moodCheck";
+        return "/tea/mood-check";
     }
 
     // 체크리스트 제출 처리
@@ -33,13 +33,13 @@ public class MoodController {
             @RequestParam(name = "moodId", required = false) List<Long> moodId,
             Model model) {
 
-        List<MoodCheckEntity> checkItems = moodCheckRepository.findAll();
+        List<MoodCheckEntity> checkItems = moodCheckRepository.findAllRandomOrder();
         model.addAttribute("checkItems", checkItems);
 
         // 체크 안했거나 5개 선택 안했으면
         if (moodId == null || moodId.size() != 5) {
             model.addAttribute("error", "체크리스트는 반드시 5개 선택해야 합니다.");
-            return "moodCheck";
+            return "/tea/mood-check";
         }
 
         ResultDto resultDto = moodService.analyzeMood(moodId);

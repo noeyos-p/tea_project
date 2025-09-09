@@ -1,46 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"> <!-- 문자 인코딩: UTF-8 -->
-  <title>Mood CheckList</title> <!-- 브라우저 탭에 표시될 문서 제목 -->
+  <meta charset="UTF-8">
+  <title>무드 체크리스트</title>
   <link rel="stylesheet" th:href="@{/css/mood-check.css}">
-  <script src="/js/mood-check.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const checkboxes = document.querySelectorAll('.mood-checkbox');
+      const countEl = document.getElementById('selectedCount');
+      const MAX = 5;
+
+      function updateCount() {
+        const checked = document.querySelectorAll('.mood-checkbox:checked');
+        countEl.textContent = `(${checked.length}/${MAX})`;
+
+        checkboxes.forEach(cb => {
+          if (!cb.checked) cb.disabled = checked.length >= MAX;
+          else cb.disabled = false;
+        });
+      }
+
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateCount);
+      });
+
+      updateCount(); // 초기 렌더링 시 count 적용
+    });
+  </script>
 </head>
 <body>
-<!-- 메인 배경 사진을 담는 컨테이너 -->
 <div class="main-photo">
-  <!-- 실제 배경 이미지 -->
-  <img th:src="/img/background.jpg" alt="배경사진" class="bg">
+  <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
 
-  <!-- 배경 위에 반투명 효과를 주는 레이어 -->
   <div class="photo-opacity">
-    <!-- 감정 선택 섹션 -->
     <section class="mood-section">
-      <!-- 바깥 헤더: 섹션의 제목과 설명 -->
       <header class="mood-outer-header">
         <h1>오늘 나의 기분을 선택해보세요</h1>
-
-        <!-- 부제목: 선택 개수를 알려줌 -->
         <p class="mood-outer-sub">
           총 <strong>5개</strong>를 선택해주세요
-          <!-- 현재 선택된 개수를 실시간으로 알려주는 영역 -->
-          <span class="mood-count">(0/5)</span>
+          <span class="mood-count" id="selectedCount">(0/5)</span>
         </p>
       </header>
 
-      <!-- 감정을 선택할 네모 박스(폼을 담고 있음) -->
       <div class="mood-box">
-        <!-- 감정 선택을 위한 폼 -->
-        <form id="moodForm" class="mood-form" aria-label="감정 선택 목록">
-          <!-- 감정 버튼(아이콘/텍스트 등)이 들어갈 그리드 -->
-          <div id="moodGrid" class="mood-grid"></div>
+        <div th:if="${error}" class="error-message" style="color:red; margin-bottom: 10px;">
+          <p th:text="${error}"></p>
+        </div>
 
-          <!-- 제출 버튼 영역 -->
+        <form th:action="@{/mood/submit}" method="post" class="mood-form">
+          <div class="mood-grid">
+            <div th:each="item : ${checkItems}" class="mood-item">
+              <input type="checkbox"
+                     th:id="'check_' + ${item.id}"
+                     th:name="moodId"
+                     th:value="${item.id}"
+                     class="mood-checkbox">
+              <label th:for="'check_' + ${item.id}" th:text="${item.list}" class="mood-label"></label>
+            </div>
+          </div>
+
           <div class="mood-actions">
-            <!-- 사용자가 감정을 선택한 후 제출하는 버튼 -->
-            <button id="moodSubmit" class="mood-submit" type="submit">
-              선택 완료
-            </button>
+            <button type="submit" class="mood-submit">선택 완료</button>
           </div>
         </form>
       </div>
@@ -49,3 +69,29 @@
 </div>
 </body>
 </html>
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mood 체크리스트</title>
+</head>
+<body>
+<h1>무드 체크리스트</h1>
+
+<-- 에러 메시지 --> <!--
+<div th:if="${error}" style="color:red;">
+  <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/mood/submit}" method="post">
+  <p>체크리스트를 5개 선택하세요:</p>
+  <div th:each="c : ${checkItems}">
+    <input type="checkbox" name="moodId" th:value="${c.id}" th:id="${'check_' + c.id}">
+    <label th:for="${'check_' + c.id}" th:text="${c.list}"></label><br>
+  </div>
+
+  <button type="submit">제출</button>
+</form>
+</body>
+</html>
+-->

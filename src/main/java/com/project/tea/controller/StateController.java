@@ -27,7 +27,8 @@ public class StateController {
         model.addAttribute("states", states);
         System.out.println("states size = " + states.size());
         states.forEach(s -> System.out.println("State: " + s.getId() + ", " + s.getState()));
-        return "stateCheck";
+        return "/tea/state-check";
+//        return "stateCheck";
     }
 
     // 체크 제출 처리 → DB 저장 없이 결과 페이지로 바로 포워드
@@ -39,7 +40,8 @@ public class StateController {
         if (stateId == null) {
             model.addAttribute("error", "체크리스트는 반드시 1개 선택해야 합니다.");
             model.addAttribute("states", stateRepository.findAll());
-            return "stateCheck";
+            return "/tea/state-check";
+//            return "stateCheck";
         }
 
         try {
@@ -54,7 +56,8 @@ public class StateController {
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("states", stateRepository.findAll()); // 다시 상태 목록 전달
-            return "stateCheck";
+            return "/tea/state-check";
+//            return "stateCheck";
         }
     }
 
