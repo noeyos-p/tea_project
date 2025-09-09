@@ -15,7 +15,7 @@ public class TeaEntity {
     private String eat;
     private String caution;
     @ManyToOne
-    @JoinColumn(name = "m_id", referencedColumnName = "id")
+     @JoinColumn(name = "m_id", referencedColumnName = "id")
     private MoodEntity mood;
 
     @ManyToOne

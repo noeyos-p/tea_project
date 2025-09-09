@@ -113,8 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn   = document.getElementById('ptPrev');
   const nextBtn   = document.getElementById('ptNext');
 
-  // ===== 모든 카드 이미지 통일 =====
-  // 서버가 내려준 .pt-media 요소의 이미지를 전부 동일한 placeholder로 강제
+  // 모든 카드 이미지 통일
   const PLACEHOLDER_BG = 'img/background.img';
   document.querySelectorAll('.pt-media').forEach(el => {
     const isImg = el.tagName === 'IMG';

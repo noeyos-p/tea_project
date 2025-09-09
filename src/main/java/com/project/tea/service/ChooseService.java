@@ -18,7 +18,7 @@ public class ChooseService {
     private final ChooseRepository chooseRepository;
     private final TeaRepository teaRepository;
 
-    /** 메인 집계: 선택 수 내림차순 상위 N */
+    // 메인 집계: 선택 수 내림차순 상위 N
     @Transactional(readOnly = true)
     public List<ChooseDto> findTopChoices(int limit) {
         return chooseRepository.findAllByOrderByCountDesc(PageRequest.of(0, limit))
@@ -27,7 +27,7 @@ public class ChooseService {
                 .toList();
     }
 
-    /** teaId에 해당하는 choose 행이 없으면 생성(0으로) */
+    // teaId에 해당하는 choose 행이 없으면 생성(0으로)
     @Transactional
     public void ensureRow(Long teaId) {
         chooseRepository.findByTea_Id(teaId).orElseGet(() -> {
@@ -40,7 +40,7 @@ public class ChooseService {
         });
     }
 
-    /** 선택 시 카운트 +1 (행 보장 후 증가, 경합 시 1회 재시도) */
+    // 선택 시 카운트 +1 (행 보장 후 증가, 경합 시 1회 재시도)
     @Transactional
     public void increment(Long teaId) {
         ensureRow(teaId);
@@ -51,7 +51,7 @@ public class ChooseService {
         }
     }
 
-    /** 단일 차의 누적 선택 수 조회 */
+    // 단일 차의 누적 선택 수 조회
     @Transactional(readOnly = true)
     public long getCount(Long teaId) {
         return chooseRepository.findByTea_Id(teaId)
