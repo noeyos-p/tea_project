@@ -20,7 +20,7 @@
     <section class="signup-card" aria-labelledby="SignUpTitle">
       <h2 id="SignUpTitle" class="card-title">회원가입</h2>
 
-      <form th:action="@{/signup}" method="post" autocomplete="on">
+      <form th:action="@{/signup}" method="post" autocomplete="on" onsubmit="return validateSignup(event)">
         <p class="helper">회원정보를 입력하세요</p>
 
         <div class="field">
