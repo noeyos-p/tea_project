@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <title>메모 수정</title>
     <link rel="stylesheet" th:href="@{/css/memo-update.css}">
+    <link rel="stylesheet" th:href="@{/css/memo-main.css}">
+    <script src="/js/memo-main.js" defer></script>
 </head>
 <body>
 <form th:action="@{/userdata/memo/{userDataId}(userDataId=*{id})}" method="post" th:object="${userData}">
     <input type="hidden" th:field="*{id}" />
+
+    <!-- 달력 -->
+    <div class="calendar" id="calendar">
+        <div class="cal-header">
+            <div class="cal-title" id="calTitle"></div>
+            <div class="nav">
+                <button id="prevBtn">&lt;</button>
+                <button id="nextBtn">&gt;</button>
+            </div>
+        </div>
+        <div class="cal-grid" id="dowRow"></div>
+        <div class="cal-grid" id="daysGrid"></div>
+    </div>
+
+    <!-- 메모 수정 영역 -->
     <div class="container">
         <div class="record">
             <div class="diary">
@@ -17,13 +34,12 @@
             </div>
 
             <div class="memo">
-
                 <textarea name="memo" th:field="*{memo}" placeholder="오늘의 기분이나 상태를 적어보세요 :)"></textarea>
             </div>
 
             <div class="buttons">
                 <button class="btn primary" type="submit">완료</button>
-                <a class="btn ghost" th:href="@{/mypage/memo/main}">취소</a>
+                <a class="btn ghost" th:href="@{/userdata/mypage/memo/main}">취소</a>
             </div>
 
             <div th:if="${message}" class="message" th:text="${message}"></div>
