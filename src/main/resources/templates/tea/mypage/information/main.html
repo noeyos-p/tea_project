@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Information</title>
+  <meta charset="UTF-8">
+  <title>Information</title>
   <link rel="stylesheet" th:href="@{/css/information.css}">
   <script src="/js/information.js" defer></script>
 </head>
@@ -27,6 +27,7 @@
     <a class="logout" href="#">로그아웃</a>
   </div>
 </div>
+
 <section class="card" aria-label="내 정보 카드">
   <div class="avatar">
     <svg xmlns="http://www.w3.org/2000/svg" width="112" height="112" viewBox="0 0 112 112" fill="none">
@@ -35,17 +36,19 @@
               fill="#BFAE9F" />
     </svg>
   </div>
-  <div class="info" th:each="data : ${userDataList}">
+
+  <!-- 사용자 정보는 user에서 직접 렌더(업데이트 직후 최신값 보장) -->
+  <div class="info">
     <div class="row">
       <div class="label">닉네임</div>
-      <div class="value" th:text="${data.user.nickname}">안녕</div>
+      <div class="value" th:text="${user != null} ? ${user.nickname} : '-'">안녕</div>
     </div>
     <div class="row">
       <div class="label">이메일</div>
-      <div class="value" th:text="${data.user.email}">krapnoeyos@gmail.com</div>
+      <div class="value" th:text="${user != null} ? ${user.email} : '-'">krapnoeyos@gmail.com</div>
     </div>
     <div class="buttons">
-      <button class="btn primary" type="button">수정하기</button>
+      <a class="btn primary" th:href="@{/userdata/mypage/update}">수정하기</a>
       <button id="delete-btn" class="btn ghost" type="button">탈퇴하기</button>
     </div>
   </div>
