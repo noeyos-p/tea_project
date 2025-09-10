@@ -64,6 +64,15 @@ public class UserDataService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 기록이 존재하지 않습니다: " + userDataId));
     }
 
+
+//최신메모반환코드추가
+    public UserDataEntity getTodayMemo(Long userId) {
+        List<UserDataEntity> todayMemos = userDataRepository.findTodayMemos(userId, LocalDate.now());
+        return todayMemos.isEmpty() ? null : todayMemos.get(0); // 최신 메모 1개만 반환
+    }
+
+
+
     /**
      * 특정 유저의 전체 기록 조회
      */

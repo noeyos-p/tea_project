@@ -77,9 +77,28 @@ public class UserDataController {
     // ------------------ 메모 메인 페이지 ------------------
     @GetMapping("/mypage/memo/main")
     public String showMemoMain(Model model) {
-        model.addAttribute("userDataList", getCurrentUserData());
+        Long userId = userService.getCurrentUserId();
+
+        // 오늘 작성한 메모 최신 1개만
+        UserDataEntity todayMemo = userDataService.getTodayMemo(userId);
+
+        // 화면에 보여줄 리스트
+        List<UserDataEntity> displayList;
+        if (todayMemo != null) {
+            displayList = List.of(todayMemo); // 오늘 메모 1개만 화면에 보여주기
+        } else {
+            displayList = List.of(); // 오늘 메모 없으면 빈 리스트
+        }
+
+        model.addAttribute("userDataList", displayList);
         return "tea/mypage/memo/main";
     }
+
+//    @GetMapping("/mypage/memo/main")
+//    public String showMemoMain(Model model) {
+//        model.addAttribute("userDataList", getCurrentUserData());
+//        return "tea/mypage/memo/main";
+//    }
 
 
 
