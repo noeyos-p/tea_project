@@ -1,100 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>메모 작성</title>
     <link rel="stylesheet" th:href="@{/css/tea-memo.css}">
 </head>
 <body>
-<div class="page">
-    <!-- 상단 전체 페이지 영역 -->
-    <div class="topbar">
-        <!-- 뒤로가기 버튼 (a 태그로 링크 처리) -->
-        <a class="back" th:href="#" aria-label="뒤로 가기">
-            <!-- SVG 아이콘: 왼쪽 화살표 모양 -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
-                 viewBox="0 0 36 36" fill="none">
-                <path
-                        d="M36 19.125H4.39453L18.2285 32.959L16.6465 34.541L0.105469 18L16.6465 1.45898L18.2285 3.04102L4.39453 16.875H36V19.125Z"
-                        fill="black" />
-            </svg>
-        </a>
-    </div>
-</div>
+<form th:action="@{/userdata/memo}" method="post" th:object="${userData}">
+    <!-- userDataId 전달용 hidden input -->
+    <input type="hidden" th:field="*{id}" />
 
-<div class="container">
-    <!-- 메인 타이틀 영역 -->
-    <div class="main-title">
-        <p class="mt-1">차를 마시면 기분이 한결 나아질거에요.</p>
-        <p class="mt-2">
-            천천히 차를 마시면서 오늘의 기분이나 상태를<br>
-            함께 기록해보세요
-        </p>
+    <div class="page">
+        <div class="topbar">
+            <a class="back" href="#" aria-label="뒤로 가기">
+                <!-- SVG 아이콘 -->
+            </a>
+        </div>
     </div>
 
-    <!-- 입력 안내 라벨 -->
-    <div class="sub-label">무엇이든 입력하세요 :)</div>
+    <div class="container">
+        <div class="main-title">
+            <p class="mt-1">차를 마시면 기분이 한결 나아질거에요.</p>
+            <p class="mt-2">천천히 차를 마시면서 오늘의 기분이나 상태를<br> 함께 기록해보세요</p>
+        </div>
 
-    <!-- 텍스트 입력창 -->
-    <textarea class="text-box"></textarea>
+        <div class="sub-label">무엇이든 입력하세요 :)</div>
 
-    <!-- 저장 버튼 -->
-    <button class="save-btn">저장하기</button>
+        <!-- 메모 입력 -->
+        <textarea class="text-box" th:field="*{memo}" placeholder="오늘의 기분이나 상태를 적어보세요 :)"></textarea>
 
-    <!-- 마이페이지 이동 링크 -->
-    <div class="mypage-go">
-        <a href="#" class="mypage-link">마이페이지로 이동</a>
+        <!-- 저장 버튼 -->
+        <button class="save-btn" type="submit">저장하기</button>
+
+        <!-- 메시지 표시 -->
+        <div th:if="${message}" class="message" th:text="${message}"></div>
     </div>
-
-    <hr>
-
-    <!-- 추천 차 영역 -->
-    <div class="recommend">
-        <span>이</span>
-        <span class="tea">페퍼민트</span>
-        <span>제품을 추천드려요</span>
-    </div>
-
-    <!-- 추천 차 이미지 -->
-    <div class="tea-img">
-        <img src="/TeaProject/photo/페퍼민트.png">
-    </div>
-
-    <!-- 추천 차 이름 -->
-    <div class="tea-name">
-        <p>트와이닝 페퍼민트 티백</p>
-    </div>
-
-    <!-- 구매 버튼 -->
-    <button class="buy-btn">구매하러 가기</button>
-
-    <hr>
-
-    <!-- 주변 카페 검색 안내 -->
-    <div class="recommend">
-        <span class="tea">페퍼민트</span>
-        <span>를 판매하는 내 근처 카페 찾아보기</span>
-    </div>
-
-    <!-- 검색 박스 -->
-    <div class="search-box">
-        <!-- 주소 입력 필드 -->
-        <input type="text" placeholder=" 주소를 입력하세요." />
-        <!-- 검색 버튼 -->
-        <button type="submit" aria-label="검색">
-            <!-- 돋보기 아이콘 (SVG) -->
-            <svg class="search" viewBox="0 0 24 24" width="24" height="24">
-                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471
-                 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16
-                 c1.61 0 3.09-.59 4.23-1.57l.27.28v.79
-                 l5 5 1.49-1.49-5-5Zm-6 0C7.01 14 5 11.99
-                 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5
-                 11.99 14 9.5 14Z"
-                      fill="currentColor"/>
-            </svg>
-        </button>
-    </div>
-</div>
-
+</form>
 </body>
 </html>

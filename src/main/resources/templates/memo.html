@@ -7,7 +7,7 @@
 <body>
 <h1>메모 작성 / 수정</h1>
 
-<form th:action="@{/userdata/memo/save}" method="post">
+<form th:action="@{/memo}" method="post">
     <!-- 특정 기록 ID 전달 -->
     <input type="hidden" name="userDataId" th:value="${userData.id}"/>
 
