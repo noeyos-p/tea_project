@@ -35,29 +35,7 @@ public class UserDataController {
         return "redirect:/userdata/memo/" + userDataId;
     }
 
-    /**
-     * 메모 작성/수정 페이지
-     */
-    @GetMapping("/memo/{id}")
-    public String showMemoForm(@PathVariable("id") Long userDataId, Model model) {
-        UserDataEntity data = userDataService.getUserDataById(userDataId);
-        model.addAttribute("userData", data);
-        return "memo";
-    }
 
-    /**
-     * 메모 저장 (작성/수정)
-     */
-    @PostMapping("/memo/save")
-    public String saveMemo(
-            @RequestParam Long userDataId,
-            @RequestParam String memo,
-            RedirectAttributes redirectAttributes
-    ) {
-        userDataService.saveMemo(userDataId, memo); // 여기서 작성/수정 둘 다 처리
-        redirectAttributes.addFlashAttribute("message", "메모가 저장되었습니다.");
-        return "redirect:/userdata/mypage";
-    }
 
     /**
      * 마이페이지 조회
