@@ -6,17 +6,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * UserRepository
- * - UserEntity 관련 DB 접근 담당
- */
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    /**
-     * 이메일로 유저 조회
-     * @param email 로그인한 유저 이메일
-     * @return Optional<UserEntity>
-     */
+    // 이메일로 사용자 조회 (로그인/현재 유저 식별에 사용)
     Optional<UserEntity> findByEmail(String email);
+
+    // 닉네임 중복/조회 대응
+    Optional<UserEntity> findByNickname(String nickname);
+
+    // 닉네임 중복 체크 (닉네임 변경/회원가입 시 사용)
+    boolean existsByNickname(String nickname);
+
+    // 선택: 이메일 중복 체크가 필요하면 사용 (회원가입 시 편리)
+    boolean existsByEmail(String email);
 }
