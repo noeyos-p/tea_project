@@ -32,4 +32,6 @@ public class AuthController {
             return "redirect:/signup";
         }
     }
+
+
 }
