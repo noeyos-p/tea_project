@@ -162,16 +162,18 @@ body {
     /* 36px */
 }
 
-.pw-input {
+.input {
     background: transparent;
     height: 30px;
     border: none;
+    font-size: 24px;
 }
 
-.pw-input:focus {
+.input:focus {
     outline: none;
     border: 1px solid #BFAE9F;
     border-radius: 4px;
+    font-size: 24px;
 }
 
 .buttons {
@@ -229,6 +231,7 @@ box-shadow .2s ease;
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
+    text-decoration: none;
     /* 45px */
 }
 .btn.primary:hover {
