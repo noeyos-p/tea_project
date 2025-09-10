@@ -13,7 +13,7 @@
             <div class="diary">
                 <p class="date" th:text="${userData.date} + '의 기록'"></p>
                 <span class="divider"></span>
-                <p class="tea" th:text="${userData.tea.tName}"></p>
+                <p class="tea" th:text="${userData.tea.name}"></p>
             </div>
 
             <div class="memo">
@@ -23,7 +23,7 @@
 
             <div class="buttons">
                 <button class="btn primary" type="submit">완료</button>
-                <a class="btn ghost" th:href="@{/tea/mypage/memo/main}">취소</a>
+                <a class="btn ghost" th:href="@{/mypage/memo/main}">취소</a>
             </div>
 
             <div th:if="${message}" class="message" th:text="${message}"></div>
