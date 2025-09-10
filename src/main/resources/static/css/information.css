@@ -175,6 +175,7 @@ body {
     font-weight: 400;
     line-height: normal;
     background: transparent;
+    text-decoration: none;
 }
 
 .btn.ghost {

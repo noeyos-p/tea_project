@@ -33,26 +33,19 @@
     </svg>
   </div>
 
-  <div class="info" th:each="data : ${userDataList}">
+  <!-- 사용자 정보는 user에서 직접 렌더(업데이트 직후 최신값 보장) -->
+  <div class="info">
     <div class="row">
       <div class="label">닉네임</div>
-      <div class="value" th:text="${data.user.nickname}">닉네임</div>
+      <div class="value" th:text="${user != null} ? ${user.nickname} : '-'">안녕</div>
     </div>
     <div class="row">
       <div class="label">이메일</div>
-      <div class="value" th:text="${data.user.email}">이메일</div>
-    </div>
-    <div class="row">
-      <div class="label">오늘의 차</div>
-      <div class="value" th:text="${data.tea.name}">차 이름</div>
-    </div>
-    <div class="row">
-      <div class="label">메모</div>
-      <div class="value" th:text="${data.memo}">작성된 메모가 없습니다.</div>
+      <div class="value" th:text="${user != null} ? ${user.email} : '-'">krapnoeyos@gmail.com</div>
     </div>
     <div class="buttons">
-      <!-- 메모 작성/수정 페이지로 이동 -->
-      <a class="btn primary" th:href="@{/userdata/memo/{id}(id=${data.id})}">메모 작성/수정</a>
+      <a class="btn primary" th:href="@{/userdata/mypage/update}">수정하기</a>
+      <button id="delete-btn" class="btn ghost" type="button">탈퇴하기</button>
     </div>
   </div>
 </section>
