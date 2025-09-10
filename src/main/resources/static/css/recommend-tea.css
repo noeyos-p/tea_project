@@ -107,6 +107,12 @@ h1 {
   border: none;
 }
 
+.tea-btn.is-active {
+        background: #9A8D82;
+  color: #fff;
+  border: none;
+}
+
 img {
   flex-shrink: 0;
   border-radius: 8px;
@@ -252,7 +258,7 @@ hr {
   align-items: center;
   gap: 10px;
   border-radius: 20px;
-  background: linear-gradient(0deg, #BFAE9F 0%, #BFAE9F 100%), #FFF;
+  background: #BFAE9F;
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
   border: none;
   outline: none;
@@ -377,3 +383,4 @@ pointer-events: auto;
   display: none;
   /* Chrome, Safari */
 }
+
