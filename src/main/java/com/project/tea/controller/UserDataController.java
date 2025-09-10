@@ -43,7 +43,7 @@ public class UserDataController {
         Long userId = userService.getCurrentUserId();
         List<UserDataEntity> userDataList = userDataService.getUserDataByUserId(userId);
         model.addAttribute("userDataList", userDataList);
-        return "tea/mypage/information/main";
+        return "tea/information/main";
     }
 
     // ------------------ 메모 관련 ------------------
@@ -55,6 +55,7 @@ public class UserDataController {
     public String showMemoForm(@PathVariable Long userDataId, Model model) {
         UserDataEntity data = userDataService.getUserDataById(userDataId);
         model.addAttribute("userData", data);
+        model.addAttribute("tea", data.getTea());
         return "tea/tea-memo"; // 작성용 템플릿
     }
 
@@ -68,6 +69,7 @@ public class UserDataController {
 
         UserDataEntity updatedData = userDataService.getUserDataById(userData.getId());
         model.addAttribute("userData", updatedData);
+        model.addAttribute("tea", updatedData.getTea());
         model.addAttribute("message", "메모가 작성되었습니다.");
 
         return "tea/tea-memo";
