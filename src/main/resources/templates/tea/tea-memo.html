@@ -34,6 +34,60 @@
 
         <!-- 메시지 표시 -->
         <div th:if="${message}" class="message" th:text="${message}"></div>
+
+        <!-- 마이페이지 이동 -->
+        <div class="mypage-go">
+            <a th:href="@{/userdata/mypage}" class="mypage-link">마이페이지로 이동</a>
+        </div>
+
+        <hr>
+
+        <!-- 추천 차 정보 -->
+        <div class="recommend">
+            <span>이</span>
+            <span class="tea" th:text="${tea.name}">페퍼민트</span>
+            <span>제품을 추천드려요</span>
+        </div>
+
+
+
+
+
+        <div class="tea-img">
+<!--            <img th:src="@{/photo/{filename}(filename=${tea.imageFilename})}" alt="추천 차 이미지"/>-->
+        </div>
+
+
+
+
+
+
+        <div class="tea-name">
+            <p th:text="${tea.name} + ' 티백'">트와이닝 페퍼민트 티백</p>
+        </div>
+        <button class="buy-btn" type="button">구매하러 가기</button>
+
+        <hr>
+
+        <div class="recommend">
+            <span class="tea" th:text="${tea.name}">페퍼민트</span>
+            <span>를 판매하는 내 근처 카페 찾아보기</span>
+        </div>
+
+        <!-- 검색박스 -->
+        <div class="search-box">
+            <input type="text" placeholder=" 주소를 입력하세요." />
+            <button type="button" aria-label="검색">
+                <!-- 돋보기 아이콘 -->
+                <svg class="search" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5
+                             6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 5
+                             1.49-1.49-5-5Zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5
+                             14 7.01 14 9.5 11.99 14 9.5 14Z"
+                          fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
     </div>
 </form>
 </body>

@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<!-- ✅ 단일 폼으로 통일 -->
 <form id="saveForm"
       th:action="@{/userdata/save}"
       method="post"
@@ -36,7 +35,6 @@
 
             <!-- 차 선택 버튼 및 네비게이션 -->
             <div class="tea-menu-wrapper">
-                <!-- ✅ form 안의 버튼은 기본 submit이라 type="button" 지정 -->
                 <button type="button" class="pt-nav pt-prev hidden" id="ptPrev" aria-label="이전 보기">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -45,7 +43,6 @@
 
                 <div class="tea-viewport" id="teaViewport">
                     <div class="tea-menu" id="teaMenu">
-                        <!-- ✅ 버튼에 .tea-btn 클래스와 data-tea-id 부여, 인라인 onClick 제거 -->
                         <button type="button"
                                 class="tea-btn"
                                 th:each="tea : ${result.teas}"
@@ -64,11 +61,8 @@
 
             <!-- 배경 이미지 -->
             <div class="photo">
-                <!-- ✅ <th:img> 가 아니라 <img th:src> 사용 -->
                 <img th:src="@{/img/background.jpg}" alt="배경사진" class="bg">
             </div>
-
-            <!-- ✅ 폼에 한 번만 존재하는 hidden inputs -->
             <input type="hidden" name="teaId" id="selectedTeaId" required>
             <input type="hidden"
                    th:name="${result.type == 'mood' ? 'moodId' : 'stateId'}"
