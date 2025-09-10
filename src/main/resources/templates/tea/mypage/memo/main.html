@@ -46,19 +46,27 @@
         <div class="cal-grid" id="daysGrid"></div>
     </div>
     <!-- ------------------------------------------------------------------------- 달력 -->
-    <div class="record">
-        <div class="diary">
-            <p class="date">25년 12월 31일의 기록</p>
-            <span class="divider" aria-hidden="true"></span>
-            <p class="tea">잉글리시 브렉퍼스트</p>
-        </div>
-        <div class="memo">
-            <textarea placeholder="오늘의 기분이나 상태를 적어보세요 :)"></textarea>
-        </div>
-        <div class="btn">
-            <button class="update-btn">수정</button>
+    <div th:each="data : ${userDataList}">
+        <div class="record">
+            <div class="diary">
+                <p class="date" th:text="${data.date} + '의 기록'"></p>
+                <span class="divider" aria-hidden="true"></span>
+                <p class="tea" th:text="${data.tea.name}"></p>
+            </div>
+
+            <div class="memo">
+                <textarea th:id="'memo-' + ${data.id}" th:text="${data.memo}" readonly></textarea>
+            </div>
+
+            <button class="update-btn"
+                    type="button"
+                    th:onclick="'location.href=\'/userdata/memo/edit/' + ${data.id} + '\';'">
+                수정
+            </button>
         </div>
     </div>
-</div>
+
 </body>
 </html>
+
+

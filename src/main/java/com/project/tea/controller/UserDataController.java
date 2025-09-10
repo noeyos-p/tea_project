@@ -20,72 +20,69 @@ public class UserDataController {
     private final UserDataService userDataService;
     private final UserService userService;
 
-    /**
-     * 결과 페이지에서 차 선택 + 저장
-     * 저장 후 메모 작성 페이지로 이동
-     */
+    // ------------------ 공통 유저 데이터 조회 ------------------
+    private List<UserDataEntity> getCurrentUserData() {
+        Long userId = userService.getCurrentUserId();
+        return userDataService.getUserDataByUserId(userId);
+    }
+
+    // ------------------ 차 선택 후 저장 ------------------
     @PostMapping("/save")
     public String saveUserData(
             @RequestParam Long teaId,
             @RequestParam(required = false) Long moodId,
-            @RequestParam(required = false) Long stateId,
-            RedirectAttributes redirectAttributes
+            @RequestParam(required = false) Long stateId
     ) {
         Long userId = userService.getCurrentUserId();
         Long userDataId = userDataService.saveUserData(userId, teaId, moodId, stateId);
         return "redirect:/userdata/memo/" + userDataId;
     }
-    // ------------------ 메모 관련 ------------------
 
-    /**
-     * 메모 작성 페이지
-     */
+
     @GetMapping("/memo/{userDataId}")
     public String showMemoForm(@PathVariable Long userDataId, Model model) {
         UserDataEntity data = userDataService.getUserDataById(userDataId);
         model.addAttribute("userData", data);
         model.addAttribute("tea", data.getTea());
-        return "tea/tea-memo"; // 작성용 템플릿
+        return "tea/tea-memo";
     }
 
-    /**
-     * 메모 작성 POST
-     */
     @PostMapping("/memo")
     public String createMemo(@ModelAttribute("userData") UserDataEntity userData, Model model) {
-        // id와 memo를 이용해 저장
         userDataService.saveMemo(userData.getId(), userData.getMemo());
-
         UserDataEntity updatedData = userDataService.getUserDataById(userData.getId());
         model.addAttribute("userData", updatedData);
         model.addAttribute("tea", updatedData.getTea());
         model.addAttribute("message", "메모가 작성되었습니다.");
-
         return "tea/tea-memo";
     }
 
-
-    /**
-     * 메모 수정 페이지
-     */
+    // ------------------ 메모 수정 ------------------
     @GetMapping("/memo/edit/{userDataId}")
     public String showMemoEditForm(@PathVariable Long userDataId, Model model) {
         UserDataEntity data = userDataService.getUserDataById(userDataId);
         model.addAttribute("userData", data);
-        return "tea/mypage/memo/update"; // 수정용 템플릿
+        return "tea/mypage/memo/update";
     }
 
-    /**
-     * 메모 수정 POST
-     */
     @PostMapping("/memo/{userDataId}")
     public String updateMemo(@PathVariable Long userDataId,
                              @RequestParam String memo,
                              RedirectAttributes redirectAttributes) {
         userDataService.saveMemo(userDataId, memo);
         redirectAttributes.addFlashAttribute("message", "메모가 수정되었습니다.");
-        return "redirect:/tea/mypage/memo/main"; // 수정 후 메인으로 이동
+        return "redirect:/userdata/mypage/memo/main";
     }
+
+    // ------------------ 메모 메인 페이지 ------------------
+    @GetMapping("/mypage/memo/main")
+    public String showMemoMain(Model model) {
+        model.addAttribute("userDataList", getCurrentUserData());
+        return "tea/mypage/memo/main";
+    }
+
+
+
 
     /* ----------------------------------마이페이지------------------------------*/
 // 마이페이지 조회 (최신 닉네임을 렌더하기 위해 user도 함께 내려줌)
@@ -160,4 +157,5 @@ public class UserDataController {
         ra.addFlashAttribute("message", "정보가 변경되었습니다.");
         return "redirect:/userdata/mypage";
     }
+
 }

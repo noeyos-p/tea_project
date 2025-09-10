@@ -6,7 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/memo-update.css}">
 </head>
 <body>
-<form th:action="@{/userdata/memo/{userDataId}(userDataId=*{id})}" method="post">
+<form th:action="@{/userdata/memo/{userDataId}(userDataId=*{id})}" method="post" th:object="${userData}">
+    <input type="hidden" th:field="*{id}" />
     <div class="container">
         <div class="record">
             <div class="diary">
@@ -16,7 +17,8 @@
             </div>
 
             <div class="memo">
-                <textarea name="memo" th:text="*{memo}" placeholder="오늘의 기분이나 상태를 적어보세요 :)"></textarea>
+
+                <textarea name="memo" th:field="*{memo}" placeholder="오늘의 기분이나 상태를 적어보세요 :)"></textarea>
             </div>
 
             <div class="buttons">
