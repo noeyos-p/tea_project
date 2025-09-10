@@ -27,7 +27,7 @@ public class MoodService {
      */
     public ResultDto analyzeMood(List<Long> selectedCheckIds) {
         if (selectedCheckIds == null || selectedCheckIds.size() != 5) {
-            throw new IllegalArgumentException("체크리스트는 반드시 5개 선택해야 합니다.");
+            /* throw new IllegalArgumentException("체크리스트는 반드시 5개 선택해야 합니다."); */
         }
 
         // 1. MoodCheck → Mood 매핑

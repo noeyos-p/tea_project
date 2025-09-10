@@ -37,8 +37,8 @@ public class MoodController {
         model.addAttribute("checkItems", checkItems);
 
         // 체크 안했거나 5개 선택 안했으면
-        if (moodId == null || moodId.size() != 5) {
-            model.addAttribute("error", "체크리스트는 반드시 5개 선택해야 합니다.");
+       if (moodId == null || moodId.size() != 5) {
+            /* model.addAttribute("error", "체크리스트는 반드시 5개 선택해야 합니다."); */
             return "/tea/mood-check";
         }
 
