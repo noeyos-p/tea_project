@@ -26,9 +26,11 @@ public class MoodService {
      * @return ResultDto (메시지 + 추천 티 리스트 + 선택된 Mood ID + "mood" 타입)
      */
     public ResultDto analyzeMood(List<Long> selectedCheckIds) {
-        if (selectedCheckIds == null || selectedCheckIds.size() != 5) {
+        /* if (selectedCheckIds == null || selectedCheckIds.size() != 5) {
             throw new IllegalArgumentException("체크리스트는 반드시 5개 선택해야 합니다.");
-        }
+            - js 에서 총 5개를 선택해야 합니다를 출력하므로 두번 넣을 필요는 없을 것 같아서 주석 처리함
+            - if 조건문이 5개인 것을 검사하는 것인데, js 에서 5개만 선택 가능하게 해둬서 필요없지 않을까 함
+        } */
 
         // 1. MoodCheck → Mood 매핑
         List<MoodCheckEntity> selectedChecks = moodCheckRepository.findAllById(selectedCheckIds);

@@ -9,20 +9,32 @@
     document.addEventListener('DOMContentLoaded', () => {
       const checkboxes = document.querySelectorAll('.mood-checkbox');
       const countEl = document.getElementById('selectedCount');
+      const form = document.querySelector('.mood-form');
       const MAX = 5;
 
       function updateCount() {
         const checked = document.querySelectorAll('.mood-checkbox:checked');
         countEl.textContent = `(${checked.length}/${MAX})`;
 
+        // 5개 이상 선택 못 하도록 제한
         checkboxes.forEach(cb => {
           if (!cb.checked) cb.disabled = checked.length >= MAX;
           else cb.disabled = false;
         });
       }
 
+      // 체크 상태 변경 시 카운트 갱신
       checkboxes.forEach(cb => {
         cb.addEventListener('change', updateCount);
+      });
+
+      // 제출 시 정확히 5개 선택 여부 검사
+      form.addEventListener('submit', (e) => {
+        const checked = document.querySelectorAll('.mood-checkbox:checked');
+        if (checked.length !== MAX) {
+          e.preventDefault(); // 제출 막기
+          alert('총 5개를 선택해야 합니다.');
+        }
       });
 
       updateCount(); // 초기 렌더링 시 count 적용
