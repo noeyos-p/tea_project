@@ -72,24 +72,30 @@ body {
     font-size: 18px;
 }
 
-.actions a {
-    color: #333;
-    font-family: Pretendard;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    text-decoration: none;
-}
+.actions .choose {
+            appearance: none;
+            border: none;
+            color: #333;
+            font-family: Pretendard;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-.actions a.logout {
-    color: #D93D04;
-    font-family: Pretendard;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
+        .actions .logout {
+            appearance: none;
+            border: none;
+            color: #D93D04;
+            font-family: Pretendard;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            cursor: pointer;
+        }
 
 .new-qna {
     margin-top: 300px;

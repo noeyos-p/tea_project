@@ -1,5 +1,4 @@
-// --------------------------------------------------------------------------- 달력
-    (function () {
+(function () {
       const dow = ['일', '월', '화', '수', '목', '금', '토'];
       const dowRow = document.getElementById('dowRow');
       const daysGrid = document.getElementById('daysGrid');
@@ -7,17 +6,44 @@
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
 
-      dow.forEach((d, i) => {
-        const el = document.createElement('div');
-        el.className = 'dow';
-        el.textContent = d;
-        dowRow.appendChild(el);
-      });
+      const selectedDateEl = document.getElementById('selectedDate');
+  function fmtTitle(year, monthIndex) {
+    return `${year}년 ${monthIndex + 1}월`;
+  }
 
-      let view = new Date();
-      view.setDate(1);
+  function fmtRecordDateKR(date) {
+    const y2 = String(date.getFullYear()).slice(2); // '2025' -> '25'
+    const m = date.getMonth() + 1;
+    const d = date.getDate();
+    return `${y2}년 ${m}월 ${d}일의 기록`;
+  }
+  function updateRecordHeader(date) {
+    if (!selectedDateEl) return;
+    selectedDateEl.textContent = fmtRecordDateKR(date);
+  }
 
-      let selected = null;
+  function sameDate(a, b) {
+    return a && b &&
+      a.getFullYear() === b.getFullYear() &&
+      a.getMonth() === b.getMonth() &&
+      a.getDate() === b.getDate();
+  }
+
+  // 초기 뷰: 이번 달 1일
+  let view = new Date();
+  view.setDate(1);
+
+  let selected = new Date();
+  selected.setHours(0, 0, 0, 0);
+
+  updateRecordHeader(selected);
+
+  dow.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'dow';
+    el.textContent = d;
+    dowRow.appendChild(el);
+  });
 
       function fmtTitle(year, monthIndex) {
         return `${year}년 ${monthIndex + 1}월`;
@@ -96,4 +122,3 @@
 
       render();
     })();
-    // ----------------------------------------------------------------------------- 달력
