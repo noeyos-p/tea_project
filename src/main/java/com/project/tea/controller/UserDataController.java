@@ -32,52 +32,89 @@ public class UserDataController {
 
     // ------------------ 차 선택 후 저장 ------------------
     @PostMapping("/save")
-    public String saveUserData(
-            @RequestParam Long teaId,
-            @RequestParam(required = false) Long moodId,
-            @RequestParam(required = false) Long stateId,
-            RedirectAttributes ra
-    ) {
+    public String saveUserData(@RequestParam Long teaId,
+                               @RequestParam(required = false) Long moodId,
+                               @RequestParam(required = false) Long stateId,
+                               @RequestParam(required = false) Boolean skipSave,
+                               RedirectAttributes ra) {
         Long userId = userService.getCurrentUserId();
-        var result = userDataService.saveOrGetToday(userId, teaId, moodId, stateId);
 
-        if (result.isAlready()) {
-            ra.addAttribute("already", true);  // 오늘 것은 이미 존재
+        if (Boolean.TRUE.equals(skipSave)) {
+            UserDataEntity result = userDataService.getOrCreateToday(userId);
+            result.setTea(userDataService.getTeaReference(teaId));
+            userDataService.saveOnlyTea(result);
+
+            // ✅ 새 tea 이름 FlashAttribute로 전달
+            ra.addFlashAttribute("teaName",
+                    userDataService.getTeaReference(teaId).getName());
+
+            ra.addFlashAttribute("message", "저장하지 않고 이동합니다.");
+            return "redirect:/userdata/memo/" + result.getId();
+
+        } else {
+            UserDataService.SaveResult saveResult =
+                    userDataService.saveOrGetToday(userId, teaId, moodId, stateId);
+
+            if (saveResult.isAlready()) {
+                ra.addAttribute("already", true);
+            }
+
+            // ✅ 새 tea 이름 FlashAttribute로 전달
+            ra.addFlashAttribute("teaName",
+                    userDataService.getTeaReference(teaId).getName());
+
+            return "redirect:/userdata/memo/" + saveResult.getId();
         }
-        // ✅ userDataId로 통일
-        return "redirect:/userdata/memo/" + result.getId();
     }
 
+
     // ------------------ 메모 작성/보기 (폼) ------------------
-    // ✅ 경로 변수명과 @PathVariable 이름을 'userDataId'로 일치시킴
     @GetMapping("/memo/{userDataId}")
     public String showMemoForm(@PathVariable("userDataId") Long userDataId,
                                @RequestParam(required = false) Boolean already,
                                Model model) {
         UserDataEntity data = userDataService.getUserDataById(userDataId);
         model.addAttribute("userData", data);
-        model.addAttribute("tea", data.getTea());
 
-        if (Boolean.TRUE.equals(already)) {
-            model.addAttribute("already", true);
+        // ✅ FlashAttribute에서 teaName이 있으면 우선 사용
+        if (model.containsAttribute("teaName")) {
+            // tea 객체도 있지만, 우선순위로 teaName 별도 전달
+            model.addAttribute("teaName", model.getAttribute("teaName"));
+        } else {
+            model.addAttribute("tea", data.getTea());
         }
+
+        // 오늘 메모 여부
+        Long userId = userService.getCurrentUserId();
+        boolean alreadyWritten = userDataService.existsMemoToday(userId);
+        model.addAttribute("already", alreadyWritten);
+
         boolean isToday = LocalDate.now(ZoneId.of("Asia/Seoul")).equals(data.getDate());
         model.addAttribute("isToday", isToday);
 
-        // 📄 템플릿 경로 한 곳으로 통일 (원하시는 경로로 바꿔도 됩니다)
         return "tea/tea-memo";
     }
 
+
     // ------------------ 메모 저장 ------------------
-    // 폼은 action="/userdata/memo" (id는 hidden으로 전달)
     @PostMapping("/memo")
     public String createMemo(@ModelAttribute("userData") UserDataEntity userData,
                              RedirectAttributes ra) {
+        Long userId = userService.getCurrentUserId();
+
+        boolean exists = userDataService.existsMemoToday(userId);
+        if (exists) {
+            // JS에서 이미 막지만, 안전장치로 한 번 더
+            ra.addFlashAttribute("message", "오늘 저장된 메모가 있습니다. 수정하시려면 마이페이지에서 수정해주세요.");
+            return "redirect:/userdata/memo/" + userData.getId();
+        }
+
+        // ✅ 메모 저장
         userDataService.saveMemo(userData.getId(), userData.getMemo());
         ra.addFlashAttribute("message", "메모가 저장되었습니다.");
-        // 저장 후 새로고침/재전송 방지: 상세 페이지로 리다이렉트
-        return "redirect:/userdata/memo/" + userData.getId();
+        return "redirect:/userdata/memo/" + userData.getId(); // 같은 메모 페이지로 redirect
     }
+
 
     // ------------------ 메모 수정 ------------------
     @GetMapping("/memo/edit/{userDataId}")

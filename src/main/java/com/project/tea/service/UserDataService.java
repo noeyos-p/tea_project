@@ -2,6 +2,8 @@ package com.project.tea.service;
 
 import com.project.tea.entity.*;
 import com.project.tea.repository.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,9 @@ public class UserDataService {
     private final TeaRepository teaRepository;
     private final MoodRepository moodRepository;
     private final StateRepository stateRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager; // ✅ 중복 제거, 하나만 유지
 
     /**
      * 차 + Mood/State 선택 후 기록 저장 (메모는 아직 null)
@@ -37,9 +43,9 @@ public class UserDataService {
                 .tea(tea)
                 .mood(mood)
                 .state(state)
-                .date(LocalDate.now())
+                .date(LocalDate.now(ZoneId.of("Asia/Seoul")))
                 .memo(null) // 메모는 나중에 입력
-                .updateDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                 .build();
 
         userDataRepository.save(data);
@@ -53,10 +59,9 @@ public class UserDataService {
     public void saveMemo(Long userDataId, String memo) {
         UserDataEntity data = userDataRepository.findById(userDataId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 기록이 존재하지 않습니다: " + userDataId));
-        data.setMemo(memo); // 메모수정처리
-        data.setUpdateDate(LocalDateTime.now()); //날짜는 계속 업댓됨 시간 넣을지말지고민
+        data.setMemo(memo); // 메모 수정
+        data.setUpdateDate(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
     }
-
 
     /**
      * (메모 작성/수정 페이지)
@@ -66,14 +71,11 @@ public class UserDataService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 기록이 존재하지 않습니다: " + userDataId));
     }
 
-
-//최신메모반환코드추가
+    // 최신 메모 반환
     public UserDataEntity getTodayMemo(Long userId) {
-        List<UserDataEntity> todayMemos = userDataRepository.findTodayMemos(userId, LocalDate.now());
-        return todayMemos.isEmpty() ? null : todayMemos.get(0); // 최신 메모 1개만 반환
+        List<UserDataEntity> todayMemos = userDataRepository.findTodayMemos(userId, LocalDate.now(ZoneId.of("Asia/Seoul")));
+        return todayMemos.isEmpty() ? null : todayMemos.get(0);
     }
-
-
 
     /**
      * 특정 유저의 전체 기록 조회
@@ -82,11 +84,13 @@ public class UserDataService {
         return userDataRepository.findByUserId(userId);
     }
 
-
-    public List<UserDataEntity> findByUserAndDate(Long userId, LocalDate date) {
-        return userDataRepository.findByUserIdAndDate(userId, date);
+    public Optional<UserDataEntity> findByUserAndDate(Long userId, LocalDate date) {
+        return userDataRepository.findByUser_IdAndDate(userId, date);
     }
 
+    /**
+     * 오늘자 데이터 저장 또는 기존 데이터 반환
+     */
     @Transactional
     public SaveResult saveOrGetToday(Long userId, Long teaId, Long moodId, Long stateId) {
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
@@ -94,7 +98,7 @@ public class UserDataService {
         // 이미 오늘 기록이 있으면 그대로 반환
         UserDataEntity existed = userDataRepository.findTopByUser_IdAndDateOrderByUpdateDateDesc(userId, today);
         if (existed != null) {
-            return new SaveResult(existed.getId(), true); // ✅ SaveResult 반환
+            return new SaveResult(existed.getId(), true);
         }
 
         // 없으면 새로 생성
@@ -102,11 +106,42 @@ public class UserDataService {
         return new SaveResult(id, false);
     }
 
-    // 내부 결과 DTO
+    // ✅ SaveResult DTO
     @Value
     public static class SaveResult {
         Long id;
         boolean already;
     }
 
+    // 오늘자 userData 가져오거나 없으면 새로 생성
+    public UserDataEntity getOrCreateToday(Long userId) {
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
+        return userDataRepository.findByUser_IdAndDate(userId, today)
+                .orElseGet(() -> {
+                    UserEntity user = userRepository.getReferenceById(userId);
+                    UserDataEntity e = UserDataEntity.builder()
+                            .user(user)
+                            .date(today)
+                            .build();
+                    return userDataRepository.save(e);
+                });
+    }
+
+    // TeaEntity 프록시 반환 (DB hit 최소화)
+    public TeaEntity getTeaReference(Long teaId) {
+        return entityManager.getReference(TeaEntity.class, teaId);
+    }
+
+    // 오늘 메모가 있는지 여부
+    public boolean existsMemoToday(Long userId) {
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
+        return userDataRepository.existsByUser_IdAndDateAndMemoIsNotNull(userId, today);
+    }
+
+    @Transactional
+    public void saveOnlyTea(UserDataEntity e) {
+        userDataRepository.save(e);
+        entityManager.flush();
+        entityManager.clear(); // ✅ 1차 캐시 초기화
+    }
 }

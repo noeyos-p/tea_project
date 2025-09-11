@@ -12,7 +12,8 @@
 <form id="saveForm"
       th:action="@{/userdata/save}"
       method="post"
-      th:if="${result.teas != null and !#lists.isEmpty(result.teas)}">
+      th:if="${result.teas != null and !#lists.isEmpty(result.teas)}"
+      th:attr="data-already=${alreadyToday}, data-current-tea-id=${currentTeaId}">
 
     <div class="page">
 
