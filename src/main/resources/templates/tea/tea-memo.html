@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/tea-memo.css}">
 </head>
 <body>
-<form th:action="@{/userdata/memo}" method="post" th:object="${userData}">
+<form id="memoForm" th:action="@{/userdata/memo/{id}(id=${userData.id})}" method="post" th:object="${userData}">
     <!-- userDataId 전달용 hidden input -->
     <input type="hidden" th:field="*{id}" />
 
@@ -18,7 +18,13 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container"
+         th:with="
+           alreadyParam=${param.already} != null,
+           alreadyModel=${already} == true,
+           alreadyWritten=${alreadyParam} or ${alreadyModel}
+         "
+         th:attr="data-already=${alreadyWritten}">
         <div class="main-title">
             <p class="mt-1">차를 마시면 기분이 한결 나아질거에요.</p>
             <p class="mt-2">천천히 차를 마시면서 오늘의 기분이나 상태를<br> 함께 기록해보세요</p>
@@ -27,13 +33,16 @@
         <div class="sub-label">무엇이든 입력하세요 :)</div>
 
         <!-- 메모 입력 -->
-        <textarea class="text-box" th:field="*{memo}" placeholder="오늘의 기분이나 상태를 적어보세요 :)"></textarea>
+        <textarea id="memoField" class="text-box" th:field="*{memo}" placeholder="오늘의 기분이나 상태를 적어보세요 :)"></textarea>
 
         <!-- 저장 버튼 -->
-        <button class="save-btn" type="submit">저장하기</button>
+        <button id="saveBtn" class="save-btn" type="submit">저장하기</button>
 
         <!-- 메시지 표시 -->
-        <div th:if="${message}" class="message" th:text="${message}"></div>
+        <div id="memoNotice" class="message"
+             th:if="${message}"
+             th:text="${message}">
+        </div>
 
         <!-- 마이페이지 이동 -->
         <div class="mypage-go">
@@ -50,7 +59,7 @@
         </div>
 
         <div class="tea-img">
-            <img src="/TeaProject/photo/페퍼민트.png">
+            <img src="/TeaProject/photo/페퍼민트.png" alt="추천 차 이미지">
         </div>
 
         <div class="tea-name">

@@ -45,7 +45,7 @@ public class MoodController {
         ResultDto resultDto = moodService.analyzeMood(moodId);
         model.addAttribute("result", resultDto);
 
-        return "result";
+        return "/tea/recommend-tea";
     }
 
 }

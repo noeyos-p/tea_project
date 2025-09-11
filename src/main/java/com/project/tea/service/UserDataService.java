@@ -3,11 +3,13 @@ package com.project.tea.service;
 import com.project.tea.entity.*;
 import com.project.tea.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -45,7 +47,7 @@ public class UserDataService {
     }
 
     /**
-     *  기록된 ID 기준으로 메모 작성/수정
+     * 기록된 ID 기준으로 메모 작성/수정
      */
     @Transactional
     public void saveMemo(Long userDataId, String memo) {
@@ -57,7 +59,7 @@ public class UserDataService {
 
 
     /**
-     *  (메모 작성/수정 페이지)
+     * (메모 작성/수정 페이지)
      */
     public UserDataEntity getUserDataById(Long userDataId) {
         return userDataRepository.findById(userDataId)
@@ -79,4 +81,32 @@ public class UserDataService {
     public List<UserDataEntity> getUserDataByUserId(Long userId) {
         return userDataRepository.findByUserId(userId);
     }
+
+
+    public List<UserDataEntity> findByUserAndDate(Long userId, LocalDate date) {
+        return userDataRepository.findByUserIdAndDate(userId, date);
+    }
+
+    @Transactional
+    public SaveResult saveOrGetToday(Long userId, Long teaId, Long moodId, Long stateId) {
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Seoul"));
+
+        // 이미 오늘 기록이 있으면 그대로 반환
+        UserDataEntity existed = userDataRepository.findTopByUser_IdAndDateOrderByUpdateDateDesc(userId, today);
+        if (existed != null) {
+            return new SaveResult(existed.getId(), true); // ✅ SaveResult 반환
+        }
+
+        // 없으면 새로 생성
+        Long id = saveUserData(userId, teaId, moodId, stateId);
+        return new SaveResult(id, false);
+    }
+
+    // 내부 결과 DTO
+    @Value
+    public static class SaveResult {
+        Long id;
+        boolean already;
+    }
+
 }
