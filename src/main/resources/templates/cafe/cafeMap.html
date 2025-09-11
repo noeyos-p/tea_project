@@ -3,27 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>카페 지도</title>
+    <link rel="stylesheet" th:href="@{/css/tea-memo.css}">
 </head>
 <body>
-<h1 th:text="'선택 차: ' + ${keyword}">카페 지도</h1>
+<div class="wrap">
+    <div class="topbar">
+        <!-- 뒤로가기 -->
+        <a class="back" th:href="@{/userdata/mypage}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path d="M36 19.125H4.39453L18.2285 32.959L16.6465 34.541L0.105469 18L16.6465 1.45898L18.2285 3.04102L4.39453 16.875H36V19.125Z" fill="black" />
+            </svg>
+        </a>
+        <div class="actions">
+            <form th:action="@{/choice}" method="get">
+                <button class="choose" type="submit">차 추천받기</button>
+            </form>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="logout">로그아웃</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-<table border="1">
-    <tr>
-        <th>카페명</th>
-        <th>주소</th>
-        <th>거리(m)</th>
-        <th>길안내</th>
-    </tr>
-    <tr th:each="dto : ${dto}">
-        <td th:text="${dto.name}"></td>
-        <td th:text="${dto.address}"></td>
-        <td th:text="${dto.distance}"></td>
-        <td><a th:href="${dto.directionURL}" target="_blank">길안내</a></td>
-    </tr>
-</table>
+<div class="container">
+    <div class="main-title">
+        <!--        티네임을 티로바꿈-->
+        <p th:text="'선택한 차: ' + ${tea}">선택한 차</p>
+        <p>근처에서 판매하는 카페를 확인해보세요 :)</p>
+    </div>
 
-<a href="/cafe/search">다시 검색</a>
-<a href="user/my">마이페이지</a>
-<a href="/main">메인화면</a>
+    <div class="cafe-list" th:if="${#lists.isEmpty(dto) == false}">
+        <div class="cafe-card" th:each="cafe : ${dto}">
+            <p class="cafe-name" th:text="${cafe.name}">카페명</p>
+            <p class="cafe-address" th:text="${cafe.address}">주소</p>
+            <p class="cafe-distance" th:text="${cafe.distance}">거리</p>
+            <a class="direction-btn" th:href="${cafe.directionURL}" target="_blank">길안내</a>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(dto)}" class="no-result">
+        <p>검색 결과가 없습니다.</p>
+    </div>
+
+    <div class="buttons">
+        <a class="btn primary" th:href="@{/cafe/search}">다시 검색</a>
+        <a class="btn ghost" th:href="@{/userdata/mypage}">마이페이지</a>
+        <a class="btn ghost" th:href="@{/main}">메인화면</a>
+    </div>
+</div>
 </body>
 </html>
