@@ -1,10 +1,10 @@
-package com.project.cafeApi.controller;
+package com.project.tea.cafeApi.controller;
 
 
-import com.project.cafeApi.dto.DocumentDto;
-import com.project.cafeApi.dto.OutputDto;
-import com.project.cafeApi.service.KakaoAddressSearchService;
-import com.project.cafeApi.service.KakaoCategorySearchService;
+import com.project.tea.cafeApi.dto.DocumentDto;
+import com.project.tea.cafeApi.dto.OutputDto;
+import com.project.tea.cafeApi.service.KakaoAddressSearchService;
+import com.project.tea.cafeApi.service.KakaoCategorySearchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +38,7 @@ public class CafeController {
         DocumentDto doc = addressService.searchAddress(address);
         if (doc == null) {
             model.addAttribute("error", "주소를 찾을 수 없습니다.");
-            return "/cafe/cafeSearch";
+            return "tea/tea-memo";
         }
 
         // 2. 좌표 → 차 판매 카페 검색
@@ -54,8 +54,8 @@ public class CafeController {
 
         // 4. 모델에 담아서 뷰로 전달
         model.addAttribute("dto", cafes);
-        model.addAttribute("keyword", keyword);
+        model.addAttribute("tea", keyword);
 
-        return "/cafe/cafeMap"; // 결과 페이지 (지도 + 카페 리스트)
+        return "cafe/cafeMap"; // 결과 페이지 (지도 + 카페 리스트)
     }
 }
