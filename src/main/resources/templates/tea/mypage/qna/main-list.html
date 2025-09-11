@@ -1,93 +1,76 @@
+<!-- src/main/resources/templates/tea/mypage/qna/main-list.html -->
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Qna List</title>
+  <meta charset="UTF-8">
+  <title>Qna List</title>
   <link rel="stylesheet" th:href="@{/css/qna-main-list.css}">
-  <script src="/js/qna-main-list.js" defer></script>
-
 </head>
 <body>
 <div class="wrap">
   <div class="topbar">
-    <a class="back" th:href="#">
+    <a class="back" th:href="@{/}">
       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-        <path
-                d="M36 19.125H4.39453L18.2285 32.959L16.6465 34.541L0.105469 18L16.6465 1.45898L18.2285 3.04102L4.39453 16.875H36V19.125Z"
-                fill="black" />
+        <path d="M36 19.125H4.39453L18.2285 32.959L16.6465 34.541L0.105469 18L16.6465 1.45898L18.2285 3.04102L4.39453 16.875H36V19.125Z" fill="black"/>
       </svg>
     </a>
   </div>
   <div class="tabs">
-    <a class="tab" href="#">내 정보</a>
-    <a class="tab" href="#">기록보관함</a>
-    <a class="tab-here" href="#">Q&amp;A</a>
+    <a class="tab" th:href="@{/tea/mypage/information/main}">내 정보</a>
+    <a class="tab" th:href="@{/userdata/mypage}">기록보관함</a>
+    <a class="tab-here" th:href="@{/tea/mypage/qna}">Q&amp;A</a>
   </div>
   <div class="actions">
-    <button class="choose" href="#">차 추천받기</button>
-    <button class="logout" href="#">로그아웃</button>
+    <a class="choose" th:href="@{/choice}">차 추천받기</a>
+    <form th:action="@{/logout}" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+      <button type="submit" class="logout">로그아웃</button>
+    </form>
   </div>
 </div>
+
 <div class="new-qna-btn">
   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-    <rect width="28" height="28" rx="14" fill="black" fill-opacity="0.2" />
-    <rect x="13.3594" y="6.5" width="1.28" height="16" fill="white" />
-    <rect x="22" y="13.772" width="1.28" height="16" transform="rotate(90 22 13.772)" fill="white" />
+    <rect width="28" height="28" rx="14" fill="black" fill-opacity="0.2"/>
+    <rect x="13.3594" y="6.5" width="1.28" height="16" fill="white"/>
+    <rect x="22" y="13.772" width="1.28" height="16" transform="rotate(90 22 13.772)" fill="white"/>
   </svg>
-  <p><a href="#">질문 남기기</a></p>
+  <p><a th:href="@{/tea/mypage/qna/new}">질문 남기기</a></p>
 </div>
-<hr>
-<div class="qna">
-  <div class="qna-list">
-    <p class="date">25.12.31</p>
-    <p class="title">차가 너무 맛이 없어요. 어떻게 해야 할까요?</p>
-    <p class="answer-c">답변 완료</p>
-  </div>
-  <hr>
-  <div class="qna-list">
-    <p class="date">25.12.31</p>
-    <p class="title">차가 너무 맛이 없어요. 어떻게 해야 할까요?</p>
-    <p class="answer-c">답변 완료</p>
-  </div>
-  <hr>
-  <div class="qna-list">
-    <p class="date">25.12.31</p>
-    <p class="title">차가 너무 맛이 없어요. 어떻게 해야 할까요?</p>
-    <p class="answer-w">답변 대기</p>
-  </div>
-  <hr>
-  <div class="qna-list">
-    <p class="date">25.12.31</p>
-    <p class="title">차가 너무 맛이 없어요. 어떻게 해야 할까요?</p>
-    <p class="answer-w">답변 대기</p>
-  </div>
-  <hr>
-  <div class="qna-list">
-    <p class="date">25.12.31</p>
-    <p class="title">차가 너무 맛이 없어요. 어떻게 해야 할까요?</p>
-    <p class="answer-w">답변 대기</p>
-  </div>
-  <hr>
-  <div class="qna-list">
-    <p class="date">25.12.31</p>
-    <p class="title">차가 너무 맛이 없어요. 어떻게 해야 할까요?</p>
-    <p class="answer-w">답변 대기</p>
-  </div>
-  <hr>
-  <div class="qna-list">
-    <p class="date">25.12.31</p>
-    <p class="title">차가 너무 맛이 없어요. 어떻게 해야 할까요?</p>
-    <p class="answer-w">답변 대기</p>
-  </div>
-  <hr>
-</div>
-<div class="qna"></div>
 
-<div class="pagination">
-  <a href="#" onclick="changePage(currentPage-1)"> &lt;</a>
-  <span id="page-numbers"></span>
-  <a href="#" onclick="changePage(currentPage+1)"> &gt;</a>
+<hr>
+<div class="qna" th:if="${page.totalElements > 0}">
+  <div class="qna-list" th:each="q : ${page.content}">
+    <p class="date"
+       th:if="${q.createdAt != null}"
+       th:text="${#temporals.format(q.createdAt,'yy.MM.dd')}">25.12.31</p>
+    <p class="title">
+      <a th:href="@{'/tea/mypage/qna/' + ${q.id}}"
+         th:text="${q.title}">제목</a>
+    </p>
+    <p th:classappend="${q.answer} != null ? ' answer-c' : ' answer-w'"
+       th:text="${q.answer} != null ? '답변 완료' : '답변 대기'">상태</p>
+  </div>
 </div>
+
+<!-- 페이지네이션: 서버 0-based에 맞춤 (원본 로직 유지) -->
+<!-- 교체 시작 -->
+<div class="pagination"
+     th:with="currentPage=${page.number}, pageCount=${page.totalPages}">
+  <a th:if="${currentPage > 0}"
+     th:href="@{|/tea/mypage/qna?page=${currentPage-1}&size=${page.size}|}">&lt;</a>
+
+  <span id="page-numbers">
+    <a th:each="i : ${#numbers.sequence(1, pageCount)}"
+       th:href="@{|/tea/mypage/qna?page=${i-1}&size=${page.size}|}"
+       th:text="${i}"
+       th:classappend="${i == currentPage+1} ? ' active' : ''">1</a>
+  </span>
+
+  <a th:if="${currentPage+1 < pageCount}"
+     th:href="@{|/tea/mypage/qna?page=${currentPage+1}&size=${page.size}|}">&gt;</a>
+</div>
+<!-- 교체 끝 -->
 
 </body>
 </html>
