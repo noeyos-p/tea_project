@@ -26,15 +26,19 @@ public interface UserDataRepository extends JpaRepository<UserDataEntity, Long> 
 
     // ✅ 특정 날짜의 기록 조회
     @Query("""
-      SELECT u FROM UserDataEntity u
-      WHERE u.user.id = :userId AND u.date = :date
-    """)
-    List<UserDataEntity> findByUserIdAndDate(@Param("userId") Long userId,
-                                             @Param("date") LocalDate date);
+  SELECT u FROM UserDataEntity u
+  WHERE u.user.id = :userId AND u.date = :date
+""")
+    Optional<UserDataEntity> findByUser_IdAndDate(@Param("userId") Long userId,
+                                                  @Param("date") LocalDate date);
+
 
     // ✅ 하루 1개 제한을 위한 존재 여부/단건 조회
     boolean existsByUser_IdAndDate(Long userId, LocalDate date);
 
     UserDataEntity findTopByUser_IdAndDateOrderByUpdateDateDesc(Long userId, LocalDate date);
+
+    boolean existsByUser_IdAndDateAndMemoIsNotNull(Long userId, LocalDate date);
+
 
 }

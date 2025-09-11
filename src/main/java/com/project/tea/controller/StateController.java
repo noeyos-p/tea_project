@@ -2,8 +2,11 @@ package com.project.tea.controller;
 
 import com.project.tea.dto.ResultDto;
 import com.project.tea.entity.StateEntity;
+import com.project.tea.entity.UserDataEntity;
 import com.project.tea.service.StateService;
 import com.project.tea.repository.StateRepository;
+import com.project.tea.service.UserDataService;
+import com.project.tea.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,8 @@ public class StateController {
 
     private final StateService stateService;
     private final StateRepository stateRepository;
+    private final UserService userService;
+    private final UserDataService userDataService;
 
     // 상태 체크리스트 페이지
     @GetMapping("/checklist")
@@ -41,25 +46,30 @@ public class StateController {
             model.addAttribute("error", "체크리스트는 반드시 1개 선택해야 합니다.");
             model.addAttribute("states", stateRepository.findAll());
             return "/tea/state-check";
-//            return "stateCheck";
         }
 
         try {
-            // State ID 기반 추천 메시지 + 추천 티 리스트 조회
             ResultDto resultDto = stateService.recommendByState(stateId);
-
-            // 결과를 Model에 담아 바로 결과 페이지로 전달
             model.addAttribute("result", resultDto);
+
+            // ✅ 여기 추가
+            Long userId = userService.getCurrentUserId();
+            UserDataEntity today = userDataService.getOrCreateToday(userId);
+            boolean alreadyToday = (today.getTea() != null);
+            Long currentTeaId = alreadyToday ? today.getTea().getId() : null;
+
+            model.addAttribute("alreadyToday", alreadyToday);
+            model.addAttribute("currentTeaId", currentTeaId);
 
             return "tea/recommend-tea";
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("states", stateRepository.findAll()); // 다시 상태 목록 전달
+            model.addAttribute("states", stateRepository.findAll());
             return "/tea/state-check";
-//            return "stateCheck";
         }
     }
+
 
     // 결과 페이지 직접 접근 시
     @GetMapping("/result")

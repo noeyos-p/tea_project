@@ -2,50 +2,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("memoForm");
   if (!form) return;
 
-  // 서버에서 내려준 today-memo 여부 (true/false)
   const alreadyWritten = form.dataset.already === "true";
-
   const memoField = document.getElementById("memoField");
-  const saveBtn = document.getElementById("saveBtn");
-  const notice = document.getElementById("memoNotice");
 
-  function showBlockMessage() {
-    if (notice) {
-      notice.textContent =
-        "오늘 메모는 이미 작성하셨습니다. 수정은 마이페이지의 기록 보관함에서 하실 수 있어요.";
-      notice.style.display = "block";
-      notice.style.color = "#b91c1c"; // 빨간 안내문
-      notice.style.fontWeight = "500";
-    } else {
-      // 혹시 notice div가 없을 경우 새로 추가
-      const newNotice = document.createElement("div");
-      newNotice.className = "message";
-      newNotice.textContent =
-        "오늘 메모는 이미 작성하셨습니다. 수정은 마이페이지의 기록 보관함에서 하실 수 있어요.";
-      form.insertBefore(newNotice, form.firstChild);
-    }
+  // ✅ 항상 메모 칸은 비워두기
+  if (memoField) {
+    memoField.value = "";
   }
 
-  if (alreadyWritten) {
-    // 입력창 / 버튼 비활성화
-    if (memoField) {
-      memoField.disabled = true;
-      memoField.placeholder =
-        "오늘 메모는 이미 작성하셨어요. 수정은 마이페이지의 기록 보관함에서 하실 수 있어요.";
-    }
-    if (saveBtn) {
-      saveBtn.disabled = true;
-    }
-    showBlockMessage();
-  }
-
-  // 폼 제출 막기
+  // ✅ 폼 제출 이벤트
   form.addEventListener("submit", function (e) {
     if (alreadyWritten) {
-      e.preventDefault();
-      alert(
-        "오늘 메모는 이미 작성하셨습니다.\n수정하시려면 마이페이지의 기록 보관함에서 확인해주세요."
-      );
+      e.preventDefault(); // 서버로 안 보냄
+      alert("이미 저장된 기록이 있습니다.\n수정하시려면 마이페이지로 이동해주세요.");
     }
+    // else → 그냥 submit → 서버가 DB 저장 처리 후 같은 memo 페이지로 redirect
   });
 });
