@@ -104,12 +104,27 @@
 
                 <!-- 선택 버튼 -->
                 <div class="choose-btn-parent">
-                    <button class="choose-btn" type="submit">이 차 선택하기</button>
+                    <button class="choose-btn"
+                            type="submit"
+                            th:attr="form=${'chooseForm-' + tea.id}">
+                        이 차 선택하기
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </form>
+<div id="chooseForms" style="display:none;">
+    <form th:each="tea : ${result.teas}"
+          th:id="${'chooseForm-' + tea.id}"
+          th:action="@{/choose}"
+          method="post">
+        <input type="hidden" name="teaId" th:value="${tea.id}" />
+        <input type="hidden" name="userId" th:value="${userData != null ? userData.id : 0}" />
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+</div>
+
 
 </body>
 </html>

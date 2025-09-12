@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
 </head>
 <body>
 <div class="page">
-    <!-- 페이지 전체를 감싸는 컨테이너 -->
     <header>
-        <!-- 페이지 상단 헤더 -->
         <h1>관리자 페이지</h1>
-        <!-- 로그아웃 버튼 (우측 상단 등 위치 예상) -->
-        <a class="logout" th:href="#">로그아웃</a>
+        <a class="logout" href="#" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
+        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none" accept-charset="UTF-8">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </form>
     </header>
+
+    <!-- 메시지 -->
+    <div th:if="${notice}" style="margin:8px 0;padding:10px;border:1px solid #86efac;background:#f0fdf4;color:#166534" th:text="${notice}">성공</div>
+    <div th:if="${error}"  style="margin:8px 0;padding:10px;border:1px solid #fecaca;background:#fef2f2;color:#991b1b" th:text="${error}">에러</div>
 
     <!-- ================= 유저 리스트 영역 ================= -->
     <section class="section">
-        <!-- 섹션 타이틀과 '유저 추가' 버튼 -->
         <div class="section-title">
             <h2>유저 리스트</h2>
-            <button class="add-btn" type="button">유저 추가</button>
+            <button class="add-btn" type="button" th:onclick="|location.href='@{/admin/users/new}'|">유저 추가</button>
         </div>
-        <!-- 유저 테이블 -->
         <table>
             <thead>
             <tr>
-                <!-- 유저 정보 컬럼 정의 -->
                 <th>id</th>
                 <th>nickname</th>
                 <th>email</th>
@@ -35,15 +36,25 @@
             </tr>
             </thead>
             <tbody>
-            <!-- 샘플 유저 데이터 (1행) -->
-            <tr>
-                <td>1</td>
-                <td>홍길동</td>
-                <td>hong@test.com</td>
+            <tr th:each="u : ${users}">
+                <td th:text="${u.id}">1</td>
+                <td th:text="${u.nickname}">홍길동</td>
+                <td th:text="${u.email}">hong@test.com</td>
                 <td>****</td>
-                <!-- 수정/삭제 버튼 -->
-                <td class="actions"><button class="btn">수정</button></td>
-                <td class="actions"><button class="btn">삭제</button></td>
+                <td class="actions">
+                    <button class="btn" type="button" th:onclick="|location.href='@{|/admin/users/${u.id}/edit|}'|">수정</button>
+                </td>
+                <td class="actions">
+                    <form th:action="@{|/admin/users/${u.id}/delete|}" method="post" style="display:inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <input type="hidden" name="adminPassword" value="">
+                        <button class="btn" type="button"
+                                onclick="var pw=prompt('관리자 비밀번호를 입력하세요'); if(pw===null) return; this.form.adminPassword.value=pw; this.form.submit();">삭제</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(users)}">
+                <td colspan="6" style="text-align:center;color:#888;">유저가 없습니다.</td>
             </tr>
             </tbody>
         </table>
@@ -53,12 +64,11 @@
     <section class="section">
         <div class="section-title">
             <h2>차 리스트</h2>
-            <button class="add-btn" type="button">차 추가</button>
+            <button class="add-btn" type="button" th:onclick="|location.href='@{/admin/teas/new}'|">차 추가</button>
         </div>
         <table>
             <thead>
             <tr>
-                <!-- 차 데이터 컬럼 정의 -->
                 <th>id</th>
                 <th>content</th>
                 <th>caution</th>
@@ -69,15 +79,27 @@
             </tr>
             </thead>
             <tbody>
-            <!-- 샘플 차 데이터 -->
-            <tr>
-                <td>1</td>
-                <td>녹차</td>
-                <td>카페인 주의</td>
-                <td>가능</td>
-                <td>Green Tea</td>
-                <td class="actions"><button class="btn">수정</button></td>
-                <td class="actions"><button class="btn">삭제</button></td>
+            <!-- 실제 데이터 출력 -->
+            <tr th:each="t : ${teas}">
+                <td th:text="${t.id}">1</td>
+                <td th:text="${t.content}">녹차</td>
+                <td th:text="${t.caution}">카페인 주의</td>
+                <td th:text="${t.eat}">가능</td>
+                <td th:text="${t.name}">Green Tea</td>
+                <td class="actions">
+                    <button class="btn" type="button" th:onclick="|location.href='@{|/admin/teas/${t.id}/edit|}'|">수정</button>
+                </td>
+                <td class="actions">
+                    <form th:action="@{|/admin/teas/${t.id}/delete|}" method="post" style="display:inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <input type="hidden" name="adminPassword" value="">
+                        <button class="btn" type="button"
+                                onclick="var pw=prompt('관리자 비밀번호를 입력하세요'); if(pw===null) return; this.form.adminPassword.value=pw; this.form.submit();">삭제</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(teas)}">
+                <td colspan="7" style="text-align:center;color:#888;">차 데이터가 없습니다.</td>
             </tr>
             </tbody>
         </table>
@@ -87,12 +109,11 @@
     <section class="section">
         <div class="section-title">
             <h2>멘트 리스트</h2>
-            <button class="add-btn" type="button">멘트 추가</button>
+            <a class="add-btn" th:href="@{/admin/ments/new}">멘트 추가</a>
         </div>
         <table>
             <thead>
             <tr>
-                <!-- 멘트 관련 데이터 컬럼 정의 -->
                 <th>id</th>
                 <th>result</th>
                 <th>m_id</th>
@@ -102,14 +123,32 @@
             </tr>
             </thead>
             <tbody>
-            <!-- 샘플 멘트 데이터 -->
-            <tr>
-                <td>1</td>
-                <td>OK</td>
-                <td>10</td>
-                <td>22</td>
-                <td class="actions"><button class="btn">수정</button></td>
-                <td class="actions"><button class="btn">삭제</button></td>
+            <tr th:each="r : ${ments}">
+                <td th:text="${r.id}">1</td>
+                <td th:text="${r.result}">OK</td>
+                <td th:text="${r.mood != null ? r.mood.id : null}">10</td>
+                <td th:text="${r.state != null ? r.state.id : null}">22</td>
+
+                <!-- 수정: 별도 폼 페이지로 이동 -->
+                <td class="actions">
+                    <a class="btn" th:href="@{|/admin/ments/${r.id}/edit|}">수정</a>
+                </td>
+
+                <!-- 삭제: 관리자 비번 프롬프트 + POST 우회 -->
+                <td class="actions">
+                    <form th:action="@{|/admin/ments/${r.id}/delete|}" method="post" style="display:inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <input type="hidden" name="adminPassword" value="">
+                        <button class="btn" type="button"
+                                onclick="var pw=prompt('관리자 비밀번호를 입력하세요'); if(pw===null) return; this.form.adminPassword.value=pw; this.form.submit();">
+                            삭제
+                        </button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(ments)}">
+                <td colspan="6" style="text-align:center;color:#888;">멘트가 없습니다.</td>
             </tr>
             </tbody>
         </table>
@@ -123,7 +162,6 @@
         <table>
             <thead>
             <tr>
-                <!-- QnA 관련 데이터 컬럼 정의 -->
                 <th>id</th>
                 <th>u_id</th>
                 <th>title</th>
@@ -134,56 +172,51 @@
             </tr>
             </thead>
             <tbody>
-            <!-- 샘플 QnA 데이터 -->
-            <tr>
-                <td>1</td>
-                <td>5</td>
-                <td>차 질문</td>
-                <td>녹차는 언제 마셔요?</td>
-                <!-- answer 컬럼 비어있음 = 아직 답변 대기 중 -->
-                <td></td>
-                <td class="actions"><button class="btn">수정</button></td>
-                <td class="actions"><button class="btn">삭제</button></td>
+            <tr th:each="q : ${qnas}">
+                <td th:text="${q.id}">1</td>
+                <td th:text="${q.user != null ? q.user.id : null}">5</td>
+                <td th:text="${q.title}">차 질문</td>
+                <td th:text="${q.post}">녹차는 언제 마셔요?</td>
+                <td th:text="${q.answer}"></td>
+
+                <!-- 답변 버튼: 별도 답변 폼 페이지로 이동 -->
+                <td class="actions">
+                    <a class="btn" th:href="@{|/admin/qna/${q.id}/answer|}">답변</a>
+                </td>
+
+                <!-- 삭제: 관리자 비번 프롬프트 + POST 우회 -->
+                <td class="actions">
+                    <form th:action="@{|/admin/qna/${q.id}/delete|}" method="post" style="display:inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <input type="hidden" name="adminPassword" value="">
+                        <button class="btn" type="button"
+                                onclick="var pw=prompt('관리자 비밀번호를 입력하세요'); if(pw===null) return; this.form.adminPassword.value=pw; this.form.submit();">
+                            삭제
+                        </button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(qnas)}">
+                <td colspan="7" style="text-align:center;color:#888;">QnA가 없습니다.</td>
             </tr>
             </tbody>
+
         </table>
     </section>
 
-    <!-- 구분선 -->
     <hr style="margin:32px 0; border:0; border-top:1px solid var(--line);">
 
     <!-- ================= 차 이미지 관리 영역 ================= -->
     <section class="section">
         <div class="section-title">
             <h2>차 이미지</h2>
-            <!-- 이미지 업로드 버튼 -->
             <span class="add-btn">사진 올리기</span>
         </div>
-
-        <!-- 이미지 그리드 (카드 레이아웃) -->
         <div class="image-grid">
-            <!-- 이미지 카드 1 -->
             <article class="card">
                 <figure>
-                    <!-- 차 이미지 -->
-                    <img alt="tea"
-                         src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1200&auto=format&fit=crop" />
-                </figure>
-                <div class="meta">
-                    <span>샘플 이미지</span>
-                    <div class="actions">
-                        <!-- 다운로드 & 삭제 버튼 -->
-                        <button class="linkish" data-action="download" aria-label="이미지 다운로드">↓ 다운로드</button>
-                        <button class="linkish" data-action="delete" aria-label="이미지 삭제">× 삭제하기</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 이미지 카드 2 -->
-            <article class="card">
-                <figure>
-                    <img alt="tea"
-                         src="https://images.unsplash.com/photo-1487700160041-babef9c3cb55?q=80&w=1200&auto=format&fit=crop" />
+                    <img alt="tea" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1200&auto=format&fit=crop" />
                 </figure>
                 <div class="meta">
                     <span>샘플 이미지</span>
@@ -193,12 +226,21 @@
                     </div>
                 </div>
             </article>
-
-            <!-- 이미지 카드 3 -->
             <article class="card">
                 <figure>
-                    <img alt="tea"
-                         src="https://images.unsplash.com/photo-1495774856032-8b90bbb32f58?q=80&w=1200&auto=format&fit=crop" />
+                    <img alt="tea" src="https://images.unsplash.com/photo-1487700160041-babef9c3cb55?q=80&w=1200&auto=format&fit=crop" />
+                </figure>
+                <div class="meta">
+                    <span>샘플 이미지</span>
+                    <div class="actions">
+                        <button class="linkish" data-action="download" aria-label="이미지 다운로드">↓ 다운로드</button>
+                        <button class="linkish" data-action="delete" aria-label="이미지 삭제">× 삭제하기</button>
+                    </div>
+                </div>
+            </article>
+            <article class="card">
+                <figure>
+                    <img alt="tea" src="https://images.unsplash.com/photo-1495774856032-8b90bbb32f58?q=80&w=1200&auto=format&fit=crop" />
                 </figure>
                 <div class="meta">
                     <span>샘플 이미지</span>
@@ -211,6 +253,5 @@
         </div>
     </section>
 </div>
-
 </body>
 </html>

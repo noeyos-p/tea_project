@@ -1,11 +1,12 @@
 package com.project.tea.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.*;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -22,8 +23,9 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public DaoAuthenticationProvider authProvider(BCryptPasswordEncoder encoder) {
+    // DB 인증 Provider (명시적 이름)
+    @Bean(name = "dbAuthProvider")
+    public DaoAuthenticationProvider dbAuthProvider(BCryptPasswordEncoder encoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(customUserDetailsService);
         provider.setPasswordEncoder(encoder);
@@ -31,12 +33,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, DaoAuthenticationProvider provider) throws Exception {
+    public SecurityFilterChain filterChain(
+            HttpSecurity http,
+            @Qualifier("adminAuthProvider") DaoAuthenticationProvider adminAuthProvider,
+            @Qualifier("dbAuthProvider") DaoAuthenticationProvider dbAuthProvider
+    ) throws Exception {
+
         http
-//                .csrf(csrf -> csrf.disable())
+                // .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/signup", "/css/**", "/js/**", "/img/**").permitAll()
-                        .requestMatchers("/admin/**").authenticated() // 관리자 접근만 제한
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자 전용
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -44,7 +51,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .successHandler(loginSuccessHandler)  // 👈 스프링 빈 주입된 핸들러
+                        .successHandler(loginSuccessHandler)
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -54,8 +61,11 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
-                .authenticationProvider(provider);
+                // 등록 순서: admin(인메모리) → db
+                .authenticationProvider(adminAuthProvider)
+                .authenticationProvider(dbAuthProvider);
 
         return http.build();
     }
 }
+
