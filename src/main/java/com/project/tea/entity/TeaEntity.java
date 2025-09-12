@@ -13,13 +13,13 @@ public class TeaEntity {
 
     private String name;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;  // TEXT 타입으로 변경
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String eat;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String caution;
 
     @ManyToOne
