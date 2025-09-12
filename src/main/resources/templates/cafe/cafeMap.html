@@ -4,6 +4,47 @@
     <meta charset="UTF-8">
     <title>카페 지도</title>
     <link rel="stylesheet" th:href="@{/css/tea-memo.css}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        thead {
+            background-color: #f2f2f2;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            font-weight: bold;
+        }
+        .direction-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        .direction-btn:hover {
+            background-color: #0056b3;
+        }
+        .no-result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        .topbar {
+            display: flex;
+            justify-content: space-between; /* 좌우로 정렬 */
+            align-items: center;           /* 세로 중앙 정렬 */
+        }
+
+    </style>
 </head>
 <body>
 <div class="wrap">
@@ -28,18 +69,31 @@
 
 <div class="container">
     <div class="main-title">
-        <!--        티네임을 티로바꿈-->
         <p th:text="'선택한 차: ' + ${tea}">선택한 차</p>
         <p>근처에서 판매하는 카페를 확인해보세요 :)</p>
     </div>
 
-    <div class="cafe-list" th:if="${#lists.isEmpty(dto) == false}">
-        <div class="cafe-card" th:each="cafe : ${dto}">
-            <p class="cafe-name" th:text="${cafe.name}">카페명</p>
-            <p class="cafe-address" th:text="${cafe.address}">주소</p>
-            <p class="cafe-distance" th:text="${cafe.distance}">거리</p>
-            <a class="direction-btn" th:href="${cafe.directionURL}" target="_blank">길안내</a>
-        </div>
+    <div th:if="${#lists.isEmpty(dto) == false}">
+        <table>
+            <thead>
+            <tr>
+                <th>카페명</th>
+                <th>주소</th>
+                <th>거리</th>
+                <th>길안내</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cafe : ${dto}">
+                <td th:text="${cafe.name}">카페명</td>
+                <td th:text="${cafe.address}">주소</td>
+                <td th:text="${cafe.distance}">거리</td>
+                <td>
+                    <a class="direction-btn" th:href="${cafe.directionURL}" target="_blank">길안내</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <div th:if="${#lists.isEmpty(dto)}" class="no-result">
