@@ -10,10 +10,18 @@ public class TeaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    private String content;
+
+    @Lob
+    private String content;  // TEXT 타입으로 변경
+
+    @Lob
     private String eat;
+
+    @Lob
     private String caution;
+
     @ManyToOne
     @JoinColumn(name = "m_id", referencedColumnName = "id")
     private MoodEntity mood;
@@ -21,9 +29,4 @@ public class TeaEntity {
     @ManyToOne
     @JoinColumn(name = "s_id", referencedColumnName = "id")
     private StateEntity state;
-
-    //  추가 : 정적 파일명 (예 "green.jpg")
-//    @Column(name = "image_path")
-//    private String imagePath;
-
 }
