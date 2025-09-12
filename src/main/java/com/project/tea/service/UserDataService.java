@@ -31,10 +31,12 @@ public class UserDataService {
     /**
      * 차 + Mood/State 선택 후 기록 저장 (메모는 아직 null)
      */
+    // 기존: public UserDataEntity getOrCreateToday(Long userId)
     @Transactional
     public Long saveUserData(Long userId, Long teaId, Long moodId, Long stateId) {
         UserEntity user = userRepository.findById(userId).orElseThrow();
-        TeaEntity tea = teaRepository.findById(teaId).orElseThrow();
+        TeaEntity tea = teaRepository.findById(teaId)
+                .orElseThrow(() -> new IllegalArgumentException("차가 존재하지 않습니다: " + teaId));
         MoodEntity mood = moodId != null ? moodRepository.findById(moodId).orElse(null) : null;
         StateEntity state = stateId != null ? stateRepository.findById(stateId).orElse(null) : null;
 
@@ -44,13 +46,14 @@ public class UserDataService {
                 .mood(mood)
                 .state(state)
                 .date(LocalDate.now(ZoneId.of("Asia/Seoul")))
-                .memo(null) // 메모는 나중에 입력
+                .memo(null)
                 .updateDate(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                 .build();
 
-        userDataRepository.save(data);
-        return data.getId();
+        return userDataRepository.save(data).getId();
     }
+
+
 
     /**
      * 기록된 ID 기준으로 메모 작성/수정
