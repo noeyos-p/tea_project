@@ -1,28 +1,28 @@
 package com.project.tea.controller;
 
-import com.project.tea.entity.UserDataEntity;
 import com.project.tea.service.ChooseService;
 import com.project.tea.service.UserDataService;
+import com.project.tea.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.data.domain.Pageable;
+
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
 public class ChooseController {
 
     private final ChooseService chooseService;
+    private final UserService userService;
+    private final UserDataService userDataService;
 
-    // main
     @GetMapping("/")
     public String root() {
         return "redirect:/main";
     }
 
-    //    메인: 집계 상위 N개 노출 (기본 10)
     @GetMapping("/main")
     public String main(@RequestParam(defaultValue = "10") int limit, Model model) {
         model.addAttribute("topTeas", chooseService.findTopChoices(limit));
@@ -30,15 +30,20 @@ public class ChooseController {
         return "tea/main";
     }
 
-    // 차 선택 시
     @PostMapping("/choose")
-    public String choose(@RequestParam("teaId") Long teaId, RedirectAttributes ra) {
+    public String choose(@RequestParam("teaId") Long teaId, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        // 집계 +1
         chooseService.increment(teaId);
-        ra.addFlashAttribute("message", "선택이 반영되었습니다.");
-        return "redirect:/main";
+
+        //  오늘 기록 생성/조회 후 그 ID로 이동
+        Long userId = userService.getCurrentUserId();
+        // moodId/stateId가 있으면 같이 넘기면 더 정확 (없으면 null로)
+        var result = userDataService.saveOrGetToday(userId, teaId, null, null);
+
+        return "redirect:/userdata/memo/" + result.getId();
     }
-
-
-
 
 }
