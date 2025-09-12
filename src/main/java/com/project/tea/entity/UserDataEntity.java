@@ -37,7 +37,7 @@ public class UserDataEntity {
     @Column(name = "date", columnDefinition = "DATE", nullable = false)
     private LocalDate date;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String memo;
 
     @Column(name = "update_date")
